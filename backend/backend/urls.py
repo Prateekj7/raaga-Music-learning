@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from app.views import *
 
-admin.site.site_header  =  "Apnito Admin Page"
+admin.site.site_header  =  "Raaga Admin Page"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
