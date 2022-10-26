@@ -10,6 +10,7 @@ from .handlers.sms_handler import *
 from .handlers.payment_handler import *
 import json
 import hashlib
+import datetime
 
 conn = psycopg2.connect(
     host="localhost",
@@ -65,8 +66,14 @@ def read_data(request):
     table = params['table']
     limit = params['page_size']
     offset = (params['page_number'] - 1) * limit
+    columns = params['columns']
+    id = params['id']
+    if id == '*':
+        val = 'IS NOT NULL'
+    else:
+        val = '= ' + id
 
-    query = "SELECT * FROM {} limit {} offset {}".format(table, limit, offset)
+    query = "SELECT {} FROM {} where id {} limit {} offset {}".format(', '.join(columns), table, val, limit, offset)
     
     curr.execute("ROLLBACK")
     curr.execute(query)
@@ -78,6 +85,118 @@ def read_data(request):
         df.columns = [entry[0] for entry in curr.description]
     
     return Response(df.to_dict('records'))
+
+@api_view(['POST'])
+def read_teacher_main_data(request):
+    params = request.data
+    
+    limit = params['page_size']
+    offset = (params['page_number'] - 1) * limit
+    category_name = params['category_name']
+    category_value = params['category_value']
+
+    query = f"SELECT id, name, experience, rating, schedule -> '{category_name}' -> '{category_value}' -> 'hourly_rate' as hourly_rate, image_url FROM teacher where schedule -> '{category_name}' is not NULL and schedule -> '{category_name}' -> '{category_value}' is not NULL limit {limit} offset {offset}"
+    
+    curr.execute("ROLLBACK")
+    curr.execute(query)
+    
+    rows = curr.fetchall()
+
+    df = pd.DataFrame(rows)
+    if len(rows) > 0:
+        df.columns = [entry[0] for entry in curr.description]
+    
+    return Response(df.to_dict('records'))
+
+@api_view(['POST'])
+def read_teacher_metadata(request):
+    params = request.data
+    
+    category_name = params['category_name']
+    category_value = params['category_value']
+    id = params['id']
+
+    query = f"SELECT location, city, state, pin_code, about, qualification, achievement, class_mode, like_count, student_count, video_url FROM teacher where id = {id}"
+    
+    curr.execute("ROLLBACK")
+    curr.execute(query)
+    
+    rows = curr.fetchall()
+
+    df = pd.DataFrame(rows)
+    if len(rows) > 0:
+        df.columns = [entry[0] for entry in curr.description]
+    
+    return Response(df.to_dict('records'))
+
+@api_view(['POST'])
+def read_teacher_reviews(request):
+    params = request.data
+
+    id = params['id']
+
+    query = f"select reviews from teacher where id = {id}"
+
+    curr.execute("ROLLBACK")
+    curr.execute(query)
+    
+    rows = curr.fetchall()
+
+    df = pd.DataFrame(rows)
+    if len(rows) > 0:
+        df.columns = [entry[0] for entry in curr.description]
+    
+    return Response(df.to_dict('records'))
+
+@api_view(['POST'])
+def read_teacher_schedules(request):
+    def prepare_possible_schedule():
+        timing = {
+            "Sun": [],
+            "Mon": [],
+            "Tue": [],
+            "Wed": [],
+            "Thu": [],
+            "Fri": [],
+            "Sat": []
+        }
+        base = datetime.datetime.today()
+        date_list = [base + datetime.timedelta(days=x) for x in range(30)]
+        for date in date_list:
+            day_name = date.strftime("%a")
+            timing[day_name].append(str(date.date()))
+
+        return timing
+
+    params = request.data
+
+    id = params['id']
+    category_name = params['category_name']
+    category_value = params['category_value']
+
+    query = f"select schedule -> '{category_name}' -> '{category_value}' as schedule from teacher where id = {id}"
+
+    curr.execute("ROLLBACK")
+    curr.execute(query)
+    
+    rows = curr.fetchall()
+
+    df = pd.DataFrame(rows)
+    if len(rows) > 0:
+        df.columns = [entry[0] for entry in curr.description]
+
+    possible_schedule = prepare_possible_schedule()
+    selected_schedule = (df.to_dict('records'))[0]['schedule']
+    
+    available_schedule = []
+    for day in selected_schedule.keys():
+        if day in possible_schedule.keys():
+            for time in selected_schedule[day]:
+                for date in possible_schedule[day]:
+                    available_schedule.append(date + 'T' + str(time) + ':00')
+    
+    return Response(available_schedule)
+
 
 @api_view(['POST'])
 def update_count(request):
