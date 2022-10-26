@@ -8,6 +8,7 @@ import MusicChart from "./components/MusicChart/MusicChart";
 import TrendingVideos from "./components/TrendingVideos/TrendingVideos";
 import FeaturedArtist from "./components/FeaturedArtist/FeaturedArtist";
 import Testimonials from "./components/Testimonials/Testimonials";
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import "./aws-exports"
 import Footer from "./components/Footer";
 
