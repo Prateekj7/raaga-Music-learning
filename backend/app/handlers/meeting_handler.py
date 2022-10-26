@@ -25,7 +25,7 @@ def generateToken():
         # Specify the hashing alg
         algorithm='HS256'
     )
-    return token
+    return token.decode("utf-8")  # Converting Byte String to String
   
   
 def createMeeting(teacher, student, category, timestamp, duration):
@@ -77,7 +77,7 @@ if __name__ == '__main__':
     student = "Anish"
     category = "Violin"
     duration = 45 # minutes
-    timestamp = "2022-10-24T17:00:00"
+    timestamp = "2022-10-26T20:00:00"
     join_URL, meetingPassword = createMeeting(teacher, student, category, timestamp, duration)
 
     print(f'\n here is your zoom meeting link {join_URL} and your password: "{meetingPassword}"\n')

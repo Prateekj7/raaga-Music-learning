@@ -20,3 +20,9 @@ class VocalAdmin(admin.ModelAdmin):
 @admin.register(Instrumental)
 class InstrumentalAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
+
+@admin.register(Class)
+class ClassAdmin(admin.ModelAdmin):
+    list_display = ['id', 'group_id', 'teacher_id', 'teacher_name', 'student_id', 'student_name', 'category_type', 'category_value',
+    'class_timestamp', 'is_active', 'is_completed', 'is_rescheduled', 'is_cancelled', 'meeting_link', 'payment_id', 'payment_amount', 
+    'payment_timestamp']
