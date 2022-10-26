@@ -1,0 +1,28 @@
+.music-chart-container {
+  margin: 0;
+  padding: 0.4rem 1rem;
+  background-position: center;
+}
+
+@media (min-width: 50em) {
+  .music-chart-container {
+    padding: 1rem 4rem;
+  }
+}
+
+.music-chart-header {
+  display: flex;
+  align-items: center;
+}
+
+.music-chart-header-double-arrow-icon {
+  max-width: 2.75rem;
+  height: auto;
+}
+
+.music-chart-heading {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+}

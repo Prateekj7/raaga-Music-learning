@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+
+  react-app:
+    image: apnito/raaga:react-dev-latest
+    container_name: react-app
+    ports:
+      - "80:80"
+    environment:
+      TZ: "Asia/Kolkata"
+
+  flask-api:
+    image: apnito/raaga:flask-dev-latest
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+    container_name: flask-api
+    ports:
+      - "5000:5000"
+    environment:
+      TZ: "Asia/Kolkata"

@@ -1,0 +1,14 @@
+.testimonial-card-text {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-reg);
+  color: var(--black);
+}
+
+.featured-artist-card-container {
+  display: flex;
+  justify-content: center;
+}

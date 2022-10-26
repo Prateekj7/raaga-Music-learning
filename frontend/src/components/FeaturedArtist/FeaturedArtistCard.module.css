@@ -1,0 +1,52 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.5rem;
+}
+
+.Stroke-28 {
+  width: 8.5rem;
+  height: 8.5rem;
+  border-radius: 50%;
+  border: solid 0.0625rem var(--grape_purple);
+  position: relative;
+}
+
+.card_img {
+  width: 8.5rem;
+  height: 8.5rem;
+  overflow: hidden;
+  border-radius: 100%;
+  position: absolute;
+  top: 1.125rem;
+  left: 1.125rem;
+}
+
+@media (min-width: 50em) {
+  .Stroke-28 {
+    width: 11.375rem;
+    height: 11.375rem;
+  }
+
+  .card_img {
+    width: 11.375rem;
+    height: 11.375rem;
+  }
+}
+
+.card_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card_info {
+  margin: 0;
+  padding-top: 2.0625rem;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-reg);
+  color: var(--black);
+  text-align: center;
+}
+.card_info p {
+  margin: 0;
+}

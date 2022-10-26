@@ -1,0 +1,28 @@
+.carousel-caption {
+  transform: translateY(-50%);
+  bottom: initial;
+  top: 50%;
+}
+
+.carousel-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.carousel-heading-1 {
+  margin: 0;
+  font-weight: var(--fw-reg);
+  font-size: var(--fs-3xl);
+  color: var(--white);
+}
+.carousel-heading-2 {
+  margin: 0;
+  font-weight: var(--fw-reg);
+  font-size: var(--fs-5xl);
+  color: var(--tan);
+}
+
+.prev-button {
+  transform: rotate(180deg);
+}

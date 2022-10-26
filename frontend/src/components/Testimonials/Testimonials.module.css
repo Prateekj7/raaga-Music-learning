@@ -1,0 +1,41 @@
+.testimonials-container {
+  margin: 0;
+  padding: 0.4rem 1rem;
+}
+
+.testimonials-text {
+  display: none;
+}
+
+@media (min-width: 50em) {
+  .testimonials-container {
+    padding: 1rem 4rem;
+  }
+
+  .testimonials-text {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    font-size: var(--fs-301xl);
+    font-weight: var(--fw-reg);
+    color: var(--black);
+  }
+}
+
+.testimonials-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.testimonials-header-double-arrow-icon {
+  max-width: 2.75rem;
+  height: auto;
+}
+
+.testimonials-heading {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--grape_purple);
+}

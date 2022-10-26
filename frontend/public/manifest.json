@@ -1,0 +1,17 @@
+{
+    "theme_color": "#f69435",
+    "background_color": "#f69435",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "Raaga",
+    "short_name": "Raaga",
+    "description": "Raaga Music",
+    "icons": [
+        {
+            "src": "./images/raaga-logo.png",
+            "sizes": "500x500",
+            "type": "image/png"
+        }
+    ]
+}

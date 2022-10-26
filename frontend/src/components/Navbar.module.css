@@ -1,0 +1,46 @@
+.navbar {
+  background-color: transparent;
+  width: min(1282px, 100%);
+  margin-inline: auto;
+  z-index: 9999;
+  transition: ease background-color 0.4s;
+  top: 0;
+}
+
+.navbar-solid-bg {
+  background-color: var(--midnight_purple);
+}
+
+.nav-logo {
+  max-width: 4.8125rem;
+  height: auto;
+}
+
+.navbar-login-button {
+  background-color: transparent;
+  border: none;
+}
+
+.navbar-login-button .navbar-login-button-img {
+  filter: invert(50%) sepia(2%) saturate(2348%) hue-rotate(241deg)
+    brightness(117%) contrast(100%);
+}
+
+.navbar-login-button:hover .navbar-login-button-img {
+  filter: invert(40%) sepia(2%) saturate(2348%) hue-rotate(241deg)
+    brightness(117%) contrast(100%);
+}
+.navbar-login-button:active .navbar-login-button-img {
+  filter: invert(0%) sepia(2%) saturate(2348%) hue-rotate(241deg)
+    brightness(117%) contrast(100%);
+}
+
+@media (min-width: 50em) {
+  .navbar {
+    padding: 0.3rem 4rem;
+  }
+
+  .nav-logo {
+    max-width: 7.625rem;
+  }
+}

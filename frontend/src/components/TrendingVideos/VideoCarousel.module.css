@@ -1,0 +1,47 @@
+.carousel {
+  position: relative;
+  top: 0;
+}
+
+.carousel-container {
+  max-width: 43.125rem;
+}
+
+.carousel-button-group {
+  display: none;
+}
+
+@media (min-width: 50em) {
+  .carousel {
+    padding-left: 3.125rem;
+  }
+
+  .carousel-button-group {
+    display: block;
+    position: absolute;
+    top: 3.125rem;
+    right: -0.625rem;
+  }
+}
+
+.prev-button,
+.next-button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+.prev-button-img {
+  transform: rotate(180deg);
+}
+
+.prev-button-disable {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.video-card-img {
+  padding: 0;
+  margin: 0;
+  border-radius: 0.5rem;
+}

@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  react-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: apnito/raaga:react-dev
+    container_name: react-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    environment:
+      TZ: "Asia/Kolkata"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: raaga
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: raaga
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_db_vol:/var/lib/postgresql/data
+
+volumes:
+  postgres_db_vol:

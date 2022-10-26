@@ -1,0 +1,53 @@
+.audio-player {
+  background-color: #131415d3;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border: 0.0625rem solid var(--indigo);
+}
+
+.song-details-container {
+  display: flex;
+}
+
+.album-image {
+  max-width: 6.125rem;
+}
+
+.song-name {
+  margin: 0;
+  padding: 0.625rem;
+  color: white;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: var(--fs-s);
+  line-height: 1.375rem;
+}
+
+.play-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.play-btn-icon {
+  filter: invert(100%) sepia(2%) saturate(2348%) hue-rotate(241deg)
+    brightness(117%) contrast(100%);
+  width: 2.1875rem;
+  height: 2.1875rem;
+}
+.pause-btn-icon {
+  filter: invert(100%) sepia(2%) saturate(2348%) hue-rotate(241deg)
+    brightness(117%) contrast(100%);
+  width: 2.1875rem;
+  height: 2.1875rem;
+}

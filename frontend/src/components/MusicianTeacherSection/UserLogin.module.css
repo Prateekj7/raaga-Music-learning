@@ -1,0 +1,67 @@
+.list-header {
+  display: flex;
+  align-items: center;
+}
+
+.list-header-icon,
+.list-header-double-arrow-icon {
+  max-width: 2.75rem;
+  height: auto;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 0.25rem;
+}
+
+.list-heading {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--grape_purple);
+}
+
+.list-number {
+  font-size: var(--fs-4xl);
+  font-weight: var(--fw-bold);
+  color: var(--grape_purple);
+  min-width: 2.1875rem;
+  text-align: center;
+  margin-right: 0.5625rem;
+}
+
+.list-text {
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  color: var(--black);
+}
+
+.login-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 50em) {
+  .login-button-container {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+.login-button {
+  padding: 0.3125rem 2.375rem;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  color: var(--grape_purple);
+  border-radius: 1rem;
+  background-color: var(--white);
+  border: solid 1px var(--lipstick);
+}
+
+.login-button:hover {
+  color: var(--white);
+  background-color: var(--grape_purple);
+  border: solid 1px var(--grape_purple);
+}

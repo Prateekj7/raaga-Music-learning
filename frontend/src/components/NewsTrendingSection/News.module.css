@@ -1,0 +1,27 @@
+.news-header {
+  display: flex;
+  align-items: center;
+}
+
+.news-header-double-arrow-icon {
+  max-width: 2.75rem;
+  height: auto;
+}
+
+.news-heading {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--grape_purple);
+}
+
+.news-main-img {
+  max-width: 48.125rem;
+  height: auto;
+}
+.news-main-text {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+  line-height: 2.5rem;
+}

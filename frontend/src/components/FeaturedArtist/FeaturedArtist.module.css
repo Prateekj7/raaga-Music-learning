@@ -1,0 +1,27 @@
+.featured-artist-container {
+  margin: 0;
+  padding: 0.4rem 1rem;
+}
+
+@media (min-width: 50em) {
+  .featured-artist-container {
+    padding: 1rem 4rem;
+  }
+}
+
+.featured-artist-header {
+  display: flex;
+  align-items: center;
+}
+
+.featured-artist-header-double-arrow-icon {
+  max-width: 2.75rem;
+  height: auto;
+}
+
+.featured-artist-heading {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--grape_purple);
+}

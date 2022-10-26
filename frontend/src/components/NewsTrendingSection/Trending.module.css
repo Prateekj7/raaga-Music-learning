@@ -1,0 +1,27 @@
+.trending-header {
+  display: flex;
+  align-items: center;
+}
+
+.trending-header-double-arrow-icon {
+  max-width: 2.75rem;
+  height: auto;
+}
+
+.trending-heading {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--grape_purple);
+}
+
+.trending-main-img {
+  max-width: 18.75rem;
+  height: auto;
+}
+.trending-main-text {
+  font-size: var(--fs-s);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+  line-height: 1.25rem;
+}

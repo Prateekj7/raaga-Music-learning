@@ -1,0 +1,10 @@
+.musician-teacher-container {
+  margin: 0;
+  padding: 0.4rem 1rem;
+}
+
+@media (min-width: 50em) {
+  .musician-teacher-container {
+    padding: 2rem 4rem;
+  }
+}

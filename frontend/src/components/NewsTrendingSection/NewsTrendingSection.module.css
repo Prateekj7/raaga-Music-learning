@@ -1,0 +1,10 @@
+.news-trending-container {
+  margin: 0;
+  padding: 0.4rem 1rem;
+}
+
+@media (min-width: 50em) {
+  .news-trending-container {
+    padding: 2rem 4rem;
+  }
+}

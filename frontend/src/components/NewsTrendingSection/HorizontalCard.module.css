@@ -1,0 +1,19 @@
+.horizontal-card {
+  border: none;
+}
+
+.horizontal-card-img {
+  max-width: 6.25rem;
+  height: auto;
+}
+.content {
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  color: var(--black);
+  line-height: 1.375rem;
+}
+.footer {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-med);
+  color: var(--warm_grey);
+}

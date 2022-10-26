@@ -1,0 +1,9 @@
+Django
+djangorestframework
+djangorestframework-simplejwt
+django-phonenumber-field
+phonenumbers
+psycopg2-binary
+pandas
+boto3
+razorpay

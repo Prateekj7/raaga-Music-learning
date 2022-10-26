@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+
+  width: min(1282px, 100%);
+  margin-inline: auto;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+:root {
+  /* Font weights for Poppins regular, medium, bold */
+  --fw-reg: 400;
+  --fw-med: 500;
+  --fw-bold: 700;
+
+  /* Font sizes */
+  --fs-xs: 0.875rem;
+  --fs-s: 0.875rem;
+  /* --fs-md: 1rem;*/
+  --fs-l: 1.125rem;
+  /* --fs-xl: 1.375rem;  */
+  --fs-2xl: 1.4rem;
+  --fs-3xl: 1rem;
+  --fs-4xl: 2.5rem;
+  --fs-5xl: 1.5rem;
+
+  /* Color palette */
+  --white: #ffffff;
+  --tan: #d3a973;
+  --grape_purple: #691a58;
+  --black: #0a0a0a;
+  --lipstick: #e83f47;
+  --darkish_pink: #dc447d;
+  --greyish_brown: #3d3d3d;
+  --dark_grey: #131415;
+  --warm_grey: #a1a1a1;
+  --indigo: #5e00a1;
+  --midnight: #0d0017;
+  --midnight_purple: #1c0030;
+  --white_two: #d2d2d2;
+}
+
+@media (min-width: 50em) {
+  :root {
+    /* Font sizes */
+    --fs-xs: 0.75rem;
+    --fs-s: 0.875rem;
+    --fs-md: 1rem;
+    --fs-l: 1.125rem;
+    --fs-xl: 1.375rem;
+    --fs-2xl: 1.5rem;
+    --fs-3xl: 2.125rem;
+    --fs-301xl: 2.25rem;
+    --fs-4xl: 2.875rem;
+    --fs-5xl: 4rem;
+  }
+  .g-custom {
+    --bs-gutter-x: 7rem;
+    --bs-gutter-y: 7rem;
+  }
+}
