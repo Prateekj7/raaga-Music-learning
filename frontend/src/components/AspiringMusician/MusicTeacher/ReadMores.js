@@ -28,7 +28,7 @@ const ReadMores = ({ readMores }) => {
             <div className="pt-2">
               <div className="d-flex">
                 <h2>{name}</h2>
-                <h5 className="pt-4">{post}</h5>
+                <h5 className="pb-3">{post}</h5>
               </div>
               <h5 className="m-1 pb-2">{experience} experience</h5>
               <h5 className="m-2 text-danger">hourly fees: ${fees}</h5>
@@ -63,7 +63,7 @@ const ReadMores = ({ readMores }) => {
             <div>
               <div className="d-flex">
                 <h1>{name}</h1>
-                <h4 className=" pt-5 m-1">{post}</h4>
+                <h4 className=" pt-4 mt-4">{post}</h4>
                 <h4 className="pt-5 m-1">{experience} experience</h4>
                 <div className="pt-5 m-1">
                   <FaStar />

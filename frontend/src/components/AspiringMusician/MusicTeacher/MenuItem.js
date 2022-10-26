@@ -7,12 +7,12 @@ function MenuItem() {
   return (
     <Navbar expand="lg" style={{ backgroundColor: "white" }}>
       <Container style={{ backgroundColor: "white" }}>
-        <Navbar.Brand href="musicstation">
+        <Navbar.Brand className="pb-2" href="musicstation">
           <h3>Indian Classic</h3>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="pt-5 mt-4">
+          <Nav className="pb-4 mt-4 justify-content-end">
             <NavDropdown title="Dropdown" id="basic-nav-dropdown" className="">
               <NavDropdown.Item href="musicstation">
                 Indian Classical
