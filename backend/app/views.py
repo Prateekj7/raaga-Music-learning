@@ -13,7 +13,7 @@ import hashlib
 import datetime
 
 conn = psycopg2.connect(
-    host="localhost",
+    host="postgres",
     database="raaga",
     user="postgres",
     password="raaga",
