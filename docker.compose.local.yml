@@ -15,6 +15,22 @@ services:
     environment:
       TZ: "Asia/Kolkata"
 
+  # django-backend:
+  #   build: 
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   links:
+  #     - postgres:postgres
+  #   image: apnito/raaga:django-dev
+  #   command: python backend/manage.py runserver 0.0.0.0:8000
+  #   container_name: django-backend
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     TZ: "Asia/Kolkata"
+  #   volumes:
+  #     - .:/backend
+
   postgres:
     image: postgres
     environment:
