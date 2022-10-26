@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app.views import *
+
+admin.site.site_header  =  "Apnito Admin Page"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('hello_world/', foo),
+    path('insert_data/', insert_data),
+    path('read_data/', read_data),
+    path('update_count/', update_count),
+    path('send_otp/', send_otp),
+    path('verify_otp/', verify_otp),
+    path('generate_payment_order/', generate_payment_order),
+    path('validate_payment_order', validate_payment_order),
+
 ]
