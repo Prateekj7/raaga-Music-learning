@@ -29,11 +29,11 @@ function App() {
       <Navbar />
       <Carousel />
       <MusicianTeacherSection />
-      <NewsTrendingSection />
-      <MusicChart />
-      <TrendingVideos />
-      <FeaturedArtist />
-      <Testimonials />
+      {/* <NewsTrendingSection /> */}
+      {/* <MusicChart /> */}
+      {/* <TrendingVideos /> */}
+      {/* <FeaturedArtist /> */}
+      {/* <Testimonials /> */}
       <Footer />
     </div>
   );
