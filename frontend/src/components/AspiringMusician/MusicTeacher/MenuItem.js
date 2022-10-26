@@ -12,8 +12,12 @@ function MenuItem() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="pb-4 mt-4 justify-content-end">
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown" className="">
+          <Nav className="pb-4 mt-4">
+            <NavDropdown
+              title="Dropdown"
+              id="basic-nav-dropdown"
+              className="  justify-content-end"
+            >
               <NavDropdown.Item href="musicstation">
                 Indian Classical
               </NavDropdown.Item>
