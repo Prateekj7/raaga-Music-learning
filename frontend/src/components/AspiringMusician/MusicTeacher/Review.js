@@ -1,34 +1,40 @@
 import React, { useState } from "react";
+import { Container, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-
+import styles from "../../FeaturedArtist/FeaturedArtistCard.module.css";
 function Review() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [lgShow, setLgShow] = useState(false);
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Review
-      </Button>
+    <div>
+      <Button onClick={() => setLgShow(true)}>Review</Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+      <Container className="d-flex align-items-end">
+        <Modal
+          className=""
+          size="lg"
+          show={lgShow}
+          onHide={() => setLgShow(false)}
+          aria-labelledby="example-modal-sizes-title-lg"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-modal-sizes-title-lg">
+              <h2>Comments(8)</h2>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form className="d-flex px-1 mx-1">
+              <Form.Control type="email" placeholder="text" autoFocus />
+              <Button className="btn btn-secondary">Submit</Button>
+            </Form>
+            <div className={`${styles["card_img"]}`}>
+              <img src="" alt="user-image" />
+            </div>
+          </Modal.Body>
+        </Modal>
+      </Container>
+    </div>
   );
 }
 

@@ -1,0 +1,64 @@
+[
+    {
+      "_id": "1",
+      "name": "Jagjit Singh",
+      "post": "Indian composer",
+      
+      "img": "https://i2.cinestaan.com/image-bank/1500-1500/107001-108000/107006.jpeg",
+      "experience": "25 Years",
+      "fees": "1000",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+      
+    },
+    {
+      "_id": "2",
+      "name": "Pankaj Udhas",
+      "post": "Indian playback singer",
+      "img": "https://m.media-amazon.com/images/M/MV5BOTJlMTAwZWEtNzQ1ZC00YmNhLWJjOTQtOTUyOTYzYjYzMWU5XkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg",
+      "experience": "30 Years",
+      "fees": "1500",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    },
+    {
+      "_id": "3",
+      "name": "Manna Dey",
+      "post": "Vocal",
+      "img": "https://i2.cinestaan.com/image-bank/1500-1500/64001-65000/64074.jpg",
+      "experience": "10 Years",
+      "fees": "2000",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    },
+    {
+      "_id": "4",
+      "name": "Anup Jalota",
+      "post": "Vocal",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/b/b0/%E0%AC%85%E0%AC%A8%E0%AD%81%E0%AC%AA_%E0%AC%9C%E0%AC%B2%E0%AD%8B%E0%AC%9F%E0%AC%BE_%28Anup_Jalota%29.jpg",
+      "experience": "35 Years",
+      "fees": "2500",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    },
+    {
+      "_id": "5",
+      "name": "Manna Dey",
+      "post": "Vocal",
+      "img": "https://i2.cinestaan.com/image-bank/1500-1500/64001-65000/64074.jpg",
+      "experience": "10 Years",
+      "fees": "1000",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    },
+    {
+      "_id": "6",
+      "name": "Manhar Udhas",
+      "post": "Vocal",
+      "img": "https://www.lorrainemusicacademy.com/wp-content/uploads/2021/07/Manhar-Udhas.jpg",
+      "experience": "15 Years",
+      "fees": "2000",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    }
+  ]

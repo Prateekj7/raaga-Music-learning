@@ -17,22 +17,24 @@ const ReadMores = ({ readMores }) => {
       <Row>
         <Col>
           {" "}
-          <div className="d-flex m-1">
-            <div className="p-3">
-              <div className={`${styles["Stroke-28"]}`}>
-                <div className={`${styles["card_img"]}`}>
-                  <img src={img} alt="user" />
+          <div className="d-flex mb-3 ">
+            <div className="pb-3">
+              <div className="p-3">
+                <div className={`${styles["Stroke-28"]}`}>
+                  <div className={`${styles["card_img"]}`}>
+                    <img src={img} alt="user" />
+                  </div>
                 </div>
               </div>
             </div>
             <div className="pt-2">
               <div className="d-flex">
                 <h2>{name}</h2>
-                <h5 className="pt-4">{post}</h5>
+                <h5 className="pb-1">{post}</h5>
               </div>
               <h5 className="m-1 pb-2">{experience} experience</h5>
               <h5 className="m-2 text-danger">hourly fees: ${fees}</h5>
-              <div className="d-flex">
+              <div className="d-flex m-2">
                 <div>
                   <FaStar />
                   <FaStar />
@@ -62,15 +64,22 @@ const ReadMores = ({ readMores }) => {
           <div className="d-flex">
             <div>
               <div className="d-flex">
-                <h1>{name}</h1>
-                <h4 className=" pt-5 m-1">{post}</h4>
-                <h4 className="pt-5 m-1">{experience} experience</h4>
-                <div className="pt-5 m-1">
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
+                <h3>{name}</h3>
+                <div className="d-flex">
+                  <h5 className=" pt-1 m-1">{post}</h5>
+                  <div className=" ">
+                    <h5 className="pt-1 m-1">{experience} experience</h5>
+
+                    <div className="d-flex">
+                      <div className="pt-1 m-1 ">
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <h3 className=" pr-2">Address: {address}</h3>
@@ -91,23 +100,23 @@ const ReadMores = ({ readMores }) => {
           <Card className="shadow-lg ">
             <Card.Header className="p-3" style={{ backgroundColor: "purple" }}>
               <div className="d-flex ">
-                <h3 className="px-4 pt-2">$Fees:</h3>
-                <div className="px-3">
+                <h3 className="px-4 pt-2 text-white">$Fees:</h3>
+                <div className="px-2">
                   <div>
-                    <h4>Hourly</h4>
-                    <h4>1000</h4>
+                    <h5 className="text-white">Hourly</h5>
+                    <h5 className="text-white">1000</h5>
                   </div>
                 </div>
                 <div className="px-2">
                   <div>
-                    <h4>WEEKLY(3 DAYS)</h4>
-                    <h4>2,500</h4>
+                    <h5 className="text-white">WEEKLY(3 DAYS)</h5>
+                    <h5 className="text-white">2,500</h5>
                   </div>
                 </div>
-                <div className="px-2">
+                <div className="px-1">
                   <div>
-                    <h4>MONTHLY(12 DAYS)</h4>
-                    <h4>10,500</h4>
+                    <h5 className="text-white">MONTHLY(12 DAYS)</h5>
+                    <h5 className="text-white">10,500</h5>
                   </div>
                 </div>
               </div>
@@ -118,26 +127,26 @@ const ReadMores = ({ readMores }) => {
                 <h4>Morning</h4>
                 <div>
                   {" "}
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
+                  <Button className=" mx-3 btn  ">10.00 Am</Button>
+                  <Button className=" mx-2  btn ">10.00 Am</Button>
+                  <Button className=" mx-2 btn ">10.00 Am</Button>
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
                 </div>
                 <h4>AfterNoon</h4>
                 <div>
                   {" "}
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
+                  <Button className=" mx-2  btn ">10.00 Am</Button>
+                  <Button className=" mx-2 btn ">10.00 Am</Button>
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
                 </div>
                 <h4>Evening</h4>
                 <div>
                   {" "}
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
-                  <Button className="mx-3  btn-lg ">10.00 Am</Button>
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
+                  <Button className=" mx-2  btn ">10.00 Am</Button>
+                  <Button className=" mx-2 btn ">10.00 Am</Button>
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
                 </div>
               </div>
               <div className="d-flex justify-content-center py-3 ">

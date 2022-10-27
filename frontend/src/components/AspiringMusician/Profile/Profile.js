@@ -17,22 +17,23 @@ const Profile = () => {
   }, []);
 
   return (
-    <Container>
-      <Navbar />
-      <Row>
-        <Col>
-          <ProfileDetails></ProfileDetails>
-        </Col>
+    <div className="py-5">
+      <Container className="py-5">
+        <Row>
+          <Col>
+            <ProfileDetails></ProfileDetails>
+          </Col>
 
-        <div className="border-bottom border-dark"></div>
-        <div className=" m-1">
-          {teacher.map((teachers) => (
-            <List key={teacher._id} teachers={teachers}></List>
-          ))}
-        </div>
-      </Row>
-      <div className="justify-content-center"></div>
-    </Container>
+          <div className="border-bottom border-dark"></div>
+          <div className=" m-1">
+            {teacher.map((teachers) => (
+              <List key={teacher._id} teachers={teachers}></List>
+            ))}
+          </div>
+        </Row>
+        <div className="justify-content-center"></div>
+      </Container>
+    </div>
   );
 };
 
