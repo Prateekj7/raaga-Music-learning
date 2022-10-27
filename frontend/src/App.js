@@ -22,13 +22,6 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      {/* <Carousel />
-      <MusicianTeacherSection />
-      <NewsTrendingSection />
-      <MusicChart />
-      <TrendingVideos />
-      <FeaturedArtist />
-      <Testimonials /> */}
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="musicstation" element={<MusicStation />}></Route>
