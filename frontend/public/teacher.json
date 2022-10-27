@@ -1,0 +1,63 @@
+[
+    {
+      "_id": "1",
+      "name": "Sonu Nigam",
+      "post": "Vocal",
+      "img": "https://static.toiimg.com/photo/61257547.cms",
+      "experience": "25 Years",
+      "fees": "1000",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+      
+    },
+    {
+      "_id": "2",
+      "name": "Visal",
+      "post": "Vocal",
+      "img": "https://static.toiimg.com/thumb/msid-53897051,width-800,height-600,resizemode-75,imgsize-66084,pt-32,y_pad-40/53897051.jpg",
+      "experience": "30 Years",
+      "fees": "1500",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    },
+    {
+      "_id": "3",
+      "name": "Shan",
+      "post": "Vocal",
+      "img": "https://pbs.twimg.com/profile_images/1325662669085437952/a-z7pbpU_400x400.jpg",
+      "experience": "10 Years",
+      "fees": "2000",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    },
+    {
+      "_id": "4",
+      "name": "udit narayan",
+      "post": "Vocal",
+      "img": "https://i2.cinestaan.com/image-bank/1500-1500/54001-55000/54128.jpg",
+      "experience": "35 Years",
+      "fees": "2500",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    },
+    {
+      "_id": "5",
+      "name": "Aditi chakraborty",
+      "post": "Vocal",
+      "img": "https://banglaalyrics.com/wp-content/uploads/2021/07/Aditi-Chakraborty-Image.webp",
+      "experience": "10 Years",
+      "fees": "1000",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    },
+    {
+      "_id": "6",
+      "name": "Sera ghoshal",
+      "post": "Vocal",
+      "img": "https://wikibio.in/wp-content/uploads/2019/03/Shreya-Ghoshal.jpg",
+      "experience": "15 Years",
+      "fees": "2000",
+      "video":"https://youtu.be/5TJ5-6lqLFw",
+      "address":"82F3+JPW, Sundarmor, Jharkhand 814118, India"
+    }
+  ]
