@@ -12,8 +12,8 @@ if __name__ == "__main__":
 
 
     # data = {
-    #     "table": "appraaga_student",
-    #     "data": [{
+    #     "table": "student",
+    #     "data": {
     #         "name": "MKS",
     #         "city": "Madhubani",
     #         "state": "Bihar",
@@ -22,7 +22,7 @@ if __name__ == "__main__":
     #         "qualification": "12 th",
     #         "contact_no": "123456789",
     #         "email_id": "qwerb@gmail.com"
-    #     }]
+    #     }
     # }
     # data = json.dumps(data)
     # res = requests.post('http://127.0.0.1:8000/insert_data/', data=data, headers=headers)
@@ -66,14 +66,14 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/read_teacher_reviews/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    data = {
-        "id": "1",
-        "category_name": "vocal",
-        "category_value": 'indian_classical'
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/read_teacher_schedules/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # data = {
+    #     "id": "1",
+    #     "category_name": "vocal",
+    #     "category_value": 'indian_classical'
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/read_teacher_schedules/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
 
     # data = {
     #     'amount': 5000, 
@@ -82,3 +82,22 @@ if __name__ == "__main__":
     # data = json.dumps(data)
     # res = requests.post('http://127.0.0.1:8000/generate_payment_order/', data=data, headers=headers)
     # print(res, json.loads(res.content))
+
+    data = {
+        'data':{
+            "student_id": 1,
+            "student_name": "Anish Kumar",
+            "teacher_id": 1,
+            "teacher_name": "Mohan Kumar",
+            "category_type": "Vocal",
+            "category_value": 'Indian Classical',
+            "class_timestamp": "2022-10-30T11:00",
+            "payment_id": 1,
+            "payment_amount": 1000,
+            "payment_timestamp": "2022-10-30T11:00"
+        }
+        
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/book_class/', data=data, headers=headers)
+    print(res, json.loads(res.content))

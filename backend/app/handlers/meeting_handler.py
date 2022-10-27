@@ -25,10 +25,10 @@ def generateToken():
         # Specify the hashing alg
         algorithm='HS256'
     )
-    return token.decode("utf-8")  # Converting Byte String to String
+    return token
   
   
-def createMeeting(teacher, student, category, timestamp, duration):
+def create_meeting(teacher, student, category_type, category_value, timestamp, duration):
     
     headers = {
         'authorization': 'Bearer ' + generateToken(),
@@ -37,7 +37,7 @@ def createMeeting(teacher, student, category, timestamp, duration):
 
     # create json data for post requests
     meetingdetails = {
-        "topic": f"{teacher} class with {student} for {category}",
+        "topic": f"{teacher} class with {student} for {category_value} ({category_type})",
         "type": 2,
         "start_time": timestamp,
         "duration": duration,
@@ -75,9 +75,10 @@ if __name__ == '__main__':
     # run the create meeting function
     teacher = "Mohan"
     student = "Anish"
-    category = "Violin"
+    category_type = "violin"
+    category_value = "Indian Classical"
     duration = 45 # minutes
-    timestamp = "2022-10-26T20:00:00"
-    join_URL, meetingPassword = createMeeting(teacher, student, category, timestamp, duration)
+    timestamp = "2022-10-26T20:00"
+    join_URL, meetingPassword = create_meeting(teacher, student, category_type, category_value, timestamp, duration)
 
     print(f'\n here is your zoom meeting link {join_URL} and your password: "{meetingPassword}"\n')

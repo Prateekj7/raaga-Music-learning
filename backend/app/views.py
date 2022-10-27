@@ -8,6 +8,7 @@ import pandas as pd
 from .handlers.otp_handler import *
 from .handlers.sms_handler import *
 from .handlers.payment_handler import *
+from .handlers.meeting_handler import *
 import json
 import hashlib
 import datetime
@@ -47,12 +48,12 @@ def insert_data(request):
     table = params['table']
     data = params['data']
 
-    columns = data[0].keys()
+    columns = data.keys()
     
     query = "INSERT INTO {} ({}) VALUES %s".format(table, ', '.join(columns))
     
     # convert projects values to sequence of seqeences
-    values = [[value for value in entry.values()] for entry in data]
+    values = [[value for value in entry.values()] for entry in [data]]
     
     curr.execute("ROLLBACK")
     execute_values(curr, query, values)
@@ -112,8 +113,6 @@ def read_teacher_main_data(request):
 def read_teacher_metadata(request):
     params = request.data
     
-    category_name = params['category_name']
-    category_value = params['category_value']
     id = params['id']
 
     query = f"SELECT location, city, state, pin_code, about, qualification, achievement, class_mode, like_count, student_count, video_url FROM teacher where id = {id}"
@@ -262,3 +261,31 @@ def generate_payment_order(request):
 def validate_payment_order(request):
     status = validate_payment(request)
     return Response(status)
+
+@api_view(['POST'])
+def book_class(request):
+    params = request.data
+
+    data = params['data']
+
+    duration = 60
+
+    data['is_active'] = 't'
+    data['is_completed'] = 'f'
+    data['is_rescheduled'] = 'f'
+    data['is_cancelled'] = 'f'
+    data['meeting_link'] = create_meeting(data['teacher_name'], data['student_name'], data['category_type'], data['category_value'], data['class_timestamp'], duration)[0]
+
+    data['group_id'] = generate_id(data)
+
+    columns = data.keys()
+    
+    query = "INSERT INTO {} ({}) VALUES %s".format('class', ', '.join(columns))
+    
+    # convert projects values to sequence of seqeences
+    values = [[value for value in entry.values()] for entry in [data]]
+    
+    curr.execute("ROLLBACK")
+    execute_values(curr, query, values)
+    
+    return Response('ok')
