@@ -64,8 +64,8 @@ function Footer() {
                         </Col>
                     </Row>
                     <Row className="g-3">
-                        {[1, 2, 3, 4, 5, 6].map(() =>
-                            <Col xs={4}>
+                        {[1, 2, 3, 4, 5, 6].map((item, index) =>
+                            <Col xs={4} key={index}>
                                 <img className="p-1 p-lg-2" src={newsCardImg}></img>
                             </Col>)}
                     </Row>
