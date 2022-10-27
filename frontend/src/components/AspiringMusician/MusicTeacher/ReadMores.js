@@ -17,22 +17,24 @@ const ReadMores = ({ readMores }) => {
       <Row>
         <Col>
           {" "}
-          <div className="d-flex m-1">
-            <div className="p-3">
-              <div className={`${styles["Stroke-28"]}`}>
-                <div className={`${styles["card_img"]}`}>
-                  <img src={img} alt="user" />
+          <div className="d-flex mb-3 ">
+            <div className="pb-3">
+              <div className="p-3">
+                <div className={`${styles["Stroke-28"]}`}>
+                  <div className={`${styles["card_img"]}`}>
+                    <img src={img} alt="user" />
+                  </div>
                 </div>
               </div>
             </div>
             <div className="pt-2">
               <div className="d-flex">
                 <h2>{name}</h2>
-                <h5 className="pb-3">{post}</h5>
+                <h5 className="pb-1">{post}</h5>
               </div>
               <h5 className="m-1 pb-2">{experience} experience</h5>
               <h5 className="m-2 text-danger">hourly fees: ${fees}</h5>
-              <div className="d-flex">
+              <div className="d-flex m-2">
                 <div>
                   <FaStar />
                   <FaStar />

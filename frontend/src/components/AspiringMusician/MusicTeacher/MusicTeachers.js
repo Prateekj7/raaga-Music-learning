@@ -21,7 +21,7 @@ const MusicTeachers = ({ teachers }) => {
     <Container>
       <Row>
         <Col>
-          <div className="d-flex ">
+          <div className="d-flex mb-2 ">
             {!state.showMore && (
               <div className="d-flex mx-1">
                 <div className="p-3">
@@ -34,11 +34,11 @@ const MusicTeachers = ({ teachers }) => {
                 <div className="pt-2">
                   <div className="d-flex">
                     <h2>{name}</h2>
-                    <h5 className="pt-4">{post}</h5>
+                    <h5 className="pb-3">{post}</h5>
                   </div>
                   <h5 className="m-1 pb-2">{experience} experience</h5>
                   <h5 className="m-2 text-danger">hourly fees: ${fees}</h5>
-                  <div className="d-flex">
+                  <div className="d-flex m-2">
                     <div>
                       <FaStar />
                       <FaStar />
@@ -58,7 +58,7 @@ const MusicTeachers = ({ teachers }) => {
             <div className="mr-5 px-5  ">
               <div className="pt-5 mt-5 ">
                 <div
-                  className="d-flex justify-content-between"
+                  className="d-flex justify-content-end"
                   style={{ backgroundColor: "white" }}
                   onClick={() =>
                     setState((prev) => ({
