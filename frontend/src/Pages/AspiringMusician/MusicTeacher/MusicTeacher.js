@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import MusicTeachers from "./MusicTeachers";
-import Navbar from "../../Navbar";
 import Review from "./Review";
 
 import Teachers from "./MusicTeacher.module.css";
