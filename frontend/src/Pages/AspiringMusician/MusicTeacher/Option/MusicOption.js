@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import styles from "../../../FeaturedArtist/FeaturedArtistCard.module.css";
+import styles from "../../../../components/FeaturedArtist/FeaturedArtistCard.module.css"
 import { Link, useNavigate } from "react-router-dom";
 
 const MusicOption = () => {
