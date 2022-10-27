@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import styles from "../../FeaturedArtist/FeaturedArtistCard.module.css";
+import styles from "../../../components/FeaturedArtist/FeaturedArtistCard.module.css";
 function Review() {
   const [lgShow, setLgShow] = useState(false);
 

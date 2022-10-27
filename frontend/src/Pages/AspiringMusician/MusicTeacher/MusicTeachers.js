@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import Teachers from "./MusicTeacher.module.css";
-import styles from "../../FeaturedArtist/FeaturedArtistCard.module.css";
+import styles from "../../../components/FeaturedArtist/FeaturedArtistCard.module.css";
 import { Button, Col, Container, ModalFooter, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";

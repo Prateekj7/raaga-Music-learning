@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import ReactPlayer from "react-player";
-import styles from "../../FeaturedArtist/FeaturedArtistCard.module.css";
+import styles from "../../../components/FeaturedArtist/FeaturedArtistCard.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Review from "./Review";
 
