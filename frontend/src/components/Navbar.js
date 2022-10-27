@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import logo from "../images/logo.png";
 import loginIcon from "../images/loginIcon.svg";
 import styles from "./Navbar.module.css";
+import { Link } from "react-router-dom";
 
 function BasicExample() {
   const [bgColorSolid, setBgColor] = useState(false);
@@ -74,14 +75,14 @@ function BasicExample() {
         />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-lg-auto px-2">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#news">News</Nav.Link>
-            <Nav.Link href="#reviews">Reviews</Nav.Link>
-            <Nav.Link href="#songs">Songs</Nav.Link>
-            <Nav.Link href="#lyrics">Lyrics</Nav.Link>
-            <Nav.Link href="#biographies">Biographies</Nav.Link>
-            <Nav.Link href="#musicTeacher">Music Teacher</Nav.Link>
-            <Nav.Link href="musicoption">Aspiring Musician</Nav.Link>
+            <Nav.Link as={Link} to="/" >Home</Nav.Link>
+            <Nav.Link as={Link} to="/" >News</Nav.Link>
+            <Nav.Link as={Link} to="/" >Reviews</Nav.Link>
+            <Nav.Link as={Link} to="/" >Songs</Nav.Link>
+            <Nav.Link as={Link} to="/" >Lyrics</Nav.Link>
+            <Nav.Link as={Link} to="/" >Biographies</Nav.Link>
+            <Nav.Link as={Link} to="/" >Music Teacher</Nav.Link>
+            <Nav.Link as={Link} to="/aspiring-musician">Aspiring Musician</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
