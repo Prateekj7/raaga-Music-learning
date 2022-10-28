@@ -81,7 +81,7 @@ function BasicExample() {
             <Nav.Link as={Link} to="/" >Songs</Nav.Link>
             <Nav.Link as={Link} to="/" >Lyrics</Nav.Link>
             <Nav.Link as={Link} to="/" >Biographies</Nav.Link>
-            <Nav.Link as={Link} to="/" >Music Teacher</Nav.Link>
+            <Nav.Link as={Link} to="/music-teacher" >Music Teacher</Nav.Link>
             <Nav.Link as={Link} to="/aspiring-musician">Aspiring Musician</Nav.Link>
           </Nav>
         </Navbar.Collapse>
