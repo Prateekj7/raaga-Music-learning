@@ -36,6 +36,7 @@ code {
   --tan: #d3a973;
   --grape_purple: #691a58;
   --black: #0a0a0a;
+  --drawer_black: #1b1b1b;
   --lipstick: #e83f47;
   --darkish_pink: #dc447d;
   --greyish_brown: #3d3d3d;
@@ -45,6 +46,8 @@ code {
   --midnight: #0d0017;
   --midnight_purple: #1c0030;
   --white_two: #d2d2d2;
+  --grey: #d9d9d9;
+  --greyish: #b3b3b3;
 }
 
 @media (min-width: 50em) {

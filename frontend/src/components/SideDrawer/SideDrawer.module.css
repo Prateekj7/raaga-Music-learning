@@ -1,0 +1,77 @@
+.side-drawer {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  background-color: var(--drawer_black);
+}
+
+.side-drawer-header {
+  border-bottom: 1px solid #414141;
+}
+
+.nav-logo {
+  max-width: 7.5rem;
+  height: auto;
+}
+
+.form-label {
+  color: white;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+}
+
+.form-number-input,
+.form-number-input:focus {
+  color: var(--greyish);
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--grey);
+}
+
+.get-otp-button {
+  width: 100%;
+  padding: 0.5rem 2.375rem;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  color: var(--white);
+  border-radius: 1.25rem;
+  background-color: #3e3e3e;
+  border: solid 1px #6b6b6b;
+}
+
+.get-otp-button:hover {
+  color: var(--white);
+  background-color: #6b6b6b;
+  border: solid 1px #6b6b6b;
+}
+
+.footer-text {
+  color: var(--white);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-reg);
+}
+
+.footer-terms {
+  font-weight: var(--fw-bold);
+}
+.footer-new-to-raaga {
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+}
+
+.signup-button {
+  padding: 0.5rem 2.375rem;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  color: var(--white);
+  border-radius: 1.25rem;
+  background-color: #3e3e3e;
+  border: solid 1px #6b6b6b;
+}
+
+.signup-button:hover {
+  color: var(--white);
+  background-color: #6b6b6b;
+  border: solid 1px #6b6b6b;
+}
