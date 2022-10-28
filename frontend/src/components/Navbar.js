@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,9 +7,13 @@ import logo from "../images/logo.png";
 import loginIcon from "../images/loginIcon.svg";
 import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
-import SideDrawer from "../components/SideDrawer/SideDrawer"
+import SideDrawer from "../components/SideDrawer/SideDrawer";
+import { LoginContext } from "../LoginContext";
 
 function BasicExample() {
+  const { loggedInUserContext } = useContext(LoginContext);
+  const [loggedInUser, setLoggedInUser] = loggedInUserContext;
+
   const [bgColorSolid, setBgColor] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const scrollHeight = useMemo(() => 1, []);
