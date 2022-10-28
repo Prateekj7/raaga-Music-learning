@@ -12,11 +12,11 @@ const Home = () => {
     <div>
       <Carousel />
       <MusicianTeacherSection />
-      <NewsTrendingSection />
-      <MusicChart />
-      <TrendingVideos />
-      <FeaturedArtist />
-      <Testimonials />
+      {/* <NewsTrendingSection /> */}
+      {/* <MusicChart /> */}
+      {/* <TrendingVideos /> */}
+      {/* <FeaturedArtist /> */}
+      {/* <Testimonials /> */}
     </div>
   );
 };

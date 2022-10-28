@@ -89,11 +89,11 @@ function BasicExample() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-lg-auto px-2">
               <Nav.Link as={Link} to="/" >Home</Nav.Link>
-              <Nav.Link as={Link} to="/" >News</Nav.Link>
-              <Nav.Link as={Link} to="/" >Reviews</Nav.Link>
-              <Nav.Link as={Link} to="/" >Songs</Nav.Link>
-              <Nav.Link as={Link} to="/" >Lyrics</Nav.Link>
-              <Nav.Link as={Link} to="/" >Biographies</Nav.Link>
+              {/* <Nav.Link as={Link} to="/" >News</Nav.Link> */}
+              {/* <Nav.Link as={Link} to="/" >Reviews</Nav.Link> */}
+              {/* <Nav.Link as={Link} to="/" >Songs</Nav.Link> */}
+              {/* <Nav.Link as={Link} to="/" >Lyrics</Nav.Link> */}
+              {/* <Nav.Link as={Link} to="/" >Biographies</Nav.Link> */}
               <Nav.Link as={Link} to="/music-teacher" >Music Teacher</Nav.Link>
               <Nav.Link as={Link} to="/aspiring-musician">Aspiring Musician</Nav.Link>
             </Nav>
