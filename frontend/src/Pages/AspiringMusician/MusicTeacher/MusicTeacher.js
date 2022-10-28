@@ -13,9 +13,35 @@ const MusicTeacher = () => {
   const [teacher, setTeacher] = useState([]);
 
   useEffect(() => {
-    fetch("teacher.json")
-      .then((res) => res.json())
-      .then((data) => setTeacher(data));
+    let data = {
+      page_size: 100,
+      page_number: 1,
+      category_name: "vocal",
+      category_value: "ghazal"
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+
+    const getTableData = async () => {
+      try {
+        const response = await fetch("/read_teacher_main_data/", requestOptions);
+        const result = await response.json();
+        if (response.ok) {
+          setTeacher(result);
+          console.log(result);
+        } else {
+          throw Error(result);
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    getTableData();
   }, []);
 
   return (
@@ -37,7 +63,7 @@ const MusicTeacher = () => {
           <div className="mx-2 ">
             {teacher.map((teachers) => (
               <MusicTeachers
-                key={teacher._id}
+                key={teachers.id}
                 teachers={teachers}
               ></MusicTeachers>
             ))}

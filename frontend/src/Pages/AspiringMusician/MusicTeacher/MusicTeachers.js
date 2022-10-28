@@ -10,7 +10,7 @@ import ReadMore from "./ReadMore";
 // import img from "../../../../public/assets/Shape/shape.png";
 
 const MusicTeachers = ({ teachers }) => {
-  const { name, img, post, experience, fees, video, address } = teachers;
+  const { name, image_url, post, experience, hourly_rate, video, address } = teachers;
   const defaultState = {
     showMore: false,
   };
@@ -27,7 +27,7 @@ const MusicTeachers = ({ teachers }) => {
                 <div className="p-3">
                   <div className={`${styles["Stroke-28"]}`}>
                     <div className={`${styles["card_img"]}`}>
-                      <img src={img} alt="user-image" />
+                      <img src={image_url} alt="user-image" />
                     </div>
                   </div>
                 </div>
@@ -37,7 +37,7 @@ const MusicTeachers = ({ teachers }) => {
                     <h5 className="pb-3">{post}</h5>
                   </div>
                   <h5 className="m-1 pb-2">{experience} experience</h5>
-                  <h5 className="m-2 text-danger">hourly fees: ${fees}</h5>
+                  <h5 className="m-2 text-danger">hourly fees: ${hourly_rate}</h5>
                   <div className="d-flex m-2">
                     <div>
                       <FaStar />
