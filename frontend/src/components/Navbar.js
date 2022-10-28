@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import logo from "../images/logo.png";
 import loginIcon from "../images/loginIcon.svg";
 import styles from "./Navbar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SideDrawer from "../components/SideDrawer/SideDrawer";
 import { LoginContext } from "../LoginContext";
 
@@ -22,6 +22,7 @@ function BasicExample() {
   const handleShowDrawer = () => setShow(true);
   const handleClose = () => setShow(false);
 
+  let currentRoute = useLocation().pathname;
   useEffect(() => {
     if (mobileNavOpen) {
       setBgColor(true);
@@ -58,7 +59,9 @@ function BasicExample() {
         onSelect={handleNavSelect}
         className={
           `${styles["navbar"]}` +
-          (bgColorSolid ? ` ${styles["navbar-solid-bg"]}` : ``)
+          (currentRoute !== "/" ? ` ${styles["navbar-solid-bg"]}` :
+            (bgColorSolid ? ` ${styles["navbar-solid-bg"]}` : ``)
+          )
         }
       >
         <Container>
