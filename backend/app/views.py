@@ -22,13 +22,7 @@ conn = psycopg2.connect(
     port="5432"
     )
 
-# conn = psycopg2.connect(
-#     host="raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com",
-#     database="raaga-db",
-#     user="postgres",
-#     password="raaga_apnito_test_db",
-#     port="5432"
-#     )
+# conn = psycopg2.connect(host="raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com", database="postgres", user="postgres", password="raaga_apnito_test_db", port="5432")
 
 # create a cursor
 curr = conn.cursor()
@@ -41,6 +35,22 @@ def generate_id(inserted_data_dict):
 def foo(request):
     print(request.data)
     return HttpResponse("Hello World!")
+
+@api_view(['POST'])
+def check_user_existance(request):
+    params = request.data
+
+    table = params['table']
+    phone = params['phone']
+
+    query = f"SELECT EXISTS (SELECT 1 FROM {table} WHERE contact_number = '{phone}')"
+    
+    curr.execute("ROLLBACK")
+    curr.execute(query)
+
+    result = curr.fetchall()[0][0]
+    
+    return Response(result)
 
 @api_view(['POST'])
 def insert_data(request):

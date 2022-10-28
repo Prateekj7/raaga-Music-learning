@@ -4,8 +4,8 @@ import razorpay
 # authorize razorpay client with API Keys.
 # razorpay_client = razorpay.Client(auth=(rzp_test_2s9Z2vGnwGlVwM, settings.RAZOR_KEY_SECRET))
 
-key_id = "rzp_test_2s9Z2vGnwGlVwM"
-key_secret = "RmPYh29Ruugo6lJdatNf2Bi9"
+key_id = "rzp_live_VO3VRfbILmMRpq"
+key_secret = "aj0WwaMPSbtWJcuzQVjahcnb"
 razorpay_client = razorpay.Client(auth=(key_id, key_secret))
 
 def generate_payment(amount, currency, callback_url):

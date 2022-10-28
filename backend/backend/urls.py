@@ -34,5 +34,6 @@ urlpatterns = [
     path('generate_payment_order/', generate_payment_order),
     path('validate_payment_order/', validate_payment_order),
     path('book_class/', book_class),
+    path('check_user_existance/', check_user_existance),
 
 ]
