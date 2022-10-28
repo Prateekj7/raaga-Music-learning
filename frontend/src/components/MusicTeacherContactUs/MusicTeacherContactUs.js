@@ -25,9 +25,9 @@ function MusicTeacherContactUs() {
                             </Form.Text>
                         </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                        <Form.Group className="mb-3">
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control type="phone" placeholder="Contact Number" />
                         </Form.Group>
                         <Button bsPrefix={`${styles["btn"]}`} type="submit">
                             Submit
