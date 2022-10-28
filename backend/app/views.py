@@ -12,6 +12,7 @@ from .handlers.meeting_handler import *
 import json
 import hashlib
 import datetime
+from django.views.decorators.csrf import csrf_exempt
 
 conn = psycopg2.connect(
     host="postgres",
@@ -87,6 +88,7 @@ def read_data(request):
     
     return Response(df.to_dict('records'))
 
+@csrf_exempt
 @api_view(['POST'])
 def read_teacher_main_data(request):
     params = request.data
