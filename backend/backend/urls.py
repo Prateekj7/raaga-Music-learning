@@ -32,7 +32,7 @@ urlpatterns = [
     path('send_otp/', send_otp),
     path('verify_otp/', verify_otp),
     path('generate_payment_order/', generate_payment_order),
-    path('validate_payment_order/', validate_payment_order),
+    path('generate_payment_order/validate_payment_order/', validate_payment_order),
     path('book_class/', book_class),
     path('check_user_existance/', check_user_existance),
 

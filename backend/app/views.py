@@ -271,15 +271,17 @@ def send_sms(request):
 
     return Response('ok')
 
-@api_view(['POST'])
+@csrf_exempt
+@api_view(['GET'])
 def generate_payment_order(request):
     params = request.data
-    amount = params['amount']
-    currency = params['currency']
+    amount = 10000 #params['amount']
+    currency = 'INR' #params['currency']
     callback_url = 'validate_payment_order/'
     context = generate_payment(amount, currency, callback_url)
-    return Response(context)
+    return render(request, 'index.html', context=context)
 
+@csrf_exempt
 @api_view(['POST'])
 def validate_payment_order(request):
     status = validate_payment(request)
