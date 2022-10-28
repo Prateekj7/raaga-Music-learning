@@ -18,12 +18,21 @@ function SideDrawer({ show, handleClose }) {
     };
     const handleSubmitOTP = () => {
         handleClose();
+        setOtpSentNotification("");
         setLoggedInUser({
             isLoggedIn: true,
             category: "student",
             id: "10001"
         });
-        console.log("logged in !");
+    };
+    const handleSignOut = () => {
+        handleClose();
+        setOtpSentNotification("");
+        setLoggedInUser({
+            isLoggedIn: false,
+            category: "",
+            id: ""
+        });
     };
     return (
         <>
@@ -53,6 +62,7 @@ function SideDrawer({ show, handleClose }) {
                             <Button
                                 variant="primary"
                                 className={`${styles["get-otp-button"]}`}
+                                onClick={handleSignOut}
 
                             >
                                 Sign Out
