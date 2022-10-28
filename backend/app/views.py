@@ -38,19 +38,30 @@ def foo(request):
 
 @api_view(['POST'])
 def check_user_existance(request):
-    params = request.data
+    def check_existance(table):
+        query = f"SELECT id FROM {table} WHERE contact_number = '{phone}'"
+    
+        curr.execute("ROLLBACK")
+        curr.execute(query)
 
-    table = params['table']
+        result = curr.fetchall()
+
+        return result
+    
+    params = request.data
     phone = params['phone']
 
-    query = f"SELECT EXISTS (SELECT 1 FROM {table} WHERE contact_number = '{phone}')"
-    
-    curr.execute("ROLLBACK")
-    curr.execute(query)
-
-    result = curr.fetchall()[0][0]
-    
-    return Response(result)
+    result = check_existance('student')
+    if len(result):
+        id = result[0][0]
+        return Response({'id': id, 'type': "student"})
+    else:
+        result = check_existance('teacher')
+        if len(result):
+            id = result[0][0]
+            return Response({'id': id, 'type': "teacher"})
+        else:
+            return Response(None)
 
 @api_view(['POST'])
 def insert_data(request):

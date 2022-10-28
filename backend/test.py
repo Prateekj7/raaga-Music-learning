@@ -12,16 +12,12 @@ if __name__ == "__main__":
 
 
     # data = {
-    #     "table": "student",
+    #     "table": "teacher",
     #     "data": {
     #         "name": "MKS",
-    #         "city": "Madhubani",
-    #         "state": "Bihar",
-    #         "pin_code": 847226,
-    #         "about": "A student of Apnito",
-    #         "qualification": "12 th",
-    #         "contact_no": "123456789",
-    #         "email_id": "qwerb@gmail.com"
+    #         "contact_number": "+91123456789",
+    #         "email_id": "qwerb@gmail.com",
+    #         "gender": "M"
     #     }
     # }
     # data = json.dumps(data)
@@ -103,7 +99,6 @@ if __name__ == "__main__":
     # print(res, json.loads(res.content))
 
     data = {
-        'table': 'student',
         'phone': "+919876543210"
         
     }
