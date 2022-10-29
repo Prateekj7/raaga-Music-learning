@@ -133,7 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # this should be put at the end of the settings.py file
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+     'http://localhost:3000', 'http://localhost:80',
 ]
 
 CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com"]
