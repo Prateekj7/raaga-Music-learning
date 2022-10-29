@@ -42,7 +42,7 @@ jobs:
           PORT: ${{ secrets.DEV_EC2_PORT }}
           KEY: ${{ secrets.DEV_EC2_SSHKEY }}
         with:
-          source: "./docker-compose.dev.yml"
+          source: "./docker-compose.yml"
           target: "/home/ubuntu"
       - name: running docker compose up using ssh
         uses: appleboy/ssh-action@master
@@ -52,5 +52,5 @@ jobs:
           key: ${{ secrets.DEV_EC2_SSHKEY }}
           port: ${{ secrets.DEV_EC2_PORT }}
           script: |
-            sudo docker compose -f docker-compose.dev.yml down
-            sudo docker compose -f docker-compose.dev.yml pull && sudo docker compose -f docker-compose.dev.yml up -d
+            sudo docker compose -f docker-compose.yml down
+            sudo docker compose -f docker-compose.yml pull && sudo docker compose -f docker-compose.yml up -d

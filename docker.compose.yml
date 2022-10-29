@@ -12,9 +12,29 @@ services:
 
   flask-api:
     image: apnito/raaga:flask-dev-latest
-    command: gunicorn --bind 0.0.0.0:5000 app:app
+    command: python manage.py runserver 0.0.0.0:8000
     container_name: flask-api
     ports:
-      - "5000:5000"
+      - "8000:8000"
     environment:
       TZ: "Asia/Kolkata"
+      database: 'postgresql://postgres:raaga@postgres:5432'
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/backend
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: raaga
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: raaga
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_db_vol:/var/lib/postgresql/data
+
+volumes:
+  postgres_db_vol:
