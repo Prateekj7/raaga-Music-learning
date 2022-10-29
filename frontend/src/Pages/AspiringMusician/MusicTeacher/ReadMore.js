@@ -1,70 +1,191 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Collapse from "react-bootstrap/Collapse";
-import { FaThemeco } from "react-icons/fa";
-import ReadMores from "./ReadMores";
+import React, { useState, useEffect } from "react";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { FaStar } from "react-icons/fa";
+import ReactPlayer from "react-player";
+import styles from "../../../components/FeaturedArtist/FeaturedArtistCard.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import Review from "./Review";
 
-const ReadMore = () => {
-  const [open, setOpen] = useState({
-    showMore: false,
-  });
-  const [readMore, setReadMore] = useState([]);
+const ReadMore = ({ teacher }) => {
+  const { name, image_url, experience, hourly_rate, video, address } = teacher;
+  const [teacherReadMore, setTeacherReadMore] = useState();
 
   useEffect(() => {
-    fetch("teacher.json")
-      .then((res) => res.json())
-      .then((data) => setReadMore(data));
+    let data = {
+      id: teacher.id,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+
+    const getTableData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/read_teacher_metadata/", requestOptions);
+        const result = await response.json();
+        if (response.ok) {
+          setTeacherReadMore(result[0]);
+        } else {
+          throw Error(result);
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    getTableData();
   }, []);
 
   return (
-    <Container style={{ backgroundColor: "white" }}>
-      <Col style={{ backgroundColor: "white" }}>
-        <div>
-          {!open.showMore && (
-            <Button
-              onClick={() =>
-                setOpen((prev) => ({
-                  ...prev,
-                  showMore: !prev.showMore,
-                }))
-              }
-              aria-controls="example-collapse-text"
-              aria-expanded={open}
-            >
-              ReadMore
-            </Button>
-          )}
-          {open.showMore && (
-            <Collapse in={open}>
-              <div id="example-collapse-text">
-                {readMore.slice(0, 1).map((readMores) => (
-                  <ReadMores
-                    key={readMore._id}
-                    readMores={readMores}
-                  ></ReadMores>
-                ))}
+    <Container>
+      <Row>
+        <Col>
+          {" "}
+          <div className="d-flex mb-3 ">
+            <div className="pb-3">
+              <div className="p-3">
+                <div className={`${styles["Stroke-28"]}`}>
+                  <div className={`${styles["card_img"]}`}>
+                    <img src="https://tinyurl.com/2r9xk25a" alt="user" />
+                  </div>
+                </div>
               </div>
-            </Collapse>
-          )}
-        </div>
-        <div className="d-flex justify-content-center">
-          {open.showMore && (
-            <Button
-              onClick={() =>
-                setOpen((prev) => ({
-                  ...prev,
-                  showMore: !prev.showMore,
-                }))
-              }
-              aria-controls="example-collapse-text"
-              aria-expanded={open}
-            >
-              Read Less
-            </Button>
-          )}
-        </div>
-      </Col>
+            </div>
+            <div className="pt-2">
+              <div className="d-flex">
+                <h2>{name}</h2>
+              </div>
+              <h5 className="m-1 pb-2">{experience} experience</h5>
+              <h5 className="m-2 text-danger">hourly fees: ${hourly_rate}</h5>
+              <div className="d-flex m-2">
+                <div>
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                </div>
+                <div className="mb-2"></div>
+              </div>
+              <div className="pb-2">
+                {" "}
+                <Review></Review>
+              </div>
+            </div>
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <ReactPlayer className="w-50 h-25" url={teacherReadMore?.video_url} />
+          </div>
+        </Col>
+        <div className="border-bottom border-dark pb-5"></div>
+      </Row>
+
+      <Row>
+        <Col className="w-25">
+          <div className="d-flex">
+            <div>
+              <div className="d-flex">
+                <h3>{name}</h3>
+                <div className="d-flex">
+                  <h5 className=" pt-1 m-1">{teacherReadMore?.about}</h5>
+                  <div className=" ">
+                    <h5 className="pt-1 m-1">{experience} experience</h5>
+
+                    <div className="d-flex">
+                      <div className="pt-1 m-1 ">
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3 className=" pr-2">Address: {`${teacherReadMore?.city} ${teacherReadMore?.state}-${teacherReadMore?.pin_code}, ${teacherReadMore?.location}`}</h3>
+              <h3 className="pb-1">
+                About: {teacherReadMore?.about}
+              </h3>
+              <h4>Special Qualification in music:{teacherReadMore?.qualification}</h4>
+              <h4>No. of Students taught: {teacherReadMore?.student_count}</h4>
+              <h4>Choose type of class: {teacherReadMore?.class_mode}</h4>
+            </div>
+            <div></div>
+          </div>
+        </Col>
+
+        <Col className="py-3 my-2">
+          <Card className="shadow-lg ">
+            <Card.Header className="p-3" style={{ backgroundColor: "purple" }}>
+              <div className="d-flex ">
+                <h3 className="px-4 pt-2 text-white">$Fees:</h3>
+                <div className="px-2">
+                  <div>
+                    <h5 className="text-white">Hourly</h5>
+                    <h5 className="text-white">1000</h5>
+                  </div>
+                </div>
+                <div className="px-2">
+                  <div>
+                    <h5 className="text-white">WEEKLY(3 DAYS)</h5>
+                    <h5 className="text-white">2,500</h5>
+                  </div>
+                </div>
+                <div className="px-1">
+                  <div>
+                    <h5 className="text-white">MONTHLY(12 DAYS)</h5>
+                    <h5 className="text-white">10,500</h5>
+                  </div>
+                </div>
+              </div>
+            </Card.Header>
+            <Card.Body className="py-2">
+              <div>
+                <h3>Booking a time Slot</h3>
+                <h4>Morning</h4>
+                <div>
+                  {" "}
+                  <Button className=" mx-3 btn  ">10.00 Am</Button>
+                  <Button className=" mx-2  btn ">10.00 Am</Button>
+                  <Button className=" mx-2 btn ">10.00 Am</Button>
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
+                </div>
+                <h4>AfterNoon</h4>
+                <div>
+                  {" "}
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
+                  <Button className=" mx-2  btn ">10.00 Am</Button>
+                  <Button className=" mx-2 btn ">10.00 Am</Button>
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
+                </div>
+                <h4>Evening</h4>
+                <div>
+                  {" "}
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
+                  <Button className=" mx-2  btn ">10.00 Am</Button>
+                  <Button className=" mx-2 btn ">10.00 Am</Button>
+                  <Button className=" mx-3 btn ">10.00 Am</Button>
+                </div>
+              </div>
+              <div className="d-flex justify-content-center py-3 ">
+                {/* <Link to="/profile" onClick={navigateProfile}> */}
+                <Button
+                  className="mx-3  btn-lg "
+                  style={{ textColor: "purple" }}
+                >
+                  BOOK NOW
+                </Button>
+                {/* </Link> */}
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 };

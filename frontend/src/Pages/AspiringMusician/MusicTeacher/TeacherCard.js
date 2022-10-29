@@ -7,15 +7,19 @@ import { FaStar } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import Review from "./Review";
 import ReadMore from "./ReadMore";
-// import img from "../../../../public/assets/Shape/shape.png";
+import Collapse from "react-bootstrap/Collapse";
 
-const MusicTeachers = ({ teachers }) => {
-  const { name, image_url, post, experience, hourly_rate, video, address } = teachers;
+
+const TeacherCard = ({ teacher }) => {
+  const { name, image_url, post, experience, hourly_rate } = teacher;
   const defaultState = {
     showMore: false,
   };
 
   const [state, setState] = useState(defaultState);
+  const [open, setOpen] = useState({
+    showMore: false,
+  });
 
   return (
     <Container>
@@ -67,7 +71,51 @@ const MusicTeachers = ({ teachers }) => {
                     }))
                   }
                 >
-                  <ReadMore></ReadMore>
+                  <Container style={{ backgroundColor: "white" }}>
+                    <Col style={{ backgroundColor: "white" }}>
+                      <div>
+                        {!open.showMore && (
+                          <Button
+                            onClick={() =>
+                              setOpen((prev) => ({
+                                ...prev,
+                                showMore: !prev.showMore,
+                              }))
+                            }
+                            aria-controls="example-collapse-text"
+                            aria-expanded={open}
+                          >
+                            ReadMore
+                          </Button>
+                        )}
+                        {open.showMore && (
+                          <Collapse in={open}>
+                            <div id="example-collapse-text">
+                              <ReadMore
+                                teacher={teacher}
+                              ></ReadMore>
+                            </div>
+                          </Collapse>
+                        )}
+                      </div>
+                      <div className="d-flex justify-content-center">
+                        {open.showMore && (
+                          <Button
+                            onClick={() =>
+                              setOpen((prev) => ({
+                                ...prev,
+                                showMore: !prev.showMore,
+                              }))
+                            }
+                            aria-controls="example-collapse-text"
+                            aria-expanded={open}
+                          >
+                            Read Less
+                          </Button>
+                        )}
+                      </div>
+                    </Col>
+                  </Container>
                 </div>
               </div>
             </div>
@@ -80,4 +128,4 @@ const MusicTeachers = ({ teachers }) => {
   );
 };
 
-export default MusicTeachers;
+export default TeacherCard;

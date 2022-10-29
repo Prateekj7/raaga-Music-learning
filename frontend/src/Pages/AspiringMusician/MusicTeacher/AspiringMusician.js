@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import MusicTeachers from "./MusicTeachers";
+import TeacherCard from "./TeacherCard";
 import Review from "./Review";
 
 import Teachers from "./MusicTeacher.module.css";
@@ -9,8 +9,8 @@ import Pagination from "./Paginaiton";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import MenuItem from "./MenuItem";
 
-const MusicTeacher = () => {
-  const [teacher, setTeacher] = useState([]);
+const AspiringMusician = () => {
+  const [teachers, setTeachers] = useState([]);
 
   useEffect(() => {
     let data = {
@@ -28,10 +28,10 @@ const MusicTeacher = () => {
 
     const getTableData = async () => {
       try {
-        const response = await fetch("/read_teacher_main_data/", requestOptions);
+        const response = await fetch("http://localhost:8000/read_teacher_main_data/", requestOptions);
         const result = await response.json();
         if (response.ok) {
-          setTeacher(result);
+          setTeachers(result);
           console.log(result);
         } else {
           throw Error(result);
@@ -61,11 +61,11 @@ const MusicTeacher = () => {
           <MenuItem></MenuItem>
           <div className="border-bottom border-dark"></div>
           <div className="mx-2 ">
-            {teacher.map((teachers) => (
-              <MusicTeachers
-                key={teachers.id}
-                teachers={teachers}
-              ></MusicTeachers>
+            {teachers.map((teacher) => (
+              <TeacherCard
+                key={teacher.id}
+                teacher={teacher}
+              ></TeacherCard>
             ))}
           </div>
         </Row>
@@ -77,4 +77,4 @@ const MusicTeacher = () => {
   );
 };
 
-export default MusicTeacher;
+export default AspiringMusician;

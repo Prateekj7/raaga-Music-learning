@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import MusicTeacher from "./Pages/AspiringMusician/MusicTeacher/MusicTeacher";
+import AspiringMusician from "./Pages/AspiringMusician/MusicTeacher/AspiringMusician";
 import MusicTeacherContactUs from "./components/MusicTeacherContactUs/MusicTeacherContactUs";
 import Home from "./Pages/Home";
 import "./aws-exports";
@@ -15,7 +15,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
-          <Route path="/aspiring-musician" element={<MusicTeacher />}></Route>
+          <Route path="/aspiring-musician" element={<AspiringMusician />}></Route>
           <Route path="/music-teacher" element={<MusicTeacherContactUs />}></Route>
         </Routes>
         <Footer />
