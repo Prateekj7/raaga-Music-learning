@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-wypw$285r#25$%i4gn72p0t7dh2u$=2%u#*-gm+z(+xi)@%0h8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django-backend', '127.0.0.1','https://c2f5-43-205-111-44.in.ngrok.io',]
+# ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django-backend', '127.0.0.1','https://c2f5-43-205-111-44.in.ngrok.io',]
 
 # Application definition
 
@@ -131,9 +131,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# this should be put at the end of the settings.py file
-CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000', 'http://localhost:80',
-]
+# # this should be put at the end of the settings.py file
+# CORS_ORIGIN_WHITELIST = [
+#      'http://localhost:3000', 'http://localhost:80',
+# ]
 
-CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com"]
+# CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com"]
+CORS_ORIGIN_ALLOW_ALL = True
