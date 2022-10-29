@@ -1,7 +1,7 @@
 # raaga-project_readme
 
 
-# django-backend
+# django-backend_readme
 
 1. pip/pip3 install -r requirements.txt
 2. python/python3 manage.py makemigrations
