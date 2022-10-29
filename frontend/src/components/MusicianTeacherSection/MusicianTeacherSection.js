@@ -8,10 +8,14 @@ import musicianIcon from "../../images/musicianIcon.png";
 import teacherIcon from "../../images/teacherIcon.png";
 
 function ResponsiveAutoExample() {
-    const contentList = useMemo(() => [
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."], []);
+    const teacherContentList = useMemo(() => [
+        "Are you a music teacher and wish to reach out to more students without any hassle?",
+        "Do you want to create your own brand as a music teacher?",
+        "Do you want to collaborate with the best musicians in the music fraternity?"], []);
+    const studentContentList = useMemo(() => [
+        "Do you want to learn music from a teacher of your choice from anywhere in the world?",
+        "Do you want to have flexibility in terms of timing of classes?",
+        "Do you want to be known as the best in the music fraternity?"], []);
 
     return (
         <Container fluid className={`${styles["musician-teacher-container"]}`}>
@@ -20,14 +24,14 @@ function ResponsiveAutoExample() {
                     <UserLogin
                         icon={musicianIcon}
                         header="ASPIRING MUSICIAN"
-                        contentList={contentList}
+                        contentList={studentContentList}
                         buttonText="Login for Aspiring Musician" />
                 </Col>
                 <Col md={6}>
                     <UserLogin
                         icon={teacherIcon}
                         header="MUSIC TEACHER"
-                        contentList={contentList}
+                        contentList={teacherContentList}
                         buttonText="Login for Music Teacher" />
                 </Col>
             </Row>
