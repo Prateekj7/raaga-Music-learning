@@ -1,7 +1,6 @@
-version: '3.7'
+version: "3.7"
 
 services:
-
   react-app:
     image: apnito/raaga:react-dev-latest
     container_name: react-app
@@ -13,7 +12,7 @@ services:
   flask-api:
     image: apnito/raaga:flask-dev-latest
     command: python manage.py runserver 0.0.0.0:8000
-    container_name: flask-api
+    container_name: django-backend
     ports:
       - "8000:8000"
     environment:
@@ -21,8 +20,7 @@ services:
       database: 'postgresql://postgres:raaga@postgres:5432'
     depends_on:
       - postgres
-    volumes:
-      - ./backend:/backend
+
   postgres:
     image: postgres
     environment:
