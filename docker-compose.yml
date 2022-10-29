@@ -11,13 +11,13 @@ services:
 
   flask-api:
     image: apnito/raaga:flask-dev-latest
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c " python manage.py migrate &&
+          gunicorn CoreRoot.wsgi:application --bind 0.0.0.0:8000"
     container_name: django-backend
-    ports:
-      - "8000:8000"
     environment:
       TZ: "Asia/Kolkata"
-      database: 'postgresql://postgres:raaga@postgres:5432'
+      database: "postgresql://postgres:raaga@postgres:5432"
     depends_on:
       - postgres
 

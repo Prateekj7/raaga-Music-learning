@@ -28,7 +28,7 @@ const AspiringMusician = () => {
 
     const getTableData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/read_teacher_main_data/", requestOptions);
+        const response = await fetch("/api/read_teacher_main_data/", requestOptions);
         const result = await response.json();
         if (response.ok) {
           setTeachers(result);

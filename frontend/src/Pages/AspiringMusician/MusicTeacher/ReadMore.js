@@ -23,7 +23,7 @@ const ReadMore = ({ teacher }) => {
 
     const getTableData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/read_teacher_metadata/", requestOptions);
+        const response = await fetch("/api/read_teacher_metadata/", requestOptions);
         const result = await response.json();
         if (response.ok) {
           setTeacherReadMore(result[0]);
