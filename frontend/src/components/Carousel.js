@@ -22,7 +22,7 @@ function UncontrolledExample() {
                     <Carousel.Caption className={`${styles["carousel-caption"]}`}>
                         <div className={`${styles["carousel-text"]}`}>
                             <h4 className={`${styles["carousel-heading-1"]}`}>MUSIC NEVER ENDS</h4>
-                            <h4 className={`${styles["carousel-heading-2"]}`}>SING YOUR HEART OUT</h4>
+                            <h4 className={`${styles["carousel-heading-2"]}`}>MUSIC HAS NO BOUNDARIES</h4>
                         </div>
                     </Carousel.Caption>
                 </Carousel.Item>
