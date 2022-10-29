@@ -17,3 +17,32 @@
   background-color: var(--grape_purple);
   border: solid 1px var(--grape_purple);
 }
+.teacher-name {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--black);
+}
+.teacher-experience {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-med);
+  color: var(--black);
+}
+.teacher-experience {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-med);
+  color: var(--black);
+}
+.teacher-rate {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-med);
+  color: var(--grape_purple);
+}
+
+.read-more-header {
+  border: 1px solid var(--grape_purple);
+}
+.read-more {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-med);
+  color: var(--grape_purple);
+}

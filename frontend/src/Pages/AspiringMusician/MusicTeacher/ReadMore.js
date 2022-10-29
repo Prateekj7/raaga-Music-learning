@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import ReactPlayer from "react-player";
-import styles from "../../../components/FeaturedArtist/FeaturedArtistCard.module.css";
+import styles from "./ReadMore.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Review from "./Review";
 
@@ -39,88 +39,73 @@ const ReadMore = ({ teacher }) => {
   }, []);
 
   return (
-    <Container>
+    <div>
       <Row>
-        <Col>
-          {" "}
-          <div className="d-flex mb-3 ">
-            <div className="pb-3">
-              <div className="p-3">
-                <div className={`${styles["Stroke-28"]}`}>
-                  <div className={`${styles["card_img"]}`}>
-                    <img src="https://tinyurl.com/2r9xk25a" alt="user" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="pt-2">
-              <div className="d-flex">
-                <h2>{name}</h2>
-              </div>
-              <h5 className="m-1 pb-2">{experience} experience</h5>
-              <h5 className="m-2 text-danger">hourly fees: ${hourly_rate}</h5>
-              <div className="d-flex m-2">
-                <div>
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                </div>
-                <div className="mb-2"></div>
-              </div>
-              <div className="pb-2">
-                {" "}
-                <Review></Review>
-              </div>
-            </div>
-          </div>
-        </Col>
-        <Col>
+        <Col lg={6}>
           <div>
-            <ReactPlayer className="w-50 h-25" url={teacherReadMore?.video_url} />
+            <ReactPlayer
+              controls={true}
+              url={teacherReadMore?.video_url}
+              width="100%"
+            />
           </div>
         </Col>
-        <div className="border-bottom border-dark pb-5"></div>
       </Row>
 
+      <div className="border-bottom border-dark pb-4"></div>
       <Row>
-        <Col className="w-25">
+        <Col lg={7}>
           <div className="d-flex">
             <div>
-              <div className="d-flex">
-                <h3>{name}</h3>
-                <div className="d-flex">
-                  <h5 className=" pt-1 m-1">{teacherReadMore?.about}</h5>
-                  <div className=" ">
-                    <h5 className="pt-1 m-1">{experience} experience</h5>
-
-                    <div className="d-flex">
-                      <div className="pt-1 m-1 ">
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                      </div>
-                    </div>
-                  </div>
+              <div className="d-flex align-items-center my-3">
+                <h4 className={`${styles["teacher-name"]} p-0 m-0 me-2`}>{name}</h4>
+                <h5 className={`${styles["teacher-experience"]} p-0 m-0 me-2`}>{experience} Years experience</h5>
+                <div >
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
                 </div>
               </div>
-              <h3 className=" pr-2">Address: {`${teacherReadMore?.city} ${teacherReadMore?.state}-${teacherReadMore?.pin_code}, ${teacherReadMore?.location}`}</h3>
-              <h3 className="pb-1">
-                About: {teacherReadMore?.about}
-              </h3>
-              <h4>Special Qualification in music:{teacherReadMore?.qualification}</h4>
-              <h4>No. of Students taught: {teacherReadMore?.student_count}</h4>
-              <h4>Choose type of class: {teacherReadMore?.class_mode}</h4>
+              <div className="d-flex">
+                <strong className={`${styles["read-more-bold"]} me-2`}>Address:</strong>
+                <address className={`${styles["read-more-med"]}`}>
+                  {`${teacherReadMore?.city}, ${teacherReadMore?.state} - ${teacherReadMore?.pin_code}, ${teacherReadMore?.location}`}
+                </address>
+              </div>
+              <div className="d-flex">
+                <strong className={`${styles["read-more-bold"]} me-2`}>About:</strong>
+                <p className={`${styles["read-more-med"]}`}>
+                  {teacherReadMore?.about}
+                </p>
+              </div>
+              <div className="d-flex">
+                <p className={`${styles["read-more-med"]} me-2`}>
+                  Special Qualification in music:
+                </p>
+                <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.qualification} </strong>
+              </div>
+              <div className="d-flex">
+                <p className={`${styles["read-more-med"]} me-2`}>
+                  No. of Students taught:
+                </p>
+                <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.student_count} </strong>
+              </div>
+              <div className="d-flex">
+                <p className={`${styles["read-more-med"]} me-2`}>
+                  Choose type of class:
+                </p>
+                <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.class_mode} </strong>
+              </div>
             </div>
-            <div></div>
           </div>
         </Col>
 
-        <Col className="py-3 my-2">
-          <Card className="shadow-lg ">
+        <Col>
+        </Col>
+        {/* <Col className="lg-4">
+          <Card className="">
             <Card.Header className="p-3" style={{ backgroundColor: "purple" }}>
               <div className="d-flex ">
                 <h3 className="px-4 pt-2 text-white">$Fees:</h3>
@@ -173,20 +158,18 @@ const ReadMore = ({ teacher }) => {
                 </div>
               </div>
               <div className="d-flex justify-content-center py-3 ">
-                {/* <Link to="/profile" onClick={navigateProfile}> */}
                 <Button
                   className="mx-3  btn-lg "
                   style={{ textColor: "purple" }}
                 >
                   BOOK NOW
                 </Button>
-                {/* </Link> */}
               </div>
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
       </Row>
-    </Container>
+    </div >
   );
 };
 

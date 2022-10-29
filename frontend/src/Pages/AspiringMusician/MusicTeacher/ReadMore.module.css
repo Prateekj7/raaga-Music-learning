@@ -1,0 +1,22 @@
+.teacher-name {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--black);
+}
+
+.teacher-experience {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-med);
+  color: var(--black);
+}
+
+.read-more-bold {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--black);
+}
+.read-more-med {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-med);
+  color: var(--black);
+}
