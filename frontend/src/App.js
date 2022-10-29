@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import AspiringMusician from "./Pages/AspiringMusician/MusicTeacher/AspiringMusician";
+import AspiringMusician from "./Pages/AspiringMusician";
 import MusicTeacherContactUs from "./components/MusicTeacherContactUs/MusicTeacherContactUs";
 import Home from "./Pages/Home";
 import "./aws-exports";
