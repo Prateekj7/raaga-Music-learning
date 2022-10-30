@@ -28,11 +28,11 @@ const AspiringMusician = () => {
 
     const getTableData = async () => {
       try {
-        const response = await fetch("/api/read_teacher_main_data/", requestOptions);
+        const response = await fetch("/api/hello_world/");
         const result = await response.json();
         if (response.ok) {
           setTeachers(result);
-          console.log(result);
+          console.log(response);
         } else {
           throw Error(result);
         }
