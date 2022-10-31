@@ -20,7 +20,7 @@ function BasicExample() {
 
   const [show, setShow] = useState(false);
   const handleShowDrawer = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const handleCloseDrawer = () => setShow(false);
 
   let currentRoute = useLocation().pathname;
   useEffect(() => {
@@ -100,7 +100,7 @@ function BasicExample() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <SideDrawer show={show} handleClose={handleClose} />
+      <SideDrawer show={show} handleCloseDrawer={handleCloseDrawer} />
     </>
   );
 }
