@@ -1,8 +1,6 @@
-import { useForm } from "react-hook-form";
 import styles from "./MusicTeacherContactUs.module.css";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { Col, Row, Table } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import image from "./6682-removebg-preview.png";
 
 function MusicTeacherContactUs() {
