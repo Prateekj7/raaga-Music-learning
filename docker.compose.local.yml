@@ -20,30 +20,29 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     image: apnito/raaga:django-dev
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    python manage.py runserver 0.0.0.0:8000"
     container_name: django-backend
     ports:
       - "8000:8000"
     environment:
       TZ: "Asia/Kolkata"
-      database: 'postgresql://postgres:raaga@postgres:5432'
-    depends_on:
-      - postgres
     volumes:
       - ./backend:/backend
 
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_HOST: postgres
-      POSTGRES_DB: raaga
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: raaga
-    container_name: postgres-db
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_db_vol:/var/lib/postgresql/data
+#   postgres:
+#     image: postgres
+#     environment:
+#       POSTGRES_HOST: postgres
+#       POSTGRES_DB: raaga
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: raaga
+#     container_name: postgres-db
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_db_vol:/var/lib/postgresql/data
 
-volumes:
-  postgres_db_vol:
+# volumes:
+#   postgres_db_vol:

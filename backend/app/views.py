@@ -13,16 +13,17 @@ import json
 import hashlib
 import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.middleware.csrf import get_token
+from django.conf import settings
+import uuid
 
 conn = psycopg2.connect(
-    host="postgres",
-    database="raaga",
-    user="postgres",
-    password="raaga",
-    port="5432"
+    host=settings.DATABASES['default']['HOST'],
+    database=settings.DATABASES['default']['NAME'],
+    user=settings.DATABASES['default']['USER'],
+    password=settings.DATABASES['default']['PASSWORD'],
+    port=settings.DATABASES['default']['PORT']
     )
-
-# conn = psycopg2.connect(host="raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com", database="postgres", user="postgres", password="raaga_apnito_test_db", port="5432")
 
 # create a cursor
 curr = conn.cursor()
@@ -30,6 +31,10 @@ curr = conn.cursor()
 def generate_id(inserted_data_dict):
     ref_data = str(inserted_data_dict)
     return hashlib.md5(ref_data.encode()).hexdigest()
+
+@api_view(['GET'])
+def get_csrf_token(request):
+    return Response({'csrf_token': get_token(request)})
 
 @api_view(['GET'])
 def foo(request):
@@ -70,6 +75,8 @@ def insert_data(request):
     table = params['table']
     data = params['data']
 
+    data['id'] = uuid.uuid4()
+
     columns = data.keys()
     
     query = "INSERT INTO {} ({}) VALUES %s".format(table, ', '.join(columns))
@@ -109,7 +116,7 @@ def read_data(request):
     
     return Response(df.to_dict('records'))
 
-@csrf_exempt
+
 @api_view(['POST'])
 def read_teacher_main_data(request):
     params = request.data
@@ -138,7 +145,7 @@ def read_teacher_metadata(request):
     
     id = params['id']
 
-    query = f"SELECT location, city, state, pin_code, about, qualification, achievement, class_mode, like_count, student_count, video_url FROM teacher where id = {id}"
+    query = f"SELECT location, city, state, pin_code, about, qualification, achievement, class_mode, like_count, student_count, video_url FROM teacher where id = '{id}'"
     
     curr.execute("ROLLBACK")
     curr.execute(query)
@@ -157,7 +164,7 @@ def read_teacher_reviews(request):
 
     id = params['id']
 
-    query = f"select reviews from teacher where id = {id}"
+    query = f"select reviews from teacher where id = '{id}'"
 
     curr.execute("ROLLBACK")
     curr.execute(query)
@@ -196,7 +203,7 @@ def read_teacher_schedules(request):
     category_name = params['category_name']
     category_value = params['category_value']
 
-    query = f"select schedule -> '{category_name}' -> '{category_value}' as schedule from teacher where id = {id}"
+    query = f"select schedule -> '{category_name}' -> '{category_value}' as schedule from teacher where id = '{id}'"
 
     curr.execute("ROLLBACK")
     curr.execute(query)
@@ -229,7 +236,7 @@ def update_count(request):
     column = params['column']
     type = params['type'] # values will be '+' or '-'
 
-    query = "UPDATE {} SET {} = {} {} 1 where id = {}".format(table, column, column, type, id)
+    query = "UPDATE {} SET {} = {} {} 1 where id = '{}'".format(table, column, column, type, id)
     
     curr.execute("ROLLBACK")
     curr.execute(query)
@@ -294,7 +301,8 @@ def book_class(request):
     data = params['data']
 
     duration = 60
-
+    
+    data['id'] = uuid.uuid4()
     data['is_active'] = 't'
     data['is_completed'] = 'f'
     data['is_rescheduled'] = 'f'
