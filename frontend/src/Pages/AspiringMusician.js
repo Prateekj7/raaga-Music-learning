@@ -68,6 +68,7 @@ const AspiringMusician = () => {
         <Col>
           <div className={`pb-lg-4 py-3 d-flex justify-content-lg-end`}>
             <button className={`${styles["login-button"]} me-4`}>Vocal</button>
+
             <button className={`${styles["login-button"]}`}>Instrument</button>
           </div>
         </Col>
