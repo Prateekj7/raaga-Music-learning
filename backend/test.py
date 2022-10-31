@@ -2,7 +2,7 @@ import requests
 import json
 
 def hello_world():
-    res = requests.get("http://127.0.0.1:8000/hello_world/")
+    res = requests.get("http://127.0.0.1:8000/api/hello_world/")
     print(res.status_code)
 
 
@@ -12,16 +12,16 @@ if __name__ == "__main__":
 
 
     # data = {
-    #     "table": "teacher",
+    #     "table": "student",
     #     "data": {
-    #         "name": "MKS",
+    #         "name": "Mohan Kumar Sah",
     #         "contact_number": "+91123456789",
     #         "email_id": "qwerb@gmail.com",
     #         "gender": "M"
     #     }
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/insert_data/', data=data, headers=headers)
+    # res = requests.post('http://127.0.0.1:8000/api/insert_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
 
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     #     "id": '1'
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/read_data/', data=data, headers=headers)
+    # res = requests.post('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
@@ -43,23 +43,23 @@ if __name__ == "__main__":
     #     "category_value": 'indian_classical'
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/read_teacher_main_data/', data=data, headers=headers)
+    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_main_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
-    #     "id": "1",
+    #     "id": "65469eff-157a-4be1-b914-af677773a152",
     #     "category_name": "vocal",
     #     "category_value": 'indian_classical'
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/read_teacher_metadata/', data=data, headers=headers)
+    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_metadata/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
     #     "id": "1"
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/read_teacher_reviews/', data=data, headers=headers)
+    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     #     "category_value": 'indian_classical'
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/read_teacher_schedules/', data=data, headers=headers)
+    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_schedules/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     #     'currency': 'INR'
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/generate_payment_order/', data=data, headers=headers)
+    # res = requests.post('http://127.0.0.1:8000/api/generate_payment_order/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
@@ -95,17 +95,17 @@ if __name__ == "__main__":
         
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/book_class/', data=data, headers=headers)
+    # res = requests.post('http://127.0.0.1:8000/api/book_class/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    # data = {
-    #     'phone': "+919876543210"
+    data = {
+        'phone': "+919876543210"
         
-    # }
-    # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/check_user_existance/', data=data, headers=headers)
-    # print(res, json.loads(res.content))
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/api/check_user_existance/', data=data, headers=headers)
+    print(res, json.loads(res.content))
 
 
-    res = requests.get('http://127.0.0.1:8000/api/get_csrf_token/', headers=headers)
-    print(res, json.loads(res.content))    
+    # res = requests.get('http://127.0.0.1:8000/api/get_csrf_token/', headers=headers)
+    # print(res, json.loads(res.content))    
