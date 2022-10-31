@@ -13,6 +13,7 @@ import json
 import hashlib
 import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.middleware.csrf import get_token
 
 conn = psycopg2.connect(
     host="postgres",
@@ -30,6 +31,10 @@ curr = conn.cursor()
 def generate_id(inserted_data_dict):
     ref_data = str(inserted_data_dict)
     return hashlib.md5(ref_data.encode()).hexdigest()
+
+@api_view(['GET'])
+def get_csrf_token(request):
+    return Response({'csrf_token': get_token(request)})
 
 @api_view(['GET'])
 def foo(request):
@@ -109,7 +114,7 @@ def read_data(request):
     
     return Response(df.to_dict('records'))
 
-@csrf_exempt
+
 @api_view(['POST'])
 def read_teacher_main_data(request):
     params = request.data

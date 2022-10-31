@@ -11,18 +11,18 @@ if __name__ == "__main__":
     # hello_world()
 
 
-    data = {
-        "table": "teacher",
-        "data": {
-            "name": "MKS",
-            "contact_number": "+91123456789",
-            "email_id": "qwerb@gmail.com",
-            "gender": "M"
-        }
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/insert_data/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # data = {
+    #     "table": "teacher",
+    #     "data": {
+    #         "name": "MKS",
+    #         "contact_number": "+91123456789",
+    #         "email_id": "qwerb@gmail.com",
+    #         "gender": "M"
+    #     }
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/insert_data/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
 
 
     # data = {
@@ -105,3 +105,7 @@ if __name__ == "__main__":
     # data = json.dumps(data)
     # res = requests.post('http://127.0.0.1:8000/check_user_existance/', data=data, headers=headers)
     # print(res, json.loads(res.content))
+
+
+    res = requests.get('http://127.0.0.1:8000/api/get_csrf_token/', headers=headers)
+    print(res, json.loads(res.content))    
