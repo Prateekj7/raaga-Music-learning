@@ -1,10 +1,10 @@
 import styles from "./MusicTeacherContactUs.module.css";
-import Form from "react-bootstrap/Form";
+import Form from 'react-bootstrap/Form';
 import { Col, Row } from "react-bootstrap";
-import image from "./6682-removebg-preview.png";
+import image from './6682-removebg-preview.png';
 
 function MusicTeacherContactUs() {
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = data => console.log(data);
 
   return (
     <div>
@@ -47,6 +47,7 @@ function MusicTeacherContactUs() {
         </Col>
       </Row>
     </div>
+
   );
 }
 

@@ -4,11 +4,11 @@ const Paginaiton = () => {
   return (
     <div>
       <nav aria-label="Page navigation example">
-        <ul className="pagination justify-content-center ">
+        <ul className="pagination justify-content-center">
           <li className="page-item">
             <a className="page-link" href="#" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
-              <span className="sr-only ">Previous</span>
+              <span className="sr-only">Previous</span>
             </a>
           </li>
           <li className="page-item">

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import TeacherCard from "./AspiringMusician/MusicTeacher/TeacherCard";
-
 import styles from "./AspiringMusician.module.css";
 import Pagination from "./AspiringMusician/MusicTeacher/Paginaiton";
 import { Col, Container, Row } from "react-bootstrap";
-
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
-import Form from "react-bootstrap/Form";
+import Form from 'react-bootstrap/Form';
 
 const AspiringMusician = () => {
   const [teachers, setTeachers] = useState([]);
@@ -17,7 +15,7 @@ const AspiringMusician = () => {
       page_size: 100,
       page_number: 1,
       category_name: "vocal",
-      category_value: "ghazal",
+      category_value: "ghazal"
     };
 
     const requestOptions = {
@@ -28,10 +26,7 @@ const AspiringMusician = () => {
 
     const getTableData = async () => {
       try {
-        const response = await fetch(
-          "/api/read_teacher_main_data/",
-          requestOptions
-        );
+        const response = await fetch("/api/read_teacher_main_data/", requestOptions);
         const result = await response.json();
         if (response.ok) {
           setTeachers(result);
@@ -52,33 +47,25 @@ const AspiringMusician = () => {
       <Row>
         <Col lg={8}>
           <div className={`${styles["featured-artist-header"]} pb-lg-4 py-3`}>
-            <img
-              src={doubleArrowIcon}
-              className={`${styles["featured-artist-header-double-arrow-icon"]} p-1`}
-            />
-            <h4 className={`${styles["featured-artist-heading"]}`}>
-              MUSIC TEACHER
-            </h4>
-            <img
-              src={singleArrowIcon}
-              className={`${styles["featured-artist-header-single-arrow-icon"]} p-1`}
-            />
+            <img src={doubleArrowIcon} className={`${styles["featured-artist-header-double-arrow-icon"]} p-1`} />
+            <h4 className={`${styles["featured-artist-heading"]}`}>MUSIC TEACHER</h4>
+            <img src={singleArrowIcon} className={`${styles["featured-artist-header-single-arrow-icon"]} p-1`} />
           </div>
         </Col>
         <Col>
           <div className={`pb-lg-4 py-3 d-flex justify-content-lg-end`}>
-            <button className={`${styles["login-button"]} me-4`}>Vocal</button>
-
+            <button className={`${styles["login-button"]} me-4`}>
+              Vocal
+            </button>
             <button className={`${styles["login-button"]}`}>Instrument</button>
           </div>
         </Col>
+
       </Row>
       <Row>
         <div className="d-flex align-items-center">
           <Col lg={2}>
-            <div className={`${styles["dropdown-label"]} me-3`}>
-              Select Genre
-            </div>
+            <div className={`${styles["dropdown-label"]} me-3`}>Select Genre</div>
           </Col>
           <Col lg={2}>
             <Form.Select aria-label="Default select example">
@@ -94,7 +81,10 @@ const AspiringMusician = () => {
         <div className="border-bottom border-dark my-3"></div>
         <div className="m-0 p-0">
           {teachers.map((teacher) => (
-            <TeacherCard key={teacher.id} teacher={teacher}></TeacherCard>
+            <TeacherCard
+              key={teacher.id}
+              teacher={teacher}
+            ></TeacherCard>
           ))}
         </div>
       </Row>
