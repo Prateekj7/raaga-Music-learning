@@ -8,20 +8,25 @@ services:
       - "80:80"
     environment:
       TZ: "Asia/Kolkata"
+    volumes:
+      - django_static:/usr/share/nginx/html/static
+    depends_on:
+      - flask-api
 
   flask-api:
     image: apnito/raaga:flask-dev-latest
     command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
              gunicorn backend.wsgi:application --bind 0.0.0.0:8000"
     container_name: django-backend
     ports:
       - "8000:8000"
     environment:
       TZ: "Asia/Kolkata"
-    
-
+    volumes:
+      - django_static:/backend/static
 #   postgres:
 #     image: postgres
 #     environment:
@@ -35,5 +40,5 @@ services:
 #     volumes:
 #       - postgres_db_vol:/var/lib/postgresql/data
 
-# volumes:
-#   postgres_db_vol:
+volumes:
+  django_static:
