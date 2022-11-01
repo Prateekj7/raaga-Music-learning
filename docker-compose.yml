@@ -9,7 +9,7 @@ services:
     environment:
       TZ: "Asia/Kolkata"
     volumes:
-      - django_static:/backend/static
+      - django_static:/usr/share/nginx/html/static
     depends_on:
       - flask-api
 
