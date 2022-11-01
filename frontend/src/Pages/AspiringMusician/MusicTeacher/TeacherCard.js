@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
 import styles from "./TeacherCard.module.css";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
+import Review from "./Review";
 import ReadMore from "./ReadMore";
+import Collapse from "react-bootstrap/Collapse";
 import FeaturedArtistCard from "../../../components/FeaturedArtist/FeaturedArtistCard";
 import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
@@ -58,12 +60,12 @@ const TeacherCard = ({ teacher }) => {
               <FaStar />
             </div>
             <div className="d-flex align-items-end">
-              <Button className={`${styles["login-button"]} me-2 mt-3`}>Reviews</Button>
-              <Button className={`${styles["login-button"]} me-2 mt-3`}
+              <button className={`${styles["login-button"]} me-2 mt-3`}>Reviews</button>
+              <button className={`${styles["login-button"]} me-2 mt-3`}
                 onClick={toggleAccordion}
               >
                 {accordianOpen ? "Read less" : "Read more"}
-              </Button>
+              </button>
             </div>
           </div>
         </Col>

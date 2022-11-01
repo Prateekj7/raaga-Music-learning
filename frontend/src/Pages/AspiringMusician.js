@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import TeacherCard from "./AspiringMusician/MusicTeacher/TeacherCard";
-import Review from "./AspiringMusician/MusicTeacher/Review";
 import styles from "./AspiringMusician.module.css";
 import Pagination from "./AspiringMusician/MusicTeacher/Paginaiton";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import MenuItem from "./AspiringMusician/MusicTeacher/MenuItem";
+import { Col, Container, Row } from "react-bootstrap";
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
 import Form from 'react-bootstrap/Form';
@@ -56,10 +54,10 @@ const AspiringMusician = () => {
         </Col>
         <Col>
           <div className={`pb-lg-4 py-3 d-flex justify-content-lg-end`}>
-            <Button className={`${styles["login-button"]} me-4`}>
+            <button className={`${styles["login-button"]} me-4`}>
               Vocal
-            </Button>
-            <Button className={`${styles["login-button"]}`}>Instrument</Button>
+            </button>
+            <button className={`${styles["login-button"]}`}>Instrument</button>
           </div>
         </Col>
 
