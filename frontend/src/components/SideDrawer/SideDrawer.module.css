@@ -45,6 +45,11 @@
   background-color: #6b6b6b;
   border: solid 1px #6b6b6b;
 }
+.get-otp-button:active {
+  color: var(--white);
+  background-color: #6b6b6b;
+  border: solid 1px #3e3e3e;
+}
 
 .footer-text {
   color: var(--white);
@@ -74,4 +79,9 @@
   color: var(--white);
   background-color: #6b6b6b;
   border: solid 1px #6b6b6b;
+}
+.signup-button:active {
+  color: var(--white);
+  background-color: #6b6b6b;
+  border: solid 1px #3e3e3e;
 }
