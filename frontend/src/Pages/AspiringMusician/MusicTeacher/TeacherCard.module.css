@@ -38,9 +38,6 @@
   color: var(--grape_purple);
 }
 
-.read-more-header {
-  border: 1px solid var(--grape_purple);
-}
 .read-more {
   font-size: var(--fs-md);
   font-weight: var(--fw-med);

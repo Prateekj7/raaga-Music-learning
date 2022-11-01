@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./TeacherCard.module.css";
-import { Button, Col, Container, ModalFooter, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
-import Review from "./Review";
 import ReadMore from "./ReadMore";
-import Collapse from "react-bootstrap/Collapse";
 import FeaturedArtistCard from "../../../components/FeaturedArtist/FeaturedArtistCard";
 import Accordion from 'react-bootstrap/Accordion';
-import ReactPlayer from "react-player";
-
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
 const TeacherCard = ({ teacher }) => {
+  const accordionRef = useRef(null);
   const { name, image_url, post, experience, hourly_rate } = teacher;
-  const defaultState = {
-    showMore: false,
+  const [accordianOpen, setAccordianOpen] = useState(false);
+
+  const toggleAccordion = () => {
+    setAccordianOpen((oldState) => !oldState);
+    accordionRef.current.click();
   };
 
-  const [state, setState] = useState(defaultState);
-  const [open, setOpen] = useState({
-    showMore: false,
+  const CustomToggle = React.forwardRef((props, ref) => {
+    const { eventKey, children, className } = props;
+    const decoratedOnClick = useAccordionButton(eventKey, () =>
+      console.log(''),
+    );
+    return (
+      <button
+        ref={ref}
+        type="button"
+        className={className}
+        onClick={decoratedOnClick}
+      >
+        {children}
+      </button>)
   });
 
   return (
@@ -30,7 +42,7 @@ const TeacherCard = ({ teacher }) => {
           </div>
         </Col>
         <Col lg={10}>
-          <div className={`${styles["testimonial-card-text"]} px-lg-4 pt-4 mb-3`}>
+          <div className={`${styles["testimonial-card-text"]} px-lg-4 pt-4 d-flex flex-column `}>
             <h4 className={`${styles["teacher-name"]}`}>{name}</h4>
             <div className={`${styles["teacher-experience"]}`}>
               {`${experience} years`} experience
@@ -45,15 +57,21 @@ const TeacherCard = ({ teacher }) => {
               <FaStar />
               <FaStar />
             </div>
-            <Button className={`${styles["login-button"]} me-2 mt-3`}>Reviews</Button>
+            <div className="d-flex align-items-end">
+              <Button className={`${styles["login-button"]} me-2 mt-3`}>Reviews</Button>
+              <Button className={`${styles["login-button"]} me-2 mt-3`}
+                onClick={toggleAccordion}
+              >
+                {accordianOpen ? "Read less" : "Read more"}
+              </Button>
+            </div>
           </div>
         </Col>
+      </Row>
+      <Row>
         <Accordion flush className="mb-3 p-lg-0 mx-lg-0">
           <Accordion.Item eventKey="0">
-            <Accordion.Header className={`${styles["read-more-header"]}`}>
-              <div className={`${styles["read-more"]}`}>
-                Read More
-              </div></Accordion.Header>
+            <CustomToggle ref={accordionRef} eventKey="0" className="d-none">Read More</CustomToggle>
             <Accordion.Body className="mx-0 px-0">
               <ReadMore
                 teacher={teacher}
