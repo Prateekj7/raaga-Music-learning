@@ -65,3 +65,8 @@
   background-color: var(--grape_purple);
   border: solid 1px var(--grape_purple);
 }
+.login-button:active {
+  color: var(--white);
+  background-color: var(--grape_purple);
+  border: solid 1px var(--white);
+}

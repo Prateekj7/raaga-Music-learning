@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import styles from "./TeacherCard.module.css";
-import { Button, Col, Container, ModalFooter, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
-import Review from "./Review";
 import ReadMore from "./ReadMore";
-import Collapse from "react-bootstrap/Collapse";
 import FeaturedArtistCard from "../../../components/FeaturedArtist/FeaturedArtistCard";
 import Accordion from 'react-bootstrap/Accordion';
-import ReactPlayer from "react-player";
-
 
 const TeacherCard = ({ teacher }) => {
   const { name, image_url, post, experience, hourly_rate } = teacher;
@@ -45,7 +41,9 @@ const TeacherCard = ({ teacher }) => {
               <FaStar />
               <FaStar />
             </div>
-            <Button className={`${styles["login-button"]} me-2 mt-3`}>Reviews</Button>
+            <button className={`${styles["login-button"]} me-2 mt-3`}>
+              Reviews
+            </button>
           </div>
         </Col>
         <Accordion flush className="mb-3 p-lg-0 mx-lg-0">
