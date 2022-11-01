@@ -55,15 +55,15 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/read_teacher_metadata/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    # data = {
-    #     "id": "1"
-    # }
-    # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
-    # print(res, json.loads(res.content))
+    data = {
+        "id": "11943187-79b1-41f7-9534-4a967b7007ca"
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
+    print(res, json.loads(res.content))
 
     # data = {
-    #     "id": "1",
+    #     "id": "11943187-79b1-41f7-9534-4a967b7007ca",
     #     "category_name": "vocal",
     #     "category_value": 'indian_classical'
     # }
@@ -98,13 +98,13 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/book_class/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    data = {
-        'phone': "+919876543210"
+    # data = {
+    #     'phone': "+919876543210"
         
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/api/check_user_existance/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/check_user_existance/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
 
 
     # res = requests.get('http://127.0.0.1:8000/api/get_csrf_token/', headers=headers)

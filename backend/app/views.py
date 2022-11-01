@@ -17,16 +17,51 @@ from django.middleware.csrf import get_token
 from django.conf import settings
 import uuid
 
-conn = psycopg2.connect(
-    host=settings.DATABASES['default']['HOST'],
-    database=settings.DATABASES['default']['NAME'],
-    user=settings.DATABASES['default']['USER'],
-    password=settings.DATABASES['default']['PASSWORD'],
-    port=settings.DATABASES['default']['PORT']
-    )
+def get_cursor():
+    conn = psycopg2.connect(
+            host=settings.DATABASES['default']['HOST'],
+            database=settings.DATABASES['default']['NAME'],
+            user=settings.DATABASES['default']['USER'],
+            password=settings.DATABASES['default']['PASSWORD'],
+            port=settings.DATABASES['default']['PORT']
+            )
 
-# create a cursor
-curr = conn.cursor()
+    # create a cursor
+    curr = conn.cursor()
+    return curr
+
+curr = get_cursor()
+
+def execute_query(query, curr):
+    def execute():
+        curr.execute("ROLLBACK")
+        curr.execute(query)
+
+    try:
+        execute()
+        print("DB Connected")
+    except Exception as e:
+        print("Exception", e)
+        print("DB Re-Connecting")
+        curr = get_cursor()
+        execute()
+
+def get_query_results(curr, is_multiple_reading = False):
+    rows = curr.fetchall()
+
+    df = pd.DataFrame(rows)
+    if len(rows) > 0:
+        df.columns = [entry[0] for entry in curr.description]
+
+    results = df.to_dict('records')
+
+    if is_multiple_reading:
+        return results
+    else:
+        if len(results) == 1:
+            return results[0]
+        else:
+            return []
 
 def generate_id(inserted_data_dict):
     ref_data = str(inserted_data_dict)
@@ -46,9 +81,7 @@ def check_user_existance(request):
     def check_existance(table):
         query = f"SELECT id FROM {table} WHERE contact_number = '{phone}'"
     
-        curr.execute("ROLLBACK")
-        curr.execute(query)
-
+        execute_query(query, curr)
         result = curr.fetchall()
 
         return result
@@ -75,17 +108,14 @@ def insert_data(request):
     table = params['table']
     data = params['data']
 
-    data['id'] = uuid.uuid4()
+    data['id'] = str(uuid.uuid4())
 
     columns = data.keys()
+    values = data.values()
     
-    query = "INSERT INTO {} ({}) VALUES %s".format(table, ', '.join(columns))
+    query = "INSERT INTO {} ({}) VALUES {}".format(table, ', '.join(columns), tuple(values))
     
-    # convert projects values to sequence of seqeences
-    values = [[value for value in entry.values()] for entry in [data]]
-    
-    curr.execute("ROLLBACK")
-    execute_values(curr, query, values)
+    execute_query(query, curr)
     
     return Response('ok')
 
@@ -105,16 +135,10 @@ def read_data(request):
 
     query = "SELECT {} FROM {} where id {} limit {} offset {}".format(', '.join(columns), table, val, limit, offset)
     
-    curr.execute("ROLLBACK")
-    curr.execute(query)
+    execute_query(query, curr)
+    results = get_query_results(curr)
     
-    rows = curr.fetchall()
-
-    df = pd.DataFrame(rows)
-    if len(rows) > 0:
-        df.columns = [entry[0] for entry in curr.description]
-    
-    return Response(df.to_dict('records'))
+    return Response(results)
 
 
 @api_view(['POST'])
@@ -128,16 +152,10 @@ def read_teacher_main_data(request):
 
     query = f"SELECT id, name, experience, rating, schedule -> '{category_name}' -> '{category_value}' -> 'hourly_rate' as hourly_rate, image_url FROM teacher where schedule -> '{category_name}' is not NULL and schedule -> '{category_name}' -> '{category_value}' is not NULL limit {limit} offset {offset}"
     
-    curr.execute("ROLLBACK")
-    curr.execute(query)
+    execute_query(query, curr)
+    results = get_query_results(curr, is_multiple_reading = True)
     
-    rows = curr.fetchall()
-
-    df = pd.DataFrame(rows)
-    if len(rows) > 0:
-        df.columns = [entry[0] for entry in curr.description]
-    
-    return Response(df.to_dict('records'))
+    return Response(results)
 
 @api_view(['POST'])
 def read_teacher_metadata(request):
@@ -147,16 +165,10 @@ def read_teacher_metadata(request):
 
     query = f"SELECT location, city, state, pin_code, about, qualification, achievement, class_mode, like_count, student_count, video_url FROM teacher where id = '{id}'"
     
-    curr.execute("ROLLBACK")
-    curr.execute(query)
+    execute_query(query, curr)
+    results = get_query_results(curr, is_multiple_reading = True)
     
-    rows = curr.fetchall()
-
-    df = pd.DataFrame(rows)
-    if len(rows) > 0:
-        df.columns = [entry[0] for entry in curr.description]
-    
-    return Response(df.to_dict('records'))
+    return Response(results)
 
 @api_view(['POST'])
 def read_teacher_reviews(request):
@@ -166,16 +178,10 @@ def read_teacher_reviews(request):
 
     query = f"select reviews from teacher where id = '{id}'"
 
-    curr.execute("ROLLBACK")
-    curr.execute(query)
+    execute_query(query, curr)
+    results = get_query_results(curr)
     
-    rows = curr.fetchall()
-
-    df = pd.DataFrame(rows)
-    if len(rows) > 0:
-        df.columns = [entry[0] for entry in curr.description]
-    
-    return Response(df.to_dict('records'))
+    return Response(results)
 
 @api_view(['POST'])
 def read_teacher_schedules(request):
@@ -205,17 +211,11 @@ def read_teacher_schedules(request):
 
     query = f"select schedule -> '{category_name}' -> '{category_value}' as schedule from teacher where id = '{id}'"
 
-    curr.execute("ROLLBACK")
-    curr.execute(query)
-    
-    rows = curr.fetchall()
-
-    df = pd.DataFrame(rows)
-    if len(rows) > 0:
-        df.columns = [entry[0] for entry in curr.description]
+    execute_query(query, curr)
+    results = get_query_results(curr)
 
     possible_schedule = prepare_possible_schedule()
-    selected_schedule = (df.to_dict('records'))[0]['schedule']
+    selected_schedule = results['schedule']
     
     available_schedule = []
     for day in selected_schedule.keys():
@@ -238,8 +238,7 @@ def update_count(request):
 
     query = "UPDATE {} SET {} = {} {} 1 where id = '{}'".format(table, column, column, type, id)
     
-    curr.execute("ROLLBACK")
-    curr.execute(query)
+    execute_query(query, curr)
 
     return Response('ok')
 
@@ -302,7 +301,7 @@ def book_class(request):
 
     duration = 60
     
-    data['id'] = uuid.uuid4()
+    data['id'] = str(uuid.uuid4())
     data['is_active'] = 't'
     data['is_completed'] = 'f'
     data['is_rescheduled'] = 'f'
@@ -312,13 +311,10 @@ def book_class(request):
     data['group_id'] = generate_id(data)
 
     columns = data.keys()
+    values = data.values()
     
-    query = "INSERT INTO {} ({}) VALUES %s".format('class', ', '.join(columns))
+    query = "INSERT INTO {} ({}) VALUES {}".format('class', ', '.join(columns), tuple(values))
     
-    # convert projects values to sequence of seqeences
-    values = [[value for value in entry.values()] for entry in [data]]
-    
-    curr.execute("ROLLBACK")
-    execute_values(curr, query, values)
+    execute_query(query, curr)
     
     return Response('ok')
