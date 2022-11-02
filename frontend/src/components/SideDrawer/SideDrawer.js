@@ -25,6 +25,9 @@ function SideDrawer({ show, handleCloseDrawer }) {
             msg:message,
             type:type
         })
+        setTimeout(()=>{
+            setAlert(null)
+        },3000)
     }
     const handleHideSignupPage = () => {
         setShowSignUpPage(false);
@@ -40,7 +43,7 @@ function SideDrawer({ show, handleCloseDrawer }) {
                 id: ""
             });
         }, 1000);
-        showAlert("Successfully SignOut","success")
+        showAlert(" SignOut","success")
     };
 
     function LogOutPage() {
