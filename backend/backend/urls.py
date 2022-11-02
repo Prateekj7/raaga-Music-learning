@@ -20,7 +20,6 @@ from app.views import *
 admin.site.site_header  =  "Raaga Admin Page"
 
 urlpatterns = [
-    path('/' , admin.site.urls),
     path('admin/', admin.site.urls),
     path('api/hello_world/', foo),
     path('api/insert_data/', insert_data),

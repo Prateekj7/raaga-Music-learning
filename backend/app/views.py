@@ -299,7 +299,7 @@ def book_class(request):
 
     data = params['data']
 
-    duration = 60
+    duration = 60 # minutes
     
     data['id'] = str(uuid.uuid4())
     data['is_active'] = 't'
