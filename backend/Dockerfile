@@ -16,9 +16,6 @@ ENV PYTHONUNBUFFERED 1
 # copy all source files from current dir to docker /backend directory
 COPY . .
 
-# Upgrade pip verison
-RUN pip install --upgrade pip
-
 # install app dependencies
 RUN pip install -r requirements.txt
 

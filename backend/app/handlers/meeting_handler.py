@@ -5,8 +5,8 @@ from time import time
   
   
 # Enter your API key and your API secret
-API_KEY = '5Pa8TgjrQH-nE2Om4n9TjQ'
-API_SEC = 'PoRuXp40insTJLEQFhLKxiwQhl9bjirs0wC9'
+API_KEY = 'ky9g2lOMQXuMA_p9FB-q3A'
+API_SEC = 'OXnZkQslyNSrxbWZQG5LzOmgVs0f1Ff9flUh'
   
 # create a function to generate a token
 # using the pyjwt library
@@ -77,8 +77,8 @@ if __name__ == '__main__':
     student = "Anish"
     category_type = "violin"
     category_value = "Indian Classical"
-    duration = 60 # minutes
-    timestamp = "2022-11-01T17:00"
+    duration = 45 # minutes
+    timestamp = "2022-10-26T20:00"
     join_URL, meetingPassword = create_meeting(teacher, student, category_type, category_value, timestamp, duration)
 
     print(f'\n here is your zoom meeting link {join_URL} and your password: "{meetingPassword}"\n')
