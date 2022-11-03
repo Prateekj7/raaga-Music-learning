@@ -92,6 +92,12 @@ const ReadMore = ({ teacher }) => {
                 </p>
                 <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.student_count} </strong>
               </div>
+              <div className="d-flex">
+                <p className={`${styles["read-more-med"]} me-2`}>
+                  Choose type of class:
+                </p>
+                <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.class_mode} </strong>
+              </div>
             </div>
           </div>
         </Col>

@@ -15,7 +15,7 @@ services:
 
   flask-api:
     image: apnito/raaga:flask-dev-latest
-    command:
+    command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&
              python manage.py collectstatic --noinput &&

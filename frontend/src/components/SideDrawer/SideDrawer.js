@@ -7,7 +7,6 @@ import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-import Alert from './Alert';
 
 function SideDrawer({ show, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
@@ -17,18 +16,6 @@ function SideDrawer({ show, handleCloseDrawer }) {
     const handleShowSignUpPage = () => {
         setShowSignUpPage(true);
     };
-
-    const [alert,setAlert]= useState(null)
-
-    const showAlert=(message,type)=>{
-        setAlert({
-            msg:message,
-            type:type
-        })
-        setTimeout(()=>{
-            setAlert(null)
-        },3000)
-    }
     const handleHideSignupPage = () => {
         setShowSignUpPage(false);
     };
@@ -43,12 +30,10 @@ function SideDrawer({ show, handleCloseDrawer }) {
                 id: ""
             });
         }, 1000);
-        showAlert(" SignOut","success")
     };
 
     function LogOutPage() {
         return <div>
-            <Alert alert={alert}></Alert>
             <button
                 variant="primary"
                 className={`${styles["get-otp-button"]} mb-3`}
