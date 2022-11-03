@@ -163,7 +163,7 @@ def read_teacher_metadata(request):
     
     id = params['id']
 
-    query = f"SELECT location, city, state, pin_code, about, qualification, achievement, class_mode, like_count, student_count, video_url FROM teacher where id = '{id}'"
+    query = f"SELECT location, city, state, pin_code, about, qualification, achievement, like_count, student_count, video_url FROM teacher where id = '{id}'"
     
     execute_query(query, curr)
     results = get_query_results(curr, is_multiple_reading = True)
@@ -299,7 +299,7 @@ def book_class(request):
 
     data = params['data']
 
-    duration = 60
+    duration = 60 # minutes
     
     data['id'] = str(uuid.uuid4())
     data['is_active'] = 't'
