@@ -11,12 +11,16 @@ import TeacherProfile from "./Pages/TeacherProfile";
 import StudentProfile from "./Pages/StudentProfile";
 
 function App() {
+  const [showDrawer, setShowDrawer] = useState(false);
+  const handleShowDrawer = () => setShowDrawer(true);
+  const handleCloseDrawer = () => setShowDrawer(false);
+
   return (
     <div className="App">
       <LoginProvider>
-        <Navbar />
+        <Navbar showDrawer={showDrawer} handleShowDrawer={handleShowDrawer} handleCloseDrawer={handleCloseDrawer} />
         <Routes>
-          <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/" element={<Home showDrawer={handleShowDrawer} />}></Route>
           <Route path="/aspiring-musician" element={<AspiringMusician />}></Route>
           <Route path="/music-teacher" element={<MusicTeacherContactUs />}></Route>
           <Route path="/aspiring-musician-profile" element={<StudentProfile />}></Route>

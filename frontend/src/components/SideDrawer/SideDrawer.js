@@ -9,7 +9,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import { useNavigate } from "react-router-dom";
 
-function SideDrawer({ show, handleCloseDrawer }) {
+function SideDrawer({ showDrawer, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
     const navigate = useNavigate();
@@ -67,7 +67,7 @@ function SideDrawer({ show, handleCloseDrawer }) {
 
     return (
         <>
-            <Offcanvas show={show} onHide={handleCloseDrawer} placement={'end'} className={`${styles["side-drawer"]} p-3`}>
+            <Offcanvas show={showDrawer} onHide={handleCloseDrawer} placement={'end'} className={`${styles["side-drawer"]} p-3`}>
                 <Offcanvas.Header closeButton className={`${styles["side-drawer-header"]} pb-4`} closeVariant='white'>
                     <Offcanvas.Title></Offcanvas.Title>
                 </Offcanvas.Header>
