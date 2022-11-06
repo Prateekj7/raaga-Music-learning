@@ -1,14 +1,58 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row, Dropdown } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import ReactPlayer from "react-player";
 import styles from "./ReadMore.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import Review from "./Review";
 
 const ReadMore = ({ teacher }) => {
   const { name, image_url, experience, hourly_rate, video, address } = teacher;
   const [teacherReadMore, setTeacherReadMore] = useState();
+  const [selectedDateTime, setSelectedDateTime] = useState({
+    date: "",
+    time: "",
+  });
+
+  //create schedule object for date and time
+  const schedule = [
+    {
+      date: "2021-05-01",
+      time: [
+        {
+          time: "10:00",
+          booked: true,
+        },
+        {
+          time: "11:00",
+          booked: false,
+        },
+      ]
+    },
+    {
+      date: "2021-05-02",
+      time: [
+        {
+          time: "10:00",
+          booked: false,
+        },
+        {
+          time: "11:00",
+          booked: false,
+        },
+      ]
+    }
+  ]
+
+  const handleDateSelect = (eventKey, event) => {
+    console.log(eventKey);
+    setSelectedDateTime((oldState)=> {
+      return {...oldState, date: eventKey}
+    })
+  }
+
+  const handleTimeSelect = (eventKey, event) => {
+    console.log(eventKey);
+  }
+
 
   useEffect(() => {
     let data = {
@@ -102,10 +146,33 @@ const ReadMore = ({ teacher }) => {
           </div>
         </Col>
 
-        <Col>
-        </Col>
-        {/* <Col className="lg-4">
-          <Card className="">
+        <Col className="lg-4">
+          <Dropdown onSelect={handleDateSelect}>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Select Date
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {schedule.map((item, index) => (
+                <Dropdown.Item key={index} eventKey={item.date}>{item.date}</Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+            
+          </Dropdown>
+          <Dropdown onSelect={handleTimeSelect}>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Select Time
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              
+
+            </Dropdown.Menu>
+            
+          </Dropdown>
+        
+
+          {/* <Card className="">
             <Card.Header className="p-3" style={{ backgroundColor: "purple" }}>
               <div className="d-flex ">
                 <h3 className="px-4 pt-2 text-white">$Fees:</h3>
@@ -166,8 +233,8 @@ const ReadMore = ({ teacher }) => {
                 </Button>
               </div>
             </Card.Body>
-          </Card>
-        </Col> */}
+          </Card> */}
+        </Col> 
       </Row>
     </div >
   );
