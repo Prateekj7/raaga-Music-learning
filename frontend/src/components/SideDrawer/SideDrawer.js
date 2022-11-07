@@ -27,16 +27,17 @@ function SideDrawer({ show, handleCloseDrawer }) {
         })
         setTimeout(()=>{
             setAlert(null)
-        },3000)
+        },1000)
     }
     const handleHideSignupPage = () => {
         setShowSignUpPage(false);
     };
 
     const handleSignOut = () => {
-        handleCloseDrawer();
+        
         setTimeout(() => {
             handleHideSignupPage();
+            handleCloseDrawer();
             setLoggedInUser({
                 isLoggedIn: false,
                 category: "",

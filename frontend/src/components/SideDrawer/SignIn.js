@@ -24,9 +24,10 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
     };
     const handleSubmitSignInOTP = (e) => {
         e.preventDefault();
-        handleCloseDrawer();
+        
         setOtpSentNotification("");
         setTimeout(() => {
+            handleCloseDrawer();
             setLoggedInUser({
                 isLoggedIn: true,
                 category: "student",
