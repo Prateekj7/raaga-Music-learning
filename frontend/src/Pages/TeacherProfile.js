@@ -55,7 +55,7 @@ function TeacherProfile() {
         };
 
         getTableData();
-    }, []);
+    }, [loggedInUser.id]);
 
     const handleSaveProfile = () => {
         console.log("hello");
@@ -68,7 +68,7 @@ function TeacherProfile() {
             <Row>
                 <Col>
                     <div className={`${styles["featured-artist-header"]} pb-lg-4 py-3`}>
-                        <img src={doubleArrowIcon} className={`${styles["featured-artist-header-double-arrow-icon"]} p-1`} />
+                        <img alt="double-arrow-icon" src={doubleArrowIcon} className={`${styles["featured-artist-header-double-arrow-icon"]} p-1`} />
                         <h4 className={`${styles["featured-artist-heading"]}`}>My Profile</h4>
                         <button className="border-0 bg-transparent">
                             <h4 className={`${styles["featured-artist-header-single-arrow-icon"]} p-0 m-0 ms-3  d-flex align-items-center`}>
@@ -97,34 +97,36 @@ function TeacherProfile() {
                                     />
                                 </Col>
                             </Form.Group>
-                            <Form.Group as={Row} className="mb-lg-3" controlId="formBasicGenderRadio">
-                                <Form.Label column sm="2">Gender</Form.Label>
-                                <Col className="d-flex align-items-center">
-                                    <div className="">
-                                        <Form.Check
-                                            className={`${styles["form-label"]} me-5`}
-                                            inline
-                                            label="Male"
-                                            name="gender"
-                                            type={"radio"}
-                                            id={`male`}
-                                            value="male"
-                                            defaultChecked={savedProfile?.gender === "male"}
+                            {savedProfile &&
+                                <Form.Group as={Row} className="mb-lg-3" controlId="formBasicGenderRadio">
+                                    <Form.Label column sm="2">Gender</Form.Label>
+                                    <Col className="d-flex align-items-center">
+                                        <div className="">
+                                            <Form.Check
+                                                className={`${styles["form-label"]} me-5`}
+                                                inline
+                                                label="Male"
+                                                name="gender"
+                                                type={"radio"}
+                                                id={`male`}
+                                                value="male"
+                                                defaultChecked={(savedProfile?.gender === "male")}
 
-                                        />
-                                        <Form.Check
-                                            className={`${styles["form-label"]}`}
-                                            inline
-                                            label="Female"
-                                            name="gender"
-                                            type={"radio"}
-                                            id={`female`}
-                                            value="female"
-                                            defaultChecked={savedProfile?.gender === "female"}
-                                        />
-                                    </div>
-                                </Col>
-                            </Form.Group>
+                                            />
+                                            <Form.Check
+                                                className={`${styles["form-label"]}`}
+                                                inline
+                                                label="Female"
+                                                name="gender"
+                                                type={"radio"}
+                                                id={`female`}
+                                                value="female"
+                                                defaultChecked={savedProfile?.gender === "female"}
+                                            />
+                                        </div>
+                                    </Col>
+                                </Form.Group>
+                            }
                             <Form.Group as={Row} className="mb-lg-3" controlId="formBasicEmail">
                                 <Form.Label column sm="2">Email</Form.Label>
                                 <Col>
