@@ -44,7 +44,7 @@ function SideDrawer({ show, handleCloseDrawer }) {
                 id: ""
             });
         }, 1000);
-        showAlert(" SignOut","secondary")
+        showAlert(" SignOut","warning")
     };
 
     function LogOutPage() {
