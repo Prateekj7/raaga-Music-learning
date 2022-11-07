@@ -13,6 +13,7 @@ function TeacherProfile() {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
     const [savedProfile, setSavedProfile] = useState();
+    const [editProfileMode, setEditProfileMode] = useState(false);
 
     useEffect(() => {
         let data = {
@@ -57,11 +58,37 @@ function TeacherProfile() {
         getTableData();
     }, [loggedInUser.id]);
 
-    const handleSaveProfile = () => {
-        console.log("hello");
+    const handleSaveProfile = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const formDataObj = Object.fromEntries(formData.entries());
+        setEditProfileMode(false);
+        console.log(formDataObj);
+        const getTableData = async () => {
+            try {
+                setSavedProfile((oldState) => { return { ...oldState, ...formDataObj }; });
+                // const response = await fetch("/api/read_teacher_metadata/", requestOptions);
+                // const result = await response.json();
+                // if (response.ok) {
+                //     setSavedProfile(result[0]);
+                // } else {
+                //     throw Error(result);
+                // }
+            } catch (err) {
+                console.log(err.message);
+            }
+        };
+
+        getTableData();
+        e.target.reset();
+    };
+    const handleCancelEditProfile = () => {
+        setEditProfileMode(false);
     };
 
-    console.log(savedProfile?.gender === "male");
+    const handleEditProfile = () => {
+        setEditProfileMode(true);
+    };
 
     return (
         <Container fluid className={`${styles["aspiring-musician-container"]}`}>
@@ -70,9 +97,9 @@ function TeacherProfile() {
                     <div className={`${styles["featured-artist-header"]} pb-lg-4 py-3`}>
                         <img alt="double-arrow-icon" src={doubleArrowIcon} className={`${styles["featured-artist-header-double-arrow-icon"]} p-1`} />
                         <h4 className={`${styles["featured-artist-heading"]}`}>My Profile</h4>
-                        <button className="border-0 bg-transparent">
+                        <button className="border-0 bg-transparent" onClick={handleEditProfile}>
                             <h4 className={`${styles["featured-artist-header-single-arrow-icon"]} p-0 m-0 ms-3  d-flex align-items-center`}>
-                                <FaEdit />
+                                <FaEdit className={`${styles["edit-icon"]}`} />
                             </h4>
                         </button>
 
@@ -84,15 +111,15 @@ function TeacherProfile() {
                     <FeaturedArtistCard showFooter={false} />
                 </Col>
                 <Col xs={12} md={9}>
-                    <Form onSubmit={handleSaveProfile} id="signUpForm">
-                        <fieldset disabled>
+                    <Form onSubmit={handleSaveProfile} onReset={handleCancelEditProfile} id="signUpForm" className="mb-3">
+                        <fieldset disabled={!editProfileMode}>
                             <Form.Group as={Row} className="mb-lg-3" controlId="formBasicName">
                                 <Form.Label column sm="2">Full Name</Form.Label>
                                 <Col>
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none `}
                                         name="name"
                                         type="text"
-                                        placeholder={savedProfile?.name}
+                                        defaultValue={savedProfile?.name}
                                         maxLength={50}
                                     />
                                 </Col>
@@ -133,7 +160,7 @@ function TeacherProfile() {
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none`}
                                         name="email"
                                         type="email"
-                                        placeholder={savedProfile?.email_id}
+                                        defaultValue={savedProfile?.email_id}
                                     />
                                 </Col>
                             </Form.Group>
@@ -143,7 +170,7 @@ function TeacherProfile() {
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none`}
                                         name="phone"
                                         type="tele"
-                                        placeholder={savedProfile?.contact_number}
+                                        defaultValue={savedProfile?.contact_number}
                                         pattern="[0-9]{7,15}"
                                         maxLength="15"
                                         title="Please enter a valid phone number"
@@ -154,9 +181,9 @@ function TeacherProfile() {
                                 <Form.Label column sm="2">City</Form.Label>
                                 <Col>
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        name="name"
+                                        name="city"
                                         type="text"
-                                        placeholder={savedProfile?.city}
+                                        defaultValue={savedProfile?.city}
                                         maxLength={50}
                                     />
                                 </Col>
@@ -165,9 +192,9 @@ function TeacherProfile() {
                                 <Form.Label column sm="2">State</Form.Label>
                                 <Col>
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        name="name"
+                                        name="state"
                                         type="text"
-                                        placeholder={savedProfile?.state}
+                                        defaultValue={savedProfile?.state}
                                         maxLength={50}
                                     />
                                 </Col>
@@ -176,10 +203,10 @@ function TeacherProfile() {
                                 <Form.Label column sm="2">Pincode</Form.Label>
                                 <Col>
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        name="name"
+                                        name="pincode"
                                         type="text"
-                                        placeholder={savedProfile?.pin_code}
-                                        maxLength={50}
+                                        defaultValue={savedProfile?.pin_code}
+                                        maxLength={20}
                                     />
                                 </Col>
                             </Form.Group>
@@ -187,11 +214,11 @@ function TeacherProfile() {
                                 <Form.Label column sm="2">About</Form.Label>
                                 <Col>
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        name="name"
+                                        name="about"
                                         as="textarea"
                                         rows={3}
-                                        placeholder={savedProfile?.about}
-                                        maxLength={50}
+                                        defaultValue={savedProfile?.about}
+                                        maxLength={500}
                                     />
                                 </Col>
                             </Form.Group>
@@ -199,10 +226,10 @@ function TeacherProfile() {
                                 <Form.Label column sm="2">Qualification</Form.Label>
                                 <Col>
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        name="name"
+                                        name="qualification"
                                         type="text"
-                                        placeholder={savedProfile?.qualification}
-                                        maxLength={50}
+                                        defaultValue={savedProfile?.qualification}
+                                        maxLength={100}
                                     />
                                 </Col>
                             </Form.Group>
@@ -210,10 +237,10 @@ function TeacherProfile() {
                                 <Form.Label column sm="2">Achievement</Form.Label>
                                 <Col>
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        name="name"
+                                        name="achievement"
                                         type="text"
-                                        placeholder={savedProfile?.achievement}
-                                        maxLength={50}
+                                        defaultValue={savedProfile?.achievement}
+                                        maxLength={200}
                                     />
                                 </Col>
                             </Form.Group>
@@ -221,14 +248,29 @@ function TeacherProfile() {
                                 <Form.Label column sm="2">Experience (in years) </Form.Label>
                                 <Col>
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        name="name"
-                                        type="text"
-                                        placeholder={savedProfile?.experience}
-
-                                        maxLength={50}
+                                        name="experience"
+                                        type="number"
+                                        defaultValue={savedProfile?.experience}
+                                        onWheel={(e) => e.target.blur()}
+                                        min="0"
+                                        max="100"
                                     />
                                 </Col>
                             </Form.Group>
+                            <div className={`pb-lg-4 py-3 d-flex justify-content-lg-end`}>
+                                <button className={`${styles["login-button"]} me-4`}
+                                    disabled={!editProfileMode}
+                                    type="reset"
+                                >
+                                    Cancel
+                                </button>
+                                <button className={`${styles["login-button"]}`}
+                                    disabled={!editProfileMode}
+                                    type="submit"
+                                >
+                                    Save
+                                </button>
+                            </div>
                         </fieldset>
                     </Form>
                 </Col>
