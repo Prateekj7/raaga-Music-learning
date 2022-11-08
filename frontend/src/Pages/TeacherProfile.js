@@ -8,6 +8,7 @@ import FeaturedArtistCard from "../components/FeaturedArtist/FeaturedArtistCard"
 import { LoginContext } from "../LoginContext";
 import { FaEdit } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import Schedule from "../components/Schedule/Schedule";
 
 function TeacherProfile() {
 
@@ -103,12 +104,7 @@ function TeacherProfile() {
                     <div className={`${styles["featured-artist-header"]} pb-lg-4 py-3`}>
                         <img alt="double-arrow-icon" src={doubleArrowIcon} className={`${styles["featured-artist-header-double-arrow-icon"]} p-1`} />
                         <h4 className={`${styles["featured-artist-heading"]}`}>My Profile</h4>
-                        <button className="border-0 bg-transparent" onClick={handleEditProfile}>
-                            <h4 className={`${styles["featured-artist-header-single-arrow-icon"]} p-0 m-0 ms-3  d-flex align-items-center`}>
-                                <FaEdit className={`${styles["edit-icon"]}`} />
-                            </h4>
-                        </button>
-
+                        <img src={singleArrowIcon} className={`${styles["featured-artist-header-single-arrow-icon"]} p-1`} />
                     </div>
                 </Col>
             </Row>
@@ -117,6 +113,14 @@ function TeacherProfile() {
                     <FeaturedArtistCard showFooter={false} />
                 </Col>
                 <Col xs={12} md={9}>
+                    <div className="d-flex align-items-start mb-2">
+                        <h4 className="">Basic Info </h4>
+                        <button className="border-0 bg-transparent p-0 m-0" onClick={handleEditProfile}>
+                            <h4 className={`${styles["featured-artist-header-single-arrow-icon"]} p-0 m-0 ms-3  d-flex align-items-center`}>
+                                <FaEdit className={`${styles["edit-icon"]}`} />
+                            </h4>
+                        </button>
+                    </div>
                     <Form onSubmit={handleSubmit(handleSaveProfile)} onReset={handleCancelEditProfile} id="signUpForm" className="mb-3">
                         <fieldset disabled={!editProfileMode}>
                             <Form.Group as={Row} className="mb-lg-3" controlId="formBasicName">
@@ -266,6 +270,8 @@ function TeacherProfile() {
                             </div>
                         </fieldset>
                     </Form>
+
+                    <Schedule />
                 </Col>
             </Row>
         </Container >

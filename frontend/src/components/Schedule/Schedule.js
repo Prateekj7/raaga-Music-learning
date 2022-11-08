@@ -1,8 +1,11 @@
 import React, { useState, useMemo } from "react";
 import styles from "./Schedule.module.css";
 import Table from 'react-bootstrap/Table';
+import MultiSelect from "../MultiSelect/MultiSelect";
+import { FaEdit } from "react-icons/fa";
 
 function Schedule({ savedSchedule }) {
+    const [editProfileMode, setEditProfileMode] = useState(false);
     const weekdays = useMemo(() => [
         "Mon",
         "Tue",
@@ -31,10 +34,22 @@ function Schedule({ savedSchedule }) {
 
     }, []);
 
+    const handleEditSchedule = () => {
+        setEditProfileMode(true);
+    };
+
     return (
         <>
-            <h5>Class Schedule</h5>
-            <Table bordered hover size="sm" className={`${styles["schedule-table"]}`}>
+            <div className="d-flex align-items-start mb-2">
+                <h4 className="">Class Details </h4>
+                <button className="border-0 bg-transparent p-0 m-0" onClick={handleEditSchedule}>
+                    <h4 className={`${styles["featured-artist-header-single-arrow-icon"]} p-0 m-0 ms-3  d-flex align-items-center`}>
+                        <FaEdit className={`${styles["edit-icon"]}`} />
+                    </h4>
+                </button>
+            </div>
+            <MultiSelect />
+            {/* <Table bordered hover size="sm" className={`${styles["schedule-table"]}`}>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -53,7 +68,7 @@ function Schedule({ savedSchedule }) {
                                 </td>)}
                         </tr>)}
                 </tbody>
-            </Table>
+            </Table> */}
         </>
     );
 }
