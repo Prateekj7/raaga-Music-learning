@@ -2,12 +2,20 @@ import React, { useState, useContext } from 'react';
 import styles from "./SideDrawer.module.css";
 import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
+import Alert from './Alert';
 
 
 function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
     const [otpSentNotification, setOtpSentNotification] = useState("");
+    const [alert,setAlert]= useState(null)
+    const showAlert=(message,type)=>{
+        setAlert({
+            msg:message,
+            type:type
+        })
+    }
     const handleSignUp = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -17,18 +25,20 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
 
     const handleSubmitSignUpOTP = (e) => {
         e.preventDefault();
-        handleCloseDrawer();
         setOtpSentNotification("");
         setTimeout(() => {
+            handleCloseDrawer();
             setLoggedInUser({
                 isLoggedIn: true,
                 category: "student",
                 id: "10001"
             });
         }, 1000);
+        showAlert("Successfully SignIn","success")
     };
 
     return <div>
+        <Alert alert={alert}></Alert>
         <Form onSubmit={handleSignUp} id="signUpForm">
             <Form.Group className="mb-4" controlId="formUserTypeRadio">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Sign up as a teacher or student</Form.Label>
