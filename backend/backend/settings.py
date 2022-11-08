@@ -146,8 +146,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #      'http://localhost:3000', 'http://localhost:80',
 # ]
 
+CORS_ORIGIN_WHITELIST = (
+    'http://3.6.79.101:80',
+    )
 CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com", 'http://127.0.0.1:3000', 'http://0.0.0.0:3000', "http://localhost:3000", "http://ec2-43-205-111-44.ap-south-1.compute.amazonaws.com", 'http://127.0.0.1:80', 'http://0.0.0.0:80', "http://localhost:80", "http://3.6.79.101:80",]
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
