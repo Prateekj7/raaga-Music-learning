@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import styles from "./Schedule.module.css";
 import Table from 'react-bootstrap/Table';
-import MultiSelect from "../MultiSelect/MultiSelect";
+import MultiSelect from "./MultiSelect";
 import { FaEdit } from "react-icons/fa";
 
 function Schedule({ savedSchedule }) {
