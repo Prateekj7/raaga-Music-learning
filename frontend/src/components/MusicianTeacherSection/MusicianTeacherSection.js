@@ -7,7 +7,7 @@ import React, { useMemo } from "react";
 import musicianIcon from "../../images/musicianIcon.png";
 import teacherIcon from "../../images/teacherIcon.png";
 
-function ResponsiveAutoExample() {
+function ResponsiveAutoExample({ showDrawer }) {
     const teacherContentList = useMemo(() => [
         "Are you a music teacher and wish to reach out to more students without any hassle?",
         "Do you want to create your own brand as a music teacher?",
@@ -25,14 +25,16 @@ function ResponsiveAutoExample() {
                         icon={musicianIcon}
                         header="ASPIRING MUSICIAN"
                         contentList={studentContentList}
-                        buttonText="Login for Aspiring Musician" />
+                        buttonText="Login for Aspiring Musician"
+                        showDrawer={showDrawer} />
                 </Col>
                 <Col md={6}>
                     <UserLogin
                         icon={teacherIcon}
                         header="MUSIC TEACHER"
                         contentList={teacherContentList}
-                        buttonText="Login for Music Teacher" />
+                        buttonText="Login for Music Teacher"
+                        showDrawer={showDrawer} />
                 </Col>
             </Row>
         </Container>

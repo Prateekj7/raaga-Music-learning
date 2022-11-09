@@ -10,7 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 import SideDrawer from "../components/SideDrawer/SideDrawer";
 import { LoginContext } from "../LoginContext";
 
-function BasicExample() {
+function BasicExample({ showDrawer, handleShowDrawer, handleCloseDrawer }) {
   const { loggedInUserContext } = useContext(LoginContext);
   const [loggedInUser, setLoggedInUser] = loggedInUserContext;
 
@@ -18,9 +18,6 @@ function BasicExample() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const scrollHeight = useMemo(() => 1, []);
 
-  const [show, setShow] = useState(false);
-  const handleShowDrawer = () => setShow(true);
-  const handleCloseDrawer = () => setShow(false);
 
   let currentRoute = useLocation().pathname;
   useEffect(() => {
@@ -100,7 +97,7 @@ function BasicExample() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <SideDrawer show={show} handleCloseDrawer={handleCloseDrawer} />
+      <SideDrawer showDrawer={showDrawer} handleCloseDrawer={handleCloseDrawer} />
     </>
   );
 }

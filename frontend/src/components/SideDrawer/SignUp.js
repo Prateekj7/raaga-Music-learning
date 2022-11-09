@@ -2,11 +2,13 @@ import React, { useState, useContext } from 'react';
 import styles from "./SideDrawer.module.css";
 import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
+import { useNavigate } from "react-router-dom";
 
 
 function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
+    const navigate = useNavigate();
     const [otpSentNotification, setOtpSentNotification] = useState("");
     const handleSignUp = (e) => {
         e.preventDefault();
@@ -22,10 +24,11 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
         setTimeout(() => {
             setLoggedInUser({
                 isLoggedIn: true,
-                category: "student",
+                category: "teacher",
                 id: "10001"
             });
         }, 1000);
+        navigate("/music-teacher-profile");
     };
 
     return <div>
