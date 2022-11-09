@@ -54,7 +54,7 @@ def get_query_results(curr, is_multiple_reading = False):
         df.columns = [entry[0] for entry in curr.description]
 
     results = df.to_dict('records')
-
+    
     if is_multiple_reading:
         return results
     else:
@@ -126,15 +126,15 @@ def read_data(request):
     table = params['table']
     limit = params['page_size']
     offset = (params['page_number'] - 1) * limit
-    columns = params['columns']
-    id = params['id']
+    column_name = params['column_name']
+    column_value = params['column_value']
     if id == '*':
         val = 'IS NOT NULL'
     else:
-        val = '= ' + id
+        val = f"= '{id}'"
 
-    query = "SELECT {} FROM {} where id {} limit {} offset {}".format(', '.join(columns), table, val, limit, offset)
-    
+    query = "SELECT * FROM {} where {} = '{}' limit {} offset {}".format(table, column_name, column_value, limit, offset)
+    print(query)
     execute_query(query, curr)
     results = get_query_results(curr)
     
@@ -166,7 +166,7 @@ def read_teacher_metadata(request):
     query = f"SELECT location, city, state, pin_code, about, qualification, achievement, like_count, student_count, video_url FROM teacher where id = '{id}'"
     
     execute_query(query, curr)
-    results = get_query_results(curr, is_multiple_reading = True)
+    results = get_query_results(curr)
     
     return Response(results)
 

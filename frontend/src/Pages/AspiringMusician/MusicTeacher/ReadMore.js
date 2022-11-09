@@ -26,7 +26,7 @@ const ReadMore = ({ teacher }) => {
         const response = await fetch("/api/read_teacher_metadata/", requestOptions);
         const result = await response.json();
         if (response.ok) {
-          setTeacherReadMore(result[0]);
+          setTeacherReadMore(result);
         } else {
           throw Error(result);
         }
@@ -92,12 +92,12 @@ const ReadMore = ({ teacher }) => {
                 </p>
                 <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.student_count} </strong>
               </div>
-              <div className="d-flex">
+              {/* <div className="d-flex">
                 <p className={`${styles["read-more-med"]} me-2`}>
                   Choose type of class:
                 </p>
                 <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.class_mode} </strong>
-              </div>
+              </div> */}
             </div>
           </div>
         </Col>
