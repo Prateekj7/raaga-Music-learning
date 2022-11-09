@@ -22,9 +22,7 @@ const AspiringMusician = () => {
 
     //get token function. call this to open admin and raaga website together
     async function getCsrfToken(){
-        if(csrfToken==null){
-            const res = await fetch('/api/csrf_token/');
-        }
+        const res = await fetch('/api/csrf_token/');
         const data = await res.json();
         csrfToken = data.csrfToken;
         return csrfToken;
