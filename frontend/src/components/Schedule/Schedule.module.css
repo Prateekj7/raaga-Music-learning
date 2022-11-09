@@ -10,3 +10,40 @@
   .edit-icon:active{
     fill: #691a589f;
   }
+
+
+.schedule-table td:hover{
+  cursor: pointer;
+}
+
+.login-button {
+  padding: 0.3125rem 2.375rem;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  color: var(--grape_purple);
+  border-radius: 1rem;
+  background-color: var(--white);
+  border: solid 1px var(--grape_purple);
+}
+
+.login-button:hover {
+  color: var(--white);
+  background-color: var(--grape_purple);
+  border: solid 1px var(--grape_purple);
+}
+.login-button:active {
+  color: var(--white);
+  background-color: var(--grape_purple);
+  border: solid 1px var(--white);
+}
+
+.login-button:disabled {
+  /* pointer-events: none; */
+  cursor:not-allowed;
+  opacity: 0.4;
+}
+.login-button:disabled:hover {
+  color: var(--grape_purple);
+  background-color: var(--white);
+  border: solid 1px var(--grape_purple);
+}

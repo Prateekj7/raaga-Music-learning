@@ -3,9 +3,12 @@ import styles from "./Schedule.module.css";
 import Table from 'react-bootstrap/Table';
 import MultiSelect from "./MultiSelect";
 import { FaEdit } from "react-icons/fa";
-
+import CustomCell from "./CustomCell";
 function Schedule({ savedSchedule }) {
     const [editProfileMode, setEditProfileMode] = useState(false);
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    const [fees, setFees] = useState();
+
     const weekdays = useMemo(() => [
         "Mon",
         "Tue",
@@ -24,18 +27,18 @@ function Schedule({ savedSchedule }) {
         "7:00 pm"
     ], []);
 
-    const customCell = useMemo(() => {
-        const selectedGenres = [
-            "vocal-indian_classical",
-            "vocal-ghazal",
-            "instrumental-guitar",
-            "instrumental-piano",
-        ];
-
-    }, []);
-
     const handleEditSchedule = () => {
         setEditProfileMode(true);
+    };
+    const handleChangeGenres = (optionArray) => {
+        setSelectedGenres(optionArray);
+    };
+
+    const handleChangeFees = (e) => {
+        setFees((oldState) => ({
+            ...oldState,
+            [e.target.name]: e.target.value
+        }))
     };
 
     return (
@@ -48,27 +51,51 @@ function Schedule({ savedSchedule }) {
                     </h4>
                 </button>
             </div>
-            <MultiSelect />
-            {/* <Table bordered hover size="sm" className={`${styles["schedule-table"]}`}>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        {weekdays.map((item, index) =>
-                            <th key={index}>
-                                {item}
-                            </th>)}
-                    </tr>
-                </thead>
-                <tbody>
-                    {classTimes.map((element, index) =>
-                        <tr key={index}>
-                            <td>{element}</td>
+            <MultiSelect
+                selectedGenres={selectedGenres}
+                handleChangeGenres={handleChangeGenres}
+                handleChangeFees={handleChangeFees}
+            />
+            <h5 className="mt-4">Your TimeTable </h5>
+            <div className={`${styles["table-container"]}`}>
+                <Table bordered size="sm" className={`${styles["schedule-table"]} mt-3`}>
+                    <thead>
+                        <tr>
+                            <th>#</th>
                             {weekdays.map((item, index) =>
-                                <td key={index}>
-                                </td>)}
-                        </tr>)}
-                </tbody>
-            </Table> */}
+                                <th key={index}>
+                                    {item}
+                                </th>)}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {classTimes.map((element, index) =>
+                            <tr key={index}>
+                                <th>{element}</th>
+                                {weekdays.map((item, index) =>
+                                    <CustomCell
+                                        key={index}
+                                        availableGenres={selectedGenres}
+                                    />
+                                )}
+                            </tr>)}
+                    </tbody>
+                </Table>
+            </div>
+            <div className={`pb-lg-4 py-3 d-flex justify-content-lg-end`}>
+                <button className={`${styles["login-button"]} me-4`}
+                    disabled={!editProfileMode}
+                    type="reset"
+                >
+                    Cancel
+                </button>
+                <button className={`${styles["login-button"]}`}
+                    disabled={!editProfileMode}
+                    type="submit"
+                >
+                    Save
+                </button>
+            </div>
         </>
     );
 }

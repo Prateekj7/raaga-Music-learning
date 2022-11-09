@@ -17,10 +17,36 @@ const options = [
 ];
 
 const customStyles = {
-    option: (provided, state) => ({
-        ...provided,
-        color: state.data.color
-    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+        const color = chroma(data.color);
+        return {
+            ...styles,
+            backgroundColor: isDisabled
+                ? undefined
+                : isSelected
+                    ? data.color
+                    : isFocused
+                        ? color.alpha(0.1).css()
+                        : undefined,
+            color: isDisabled
+                ? '#ccc'
+                : isSelected
+                    ? chroma.contrast(color, 'white') > 2
+                        ? 'white'
+                        : 'black'
+                    : data.color,
+            cursor: isDisabled ? 'not-allowed' : 'default',
+
+            ':active': {
+                ...styles[':active'],
+                backgroundColor: !isDisabled
+                    ? isSelected
+                        ? data.color
+                        : color.alpha(0.3).css()
+                    : undefined,
+            },
+        };
+    },
     multiValue: (styles, { data }) => {
         const color = chroma(data.color);
         return {
@@ -42,24 +68,8 @@ const customStyles = {
     }),
 }
 
-function MyComponent() {
-    const [selectedGenres, setSelectedGenres] = useState([]);
-    const [fees, setFees] = useState();
+function MyComponent({ selectedGenres, handleChangeGenres, handleChangeFees }) {
     const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
-
-
-    const handleChangeGenres = (optionArray) => {
-        setSelectedGenres(optionArray);
-    };
-
-    const handleChangeFees = (e) => {
-        setFees((oldState) => ({
-            ...oldState,
-            [e.target.name]: e.target.value
-        }))
-    };
-
-    console.log(fees);
 
     return <>
         <Select
@@ -82,7 +92,7 @@ function MyComponent() {
                                 name={genre.value}
                                 type="number"
                                 maxLength={50}
-                                placeholder={`Enter your hourly fees for ${genre.label}`}
+                                placeholder={`Enter your fees for ${genre.label}`}
                                 onChange={handleChangeFees}
                             />
                             <InputGroup.Text id="basic-addon1">per hour</InputGroup.Text>
