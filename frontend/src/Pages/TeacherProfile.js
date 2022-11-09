@@ -59,7 +59,7 @@ function TeacherProfile() {
             }
         };
 
-        getTableData();
+        // getTableData();
     }, [loggedInUser.id]);
 
     const handleSaveProfile = (formData) => {
