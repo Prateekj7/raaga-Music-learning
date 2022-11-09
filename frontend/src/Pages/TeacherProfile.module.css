@@ -1,0 +1,68 @@
+.aspiring-musician-container {
+    margin: 5rem 0;
+    padding: 0.4rem 1rem;
+  }
+  
+  @media (min-width: 50em) {
+    .aspiring-musician-container {
+      padding: 1rem 4rem;
+    }
+  }
+  
+  .featured-artist-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .featured-artist-header-double-arrow-icon {
+    max-width: 2.75rem;
+    height: auto;
+  }
+  
+  .featured-artist-heading {
+    margin: 0;
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-bold);
+    color: var(--grape_purple);
+  }
+
+  .edit-icon{
+    fill: var(--grape_purple);
+    transition: fill ease-in-out 0.1s;
+  }
+
+  .edit-icon:active{
+    fill: #691a589f;
+  }
+
+  .login-button {
+    padding: 0.3125rem 2.375rem;
+    font-size: var(--fs-s);
+    font-weight: var(--fw-med);
+    color: var(--grape_purple);
+    border-radius: 1rem;
+    background-color: var(--white);
+    border: solid 1px var(--grape_purple);
+  }
+  
+  .login-button:hover {
+    color: var(--white);
+    background-color: var(--grape_purple);
+    border: solid 1px var(--grape_purple);
+  }
+  .login-button:active {
+    color: var(--white);
+    background-color: var(--grape_purple);
+    border: solid 1px var(--white);
+  }
+
+  .login-button:disabled {
+    /* pointer-events: none; */
+    cursor:not-allowed;
+    opacity: 0.4;
+  }
+  .login-button:disabled:hover {
+    color: var(--grape_purple);
+    background-color: var(--white);
+    border: solid 1px var(--grape_purple);
+  }
