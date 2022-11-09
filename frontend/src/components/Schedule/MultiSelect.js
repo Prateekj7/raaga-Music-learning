@@ -68,7 +68,7 @@ const customStyles = {
     }),
 }
 
-function MyComponent({ selectedGenres, handleChangeGenres, handleChangeFees }) {
+function MyComponent({ isDisabled, selectedGenres, handleChangeGenres, handleChangeFees }) {
     const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
 
     return <>
@@ -80,6 +80,8 @@ function MyComponent({ selectedGenres, handleChangeGenres, handleChangeFees }) {
             placeholder="Select the topics you want to teach"
             onChange={handleChangeGenres}
             value={selectedGenres}
+            isSearchable={false}
+            isDisabled={isDisabled}
         />
         <Form id="signUpForm" className="mb-3">
             {selectedGenres.map((genre, index) =>
@@ -92,8 +94,9 @@ function MyComponent({ selectedGenres, handleChangeGenres, handleChangeFees }) {
                                 name={genre.value}
                                 type="number"
                                 maxLength={50}
-                                placeholder={`Enter your fees for ${genre.label}`}
+                                placeholder={`Your rate for ${genre.label}`}
                                 onChange={handleChangeFees}
+                                disabled={isDisabled}
                             />
                             <InputGroup.Text id="basic-addon1">per hour</InputGroup.Text>
                         </InputGroup>

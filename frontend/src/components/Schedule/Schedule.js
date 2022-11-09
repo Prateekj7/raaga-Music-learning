@@ -5,7 +5,7 @@ import MultiSelect from "./MultiSelect";
 import { FaEdit } from "react-icons/fa";
 import CustomCell from "./CustomCell";
 function Schedule({ savedSchedule }) {
-    const [editProfileMode, setEditProfileMode] = useState(false);
+    const [editScheduleMode, setEditScheduleMode] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [fees, setFees] = useState();
 
@@ -28,7 +28,7 @@ function Schedule({ savedSchedule }) {
     ], []);
 
     const handleEditSchedule = () => {
-        setEditProfileMode(true);
+        setEditScheduleMode(true);
     };
     const handleChangeGenres = (optionArray) => {
         setSelectedGenres(optionArray);
@@ -39,6 +39,10 @@ function Schedule({ savedSchedule }) {
             ...oldState,
             [e.target.name]: e.target.value
         }))
+    };
+
+    const handleCancelEditProfile = () => {
+        setEditScheduleMode(false);
     };
 
     return (
@@ -52,6 +56,7 @@ function Schedule({ savedSchedule }) {
                 </button>
             </div>
             <MultiSelect
+                isDisabled={!editScheduleMode}
                 selectedGenres={selectedGenres}
                 handleChangeGenres={handleChangeGenres}
                 handleChangeFees={handleChangeFees}
@@ -75,6 +80,7 @@ function Schedule({ savedSchedule }) {
                                 {weekdays.map((item, index) =>
                                     <CustomCell
                                         key={index}
+                                        isDisabled={!editScheduleMode}
                                         availableGenres={selectedGenres}
                                     />
                                 )}
@@ -84,14 +90,14 @@ function Schedule({ savedSchedule }) {
             </div>
             <div className={`pb-lg-4 py-3 d-flex justify-content-lg-end`}>
                 <button className={`${styles["login-button"]} me-4`}
-                    disabled={!editProfileMode}
-                    type="reset"
+                    disabled={!editScheduleMode}
+                    onClick={handleCancelEditProfile}
                 >
                     Cancel
                 </button>
                 <button className={`${styles["login-button"]}`}
-                    disabled={!editProfileMode}
-                    type="submit"
+                    disabled={!editScheduleMode}
+                    onClick={handleCancelEditProfile}
                 >
                     Save
                 </button>

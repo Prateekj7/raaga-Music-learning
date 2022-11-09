@@ -2,6 +2,10 @@
     table-layout: fixed;
 }
 
+.schedule-table th{
+  font-weight: var(--fw-med);
+}
+
 .edit-icon{
     fill: var(--grape_purple);
     transition: fill ease-in-out 0.1s;
@@ -14,6 +18,12 @@
 
 .schedule-table td:hover{
   cursor: pointer;
+}
+td.disabled{
+  cursor:not-allowed;
+}
+td.disabled:hover{
+  cursor:not-allowed;
 }
 
 .login-button {

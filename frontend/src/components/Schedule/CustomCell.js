@@ -4,6 +4,7 @@ import Popover from 'react-bootstrap/Popover';
 import React, { useState } from "react";
 import Select from 'react-select';
 import chroma from 'chroma-js';
+import styles from "./Schedule.module.css";
 
 const customStyles = {
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -68,6 +69,7 @@ function CustomPopover(props, availableGenres, selectedGenre, handleChangeGenres
                     placeholder="Choose topic"
                     onChange={handleChangeGenres}
                     value={selectedGenre}
+                    isSearchable={false}
                 />
 
                 <button className="me-2" onClick={() => document.body.click()}>Save</button>
@@ -80,7 +82,7 @@ function CustomPopover(props, availableGenres, selectedGenre, handleChangeGenres
     );
 }
 
-function CustomCell({ availableGenres }) {
+function CustomCell({ isDisabled, availableGenres }) {
     const [showPopover, setShowPopover] = useState();
     const [selectedGenre, setSelectedGenre] = useState();
     const handleChangeGenres = (selectedOption) => {
@@ -94,12 +96,15 @@ function CustomCell({ availableGenres }) {
         <OverlayTrigger
             show={showPopover}
             onToggle={handleTogglePopover}
-            trigger="click"
+            trigger={isDisabled ? "" : "click"}
             placement="auto"
             overlay={(props) => CustomPopover(props, availableGenres, selectedGenre, handleChangeGenres)}
             rootClose
         >
-            <td style={{ backgroundColor: selectedGenre ? chroma(selectedGenre.color).alpha(0.2).css() : "white" }}></td>
+            <td
+                style={{ backgroundColor: selectedGenre ? chroma(selectedGenre.color).alpha(0.2).css() : "white" }}
+                className={`${isDisabled ? styles["disabled"] : ""}`}
+            ></td>
         </OverlayTrigger>
     );
 }

@@ -47,19 +47,19 @@ function TeacherProfile() {
             try {
                 setSavedProfile(testData);
                 reset(testData);
-                const response = await fetch("/api/read_teacher_metadata/", requestOptions);
-                const result = await response.json();
-                if (response.ok) {
-                    setSavedProfile(result[0]);
-                } else {
-                    throw Error(result);
-                }
+                // const response = await fetch("/api/read_teacher_metadata/", requestOptions);
+                // const result = await response.json();
+                // if (response.ok) {
+                //     setSavedProfile(result[0]);
+                // } else {
+                //     throw Error(result);
+                // }
             } catch (err) {
                 console.log(err.message);
             }
         };
 
-        // getTableData();
+        getTableData();
     }, [loggedInUser.id]);
 
     const handleSaveProfile = (formData) => {
