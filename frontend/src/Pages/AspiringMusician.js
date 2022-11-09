@@ -25,7 +25,7 @@ const AspiringMusician = () => {
         if(csrfToken==null){
             const res = await fetch('/api/csrf_token/');
         }
-        const data = await response.json();
+        const data = await res.json();
         csrfToken = data.csrfToken;
         return csrfToken;
     }
