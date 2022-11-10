@@ -38,10 +38,10 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
         }, 1000);
 
         if (potentialUser.category === "teacher") {
-            navigate("/music-teacher-profile");
+            navigate("/music-teacher-dashboard");
         }
         else if (potentialUser.category === "student") {
-            navigate("/aspiring-musician-profile");
+            navigate("/aspiring-musician-dashboard");
         }
 
     };

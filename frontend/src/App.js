@@ -9,6 +9,8 @@ import { Route, Routes } from "react-router-dom";
 import { LoginProvider } from "./LoginContext";
 import TeacherProfile from "./Pages/TeacherProfile";
 import StudentProfile from "./Pages/StudentProfile";
+import TeacherDashboard from "./Pages/TeacherDashboard";
+import StudentDashboard from "./Pages/StudentDashboard.js";
 
 function App() {
   const [showDrawer, setShowDrawer] = useState(false);
@@ -25,6 +27,8 @@ function App() {
           <Route path="/music-teacher" element={<MusicTeacherContactUs />}></Route>
           <Route path="/aspiring-musician-profile" element={<StudentProfile />}></Route>
           <Route path="/music-teacher-profile" element={<TeacherProfile />}></Route>
+          <Route path="/aspiring-musician-dashboard" element={<StudentDashboard />}></Route>
+          <Route path="/music-teacher-dashboard" element={<TeacherDashboard />}></Route>
         </Routes>
         <Footer />
       </LoginProvider>
