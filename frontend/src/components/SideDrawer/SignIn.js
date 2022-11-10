@@ -3,38 +3,55 @@ import styles from "./SideDrawer.module.css";
 import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import Notification from "../Notification";
 
 
 function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-    const [otpSentNotification, setOtpSentNotification] = useState("");
+    const [potentialUser, setPotentialUser] = useState({ category: "", phone: "" });
+    const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
     const navigate = useNavigate();
+    const [showNotification, setShowNotification] = useState({ show: false, message: "" });
 
-    const handleSendOtp = (e) => {
-        e.preventDefault();
-        setOtpSentNotification("OTP has been sent to +91-9954199108");
+    const handleSendOtp = (formData) => {
+        if (formData.signInPhone === "9654535144") {
+            setPotentialUser({ category: "teacher", phone: formData.signInPhone });
+        }
+        else if (formData.signInPhone === "9954199108") {
+            setPotentialUser({ category: "student", phone: formData.signInPhone });
+        }
+        else {
+            setShowNotification({ show: true, message: "User not found! Please Sign Up." });
+        }
     };
-    const handleSubmitSignInOTP = (e) => {
-        e.preventDefault();
+    const handleSubmitSignInOTP = () => {
         handleCloseDrawer();
-        setOtpSentNotification("");
+        setPotentialUser({ category: "", phone: "" });
         setTimeout(() => {
             setLoggedInUser({
                 isLoggedIn: true,
-                category: "teacher",
+                category: potentialUser.category,
                 id: "10001"
             });
         }, 1000);
-        navigate("/music-teacher-profile");
+
+        if (potentialUser.category === "teacher") {
+            navigate("/music-teacher-profile");
+        }
+        else if (potentialUser.category === "student") {
+            navigate("/aspiring-musician-profile");
+        }
 
     };
     return <div>
-        <Form onSubmit={handleSendOtp} id="sendOTPForm">
+        <Notification show={showNotification.show} setShow={setShowNotification} message={showNotification.message} />
+        <Form onSubmit={handleSubmit(handleSendOtp)} id="sendOTPForm">
             <Form.Group className="mb-4" controlId="formBasicPhone">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your mobile number</Form.Label>
                 <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
-                    name="signInPhone"
+                    {...register("signInPhone")}
                     type="tele"
                     placeholder="ex- 919954199108"
                     pattern="[0-9]{7,15}"
@@ -45,20 +62,22 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
             </Form.Group>
         </Form>
 
-        <Form onSubmit={handleSubmitSignInOTP} id="submitSignInOTPForm">
+        <Form onSubmit={handleSubmit(handleSubmitSignInOTP)} id="submitSignInOTPForm">
             <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className={`${styles["form-label"]} mb-2`}>{otpSentNotification}</Form.Label>
+                <Form.Label className={`${styles["form-label"]} mb-2`}>
+                    {potentialUser.phone === "" ? "" : `OTP sent to +91-${potentialUser.phone}`}
+                </Form.Label>
                 <Form.Control
                     type="password"
                     placeholder="OTP"
-                    disabled={otpSentNotification === ""}
+                    disabled={potentialUser.phone === ""}
                     minLength={6} maxLength={6}
                     required
                 />
             </Form.Group>
         </Form>
 
-        {otpSentNotification === "" ?
+        {potentialUser.phone === "" ?
             <button
                 variant="primary"
                 type="submit"
