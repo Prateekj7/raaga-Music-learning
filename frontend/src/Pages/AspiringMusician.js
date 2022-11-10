@@ -20,24 +20,17 @@ const AspiringMusician = () => {
 
     const requestOptions = {
       method: "POST",
-      headers: { 
+      headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data),
     };
-    
     const getTableData = async () => {
       try {
-        setTeachers([{
-          "id": 1,
-          "name": "Amit",
-          "hourly_rate": 1000,
-          "experience": 10
-        }]);
         const response = await fetch("/api/read_teacher_main_data/", requestOptions);
         const result = await response.json();
         if (response.ok) {
-          // setTeachers(result);
+          setTeachers(result);
           console.log(result);
         } else {
           throw Error(result);
