@@ -83,7 +83,7 @@ function MyComponent({ isDisabled, selectedGenres, handleChangeGenres, handleCha
             isSearchable={false}
             isDisabled={isDisabled}
         />
-        <Form id="signUpForm" className="mb-3">
+        <Form id="hourly-rate-form " className="mb-3">
             {selectedGenres.map((genre, index) =>
                 <Form.Group key={genre.value} as={Row} className="mb-lg-3" controlId="formBasicName">
                     <Form.Label column sm="4">{genre.label}</Form.Label>
