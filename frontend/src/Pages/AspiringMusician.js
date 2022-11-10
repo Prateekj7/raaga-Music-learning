@@ -18,16 +18,6 @@ const AspiringMusician = () => {
       category_value: "ghazal"
     };
 
-    let csrfToken = null;
-
-    //get token function. call this to open admin and raaga website together
-    // async function getCsrfToken(){
-    //     const res = await fetch('/api/csrf_token/');
-    //     const data = await res.json();
-    //     csrfToken = data.csrfToken;
-    //     return csrfToken;
-    // }
-
     const requestOptions = {
       method: "POST",
       headers: { 
