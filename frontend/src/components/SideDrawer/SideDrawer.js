@@ -21,12 +21,12 @@ function SideDrawer({ showDrawer, handleCloseDrawer }) {
         setShowSignUpPage(false);
     };
 
-    const handleShowProfile = () => {
+    const handleNavigate = (e) => {
         if (loggedInUser.category === "student") {
-            navigate("/aspiring-musician-profile");
+            navigate(`/aspiring-musician-${e.target.id}`);
         }
-        else {
-            navigate("/music-teacher-profile");
+        else if (loggedInUser.category === "teacher") {
+            navigate(`/music-teacher-${e.target.id}`);
         }
         handleCloseDrawer();
     };
@@ -49,7 +49,17 @@ function SideDrawer({ showDrawer, handleCloseDrawer }) {
             <button
                 variant="primary"
                 className={`${styles["get-otp-button"]} mb-3`}
-                onClick={handleShowProfile}
+                id="dashboard"
+                onClick={handleNavigate}
+
+            >
+                Dashboard
+            </button>
+            <button
+                variant="primary"
+                className={`${styles["get-otp-button"]} mb-3`}
+                id="profile"
+                onClick={handleNavigate}
 
             >
                 My Profile
