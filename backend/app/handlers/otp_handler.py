@@ -8,13 +8,13 @@ def generate_ref_id(destinationNumber, brandName, source):
 
 
 # The AWS Region that you want to use to send the message.
-region = "us-east-1"
+region = "ap-south-1"
 
 # The phone number or short code to send the message from.
 originationNumber = "+18555550142"
 
 # The project/application ID to use when you send the message.
-appId = "7353f53e6885409fa32d07cedexample"
+appId = "101a21873a6747cfb418f7c00d2319b8"
 
 # The number of times the user can unsuccessfully enter the OTP code before it becomes invalid.
 allowedAttempts = 3
@@ -23,8 +23,8 @@ allowedAttempts = 3
 brandName = "RaagaMedia"
 
 # Function that sends the OTP as an SMS message.
-def generate_otp(destinationNumber, brandName, source):
-    client = boto3.client('pinpoint',region_name=region)
+def generate_otp(destinationNumber, source):
+    client = boto3.client('pinpoint', region_name=region, aws_access_key_id='AKIAUPVLMECBCPIEEFRE', aws_secret_access_key='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')
     try:
         response = client.send_otp_message(
             ApplicationId=appId,
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     # message will include the brand name "ExampleCorp", and the request originated from a part of your
     # site or application called "CreateAccount". The US English message template should be used to
     # send the message.
-    generate_otp("+14255550142", "CreateAccount")
+    generate_otp("+917992233668", "CreateAccount")
 
     # Verify the OTP 012345, which was sent to +14255550142. The brand name ("ExampleCorp") and the
     # source name ("CreateAccount") are used to generate the correct reference ID.
