@@ -24,13 +24,13 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/insert_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-
     data = {
-        "table": "class",
-        "page_size": 10,
+        "table": "vocal",
+        "columns": ["name"],
         "page_number": 1,
-        "column_name": "teacher_id",
-        "column_value": "1"
+        "page_size": 10,
+        "id_column_name": "student_id",
+        "id_column_value": "1"
     }
     data = json.dumps(data)
     res = requests.post('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)

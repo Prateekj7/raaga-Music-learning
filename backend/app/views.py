@@ -2,66 +2,28 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import HttpResponse
-import psycopg2
-from psycopg2.extras import execute_values
 import pandas as pd
 from .handlers.otp_handler import *
 from .handlers.sms_handler import *
 from .handlers.payment_handler import *
 from .handlers.meeting_handler import *
-import json
 import hashlib
 import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.middleware.csrf import get_token
-from django.conf import settings
 import uuid
+from django.db import connection
+import json
 
-def get_cursor():
-    conn = psycopg2.connect(
-            host=settings.DATABASES['default']['HOST'],
-            database=settings.DATABASES['default']['NAME'],
-            user=settings.DATABASES['default']['USER'],
-            password=settings.DATABASES['default']['PASSWORD'],
-            port=settings.DATABASES['default']['PORT']
-            )
-
-    # create a cursor
-    curr = conn.cursor()
-    return curr
-
-curr = get_cursor()
-
-def execute_query(query, curr):
-    def execute():
-        curr.execute("ROLLBACK")
-        curr.execute(query)
-
-    try:
-        execute()
-        print("DB Connected")
-    except Exception as e:
-        print("Exception", e)
-        print("DB Re-Connecting")
-        curr = get_cursor()
-        execute()
-
-def get_query_results(curr, is_multiple_reading = False):
-    rows = curr.fetchall()
+def get_query_results(cursor):
+    rows = cursor.fetchall()
 
     df = pd.DataFrame(rows)
     if len(rows) > 0:
-        df.columns = [entry[0] for entry in curr.description]
+        df.columns = [entry[0] for entry in cursor.description]
 
     results = df.to_dict('records')
-    
-    if is_multiple_reading:
-        return results
-    else:
-        if len(results) == 1:
-            return results[0]
-        else:
-            return []
+    return results
 
 def generate_id(inserted_data_dict):
     ref_data = str(inserted_data_dict)
@@ -80,9 +42,9 @@ def foo(request):
 def check_user_existance(request):
     def check_existance(table):
         query = f"SELECT id FROM {table} WHERE contact_number = '{phone}'"
-    
-        execute_query(query, curr)
-        result = curr.fetchall()
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            result = cursor.fetchall()
 
         return result
     
@@ -114,8 +76,8 @@ def insert_data(request):
     values = data.values()
     
     query = "INSERT INTO {} ({}) VALUES {}".format(table, ', '.join(columns), tuple(values))
-    
-    execute_query(query, curr)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
     
     return Response('ok')
 
@@ -124,19 +86,29 @@ def read_data(request):
     params = request.data
 
     table = params['table']
-    limit = params['page_size']
-    offset = (params['page_number'] - 1) * limit
-    column_name = params['column_name']
-    column_value = params['column_value']
-    if id == '*':
-        val = 'IS NOT NULL'
+    columns = ", ".join(params['columns'])
+    
+    page_size = params.get('page_size')
+    page_number = params.get('page_number')
+    if page_size and page_number:
+        limit = page_size
+        offset = (page_number - 1) * limit
     else:
-        val = f"= '{id}'"
+        limit = "all"
+        offset = "0"
 
-    query = "SELECT * FROM {} where {} = '{}' limit {} offset {}".format(table, column_name, column_value, limit, offset)
-    print(query)
-    execute_query(query, curr)
-    results = get_query_results(curr)
+    id_column_name = params.get('id_column_name')
+    id_column_value = params.get('id_column_value')
+
+    if id_column_name and id_column_value:
+        condition = f"where {id_column_name} = '{id_column_value}'"
+    else:
+        condition = ""
+
+    query = f"select {columns} from {table} {condition} limit {limit} offset {offset}"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = get_query_results(cursor)
     
     return Response(results)
 
@@ -151,9 +123,9 @@ def read_teacher_main_data(request):
     category_value = params['category_value']
 
     query = f"SELECT id, name, experience, rating, schedule -> '{category_name}' -> '{category_value}' -> 'hourly_rate' as hourly_rate, image_url FROM teacher where schedule -> '{category_name}' is not NULL and schedule -> '{category_name}' -> '{category_value}' is not NULL limit {limit} offset {offset}"
-    
-    execute_query(query, curr)
-    results = get_query_results(curr, is_multiple_reading = True)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = get_query_results(cursor)
     
     return Response(results)
 
@@ -164,11 +136,11 @@ def read_teacher_metadata(request):
     id = params['id']
 
     query = f"SELECT location, city, state, pin_code, about, qualification, achievement, like_count, student_count, video_url FROM teacher where id = '{id}'"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = get_query_results(cursor)
     
-    execute_query(query, curr)
-    results = get_query_results(curr)
-    
-    return Response(results)
+    return Response(results[0])
 
 @api_view(['POST'])
 def read_teacher_reviews(request):
@@ -178,10 +150,11 @@ def read_teacher_reviews(request):
 
     query = f"select reviews from teacher where id = '{id}'"
 
-    execute_query(query, curr)
-    results = get_query_results(curr)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = get_query_results(cursor)
     
-    return Response(results)
+    return Response(results[0])
 
 @api_view(['POST'])
 def read_teacher_schedules(request):
@@ -209,20 +182,20 @@ def read_teacher_schedules(request):
     category_name = params['category_name']
     category_value = params['category_value']
 
-    query = f"select schedule -> '{category_name}' -> '{category_value}' as schedule from teacher where id = '{id}'"
-
-    execute_query(query, curr)
-    results = get_query_results(curr)
-
-    possible_schedule = prepare_possible_schedule()
-    selected_schedule = results['schedule']
-    
     available_schedule = []
-    for day in selected_schedule.keys():
-        if day in possible_schedule.keys():
-            for time in selected_schedule[day]:
-                for date in possible_schedule[day]:
-                    available_schedule.append(date + 'T' + str(time) + ':00')
+    query = f"select schedule -> '{category_name}' -> '{category_value}' as schedule from teacher where id = '{id}'"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = get_query_results(cursor)
+        print(results)
+        possible_schedule = prepare_possible_schedule()
+        selected_schedule = json.loads(results[0]['schedule'])
+        
+        for day in selected_schedule.keys():
+            if day in possible_schedule.keys():
+                for time in selected_schedule[day]:
+                    for date in possible_schedule[day]:
+                        available_schedule.append(date + 'T' + str(time) + ':00')
     
     return Response(available_schedule)
 
@@ -237,8 +210,8 @@ def update_count(request):
     type = params['type'] # values will be '+' or '-'
 
     query = "UPDATE {} SET {} = {} {} 1 where id = '{}'".format(table, column, column, type, id)
-    
-    execute_query(query, curr)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
 
     return Response('ok')
 
@@ -314,7 +287,7 @@ def book_class(request):
     values = data.values()
     
     query = "INSERT INTO {} ({}) VALUES {}".format('class', ', '.join(columns), tuple(values))
-    
-    execute_query(query, curr)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
     
     return Response('ok')
