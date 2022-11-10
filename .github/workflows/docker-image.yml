@@ -55,4 +55,6 @@ jobs:
           port: ${{ secrets.DEV_EC2_PORT }}
           script: |
             sudo docker compose -f docker-compose.yml down
+            sudo docker system prune
+            sudo docker volume prune
             sudo docker compose -f docker-compose.yml pull && sudo docker compose -f docker-compose.yml up -d
