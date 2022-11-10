@@ -44,8 +44,8 @@ const ReadMore = ({ teacher }) => {
 
   const handleDateSelect = (eventKey, event) => {
     console.log(eventKey);
-    setSelectedDateTime((oldState)=> {
-      return {...oldState, date: eventKey}
+    setSelectedDateTime((oldState) => {
+      return { ...oldState, date: eventKey }
     })
   }
 
@@ -55,6 +55,8 @@ const ReadMore = ({ teacher }) => {
 
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     let data = {
       id: teacher.id,
     };
@@ -63,23 +65,30 @@ const ReadMore = ({ teacher }) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
+      signal: signal
     };
 
     const getTableData = async () => {
       try {
         const response = await fetch("/api/read_teacher_metadata/", requestOptions);
         const result = await response.json();
-        if (response.ok) {
+        if (response.ok && !signal.aborted) {
           setTeacherReadMore(result);
+          console.log(result);
         } else {
           throw Error(result);
         }
       } catch (err) {
-        console.log(err.message);
+        if (err.name === "AbortError") {
+          console.log("successfully aborted");
+        } else {
+          console.log(err);
+        }
       }
     };
 
     getTableData();
+    return () => controller.abort();
   }, []);
 
   return (
@@ -157,7 +166,7 @@ const ReadMore = ({ teacher }) => {
                 <Dropdown.Item key={index} eventKey={item.date}>{item.date}</Dropdown.Item>
               ))}
             </Dropdown.Menu>
-            
+
           </Dropdown>
           <Dropdown onSelect={handleTimeSelect}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -165,12 +174,12 @@ const ReadMore = ({ teacher }) => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              
+
 
             </Dropdown.Menu>
-            
+
           </Dropdown>
-        
+
 
           {/* <Card className="">
             <Card.Header className="p-3" style={{ backgroundColor: "purple" }}>
@@ -234,7 +243,7 @@ const ReadMore = ({ teacher }) => {
               </div>
             </Card.Body>
           </Card> */}
-        </Col> 
+        </Col>
       </Row>
     </div >
   );

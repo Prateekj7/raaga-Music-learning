@@ -11,6 +11,8 @@ const AspiringMusician = () => {
   const [teachers, setTeachers] = useState([]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     let data = {
       page_size: 100,
       page_number: 1,
@@ -24,23 +26,29 @@ const AspiringMusician = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data),
+      signal: signal
     };
     const getTableData = async () => {
       try {
         const response = await fetch("/api/read_teacher_main_data/", requestOptions);
         const result = await response.json();
-        if (response.ok) {
+        if (response.ok && !signal.aborted) {
           setTeachers(result);
           console.log(result);
         } else {
           throw Error(result);
         }
       } catch (err) {
-        console.log(err.message);
+        if (err.name === "AbortError") {
+          console.log("successfully aborted");
+        } else {
+          console.log(err);
+        }
       }
     };
 
     getTableData();
+    return () => controller.abort();
   }, []);
 
   return (
