@@ -25,16 +25,16 @@ if __name__ == "__main__":
     # print(res, json.loads(res.content))
 
 
-    # data = {
-    #     "table": "teacher",
-    #     "page_size": 10,
-    #     "page_number": 1,
-    #     "columns": ['name', 'location'],
-    #     "id": '1'
-    # }
-    # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
-    # print(res, json.loads(res.content))
+    data = {
+        "table": "class",
+        "page_size": 10,
+        "page_number": 1,
+        "column_name": "teacher_id",
+        "column_value": "1"
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
+    print(res, json.loads(res.content))
 
     # data = {
     #     "page_size": 10,
@@ -55,12 +55,12 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/read_teacher_metadata/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    data = {
-        "id": "11943187-79b1-41f7-9534-4a967b7007ca"
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # data = {
+    #     "id": "11943187-79b1-41f7-9534-4a967b7007ca"
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
 
     # data = {
     #     "id": "11943187-79b1-41f7-9534-4a967b7007ca",
