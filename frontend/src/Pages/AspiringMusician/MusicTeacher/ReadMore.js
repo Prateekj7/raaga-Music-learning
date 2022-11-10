@@ -95,7 +95,6 @@ const ReadMore = ({ teacher }) => {
       return;
     }
     setLoading(true);
-    console.log(formData)
     let data = {
       data: {
         //Prateek, please put your code here
@@ -136,7 +135,6 @@ const ReadMore = ({ teacher }) => {
 
     getTableData();
   };
-  console.log(showNotification);
   return (
     <div>
       <Notification show={showNotification.show} setShow={setShowNotification} message={showNotification.message} />
