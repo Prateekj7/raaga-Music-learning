@@ -9,7 +9,10 @@ import Form from 'react-bootstrap/Form';
 
 const AspiringMusician = () => {
   const [teachers, setTeachers] = useState([]);
-
+  let loading = true;
+  if (teachers.length > 0) {
+    loading = false;
+  }
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -88,14 +91,16 @@ const AspiringMusician = () => {
       </Row>
       <Row>
         <div className="border-bottom border-dark my-3"></div>
-        <div className="m-0 p-0">
-          {teachers.map((teacher) => (
-            <TeacherCard
-              key={teacher.id}
-              teacher={teacher}
-            ></TeacherCard>
-          ))}
-        </div>
+        <ul className="m-0 p-0">
+          {loading ?
+            Array.from(Array(5), (e, i) => <TeacherCard key={i} skeleton />) :
+            teachers.map((teacher) => (
+              <TeacherCard
+                key={teacher.id}
+                teacher={teacher}
+              ></TeacherCard>
+            ))}
+        </ul>
       </Row>
       <div className="d-flex justify-content-center mt-4">
         <Pagination></Pagination>
