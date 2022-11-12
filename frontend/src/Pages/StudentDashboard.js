@@ -83,7 +83,7 @@ const StudentDashboard = () => {
                 <div className="border-bottom border-dark my-3"></div>
                 <div className="m-0 p-0">
                     {loading ?
-                        Array.from(Array(5), () => <MeetingCard skeleton />) :
+                        Array.from(Array(5), (e, i) => <MeetingCard key={i} skeleton />) :
                         teachers.map((meeting) => (
                             <MeetingCard
                                 key={meeting.id}
