@@ -22,6 +22,10 @@
   left: 1.125rem;
 }
 
+.skeleton {
+  background-color: var(--grey);
+}
+
 @media (min-width: 50em) {
   .Stroke-28 {
     width: 11.375rem;
