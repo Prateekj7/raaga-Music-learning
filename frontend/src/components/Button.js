@@ -3,15 +3,15 @@ import styles from "./Button.module.css";
 import { Button } from "react-bootstrap";
 
 
-function RaagaButton(props) {
+function RaagaButton({ text, skeleton, className, ...props }) {
+
     return (
         <Button
             {...props}
-            disabled={props.skeleton ? true : false}
-            className={`${props.skeleton ? styles["skeleton"] : styles["login-button"]} ${props.className}`}
-
+            disabled={skeleton ? true : false}
+            className={`${skeleton ? styles["skeleton"] : styles["login-button"]} ${className}`}
         >
-            {props.text}
+            {text}
         </Button>
     );
 }
