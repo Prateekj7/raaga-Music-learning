@@ -226,69 +226,6 @@ const ReadMore = ({ teacher }) => {
               </Button>
             </Form>
           </div>
-
-          {/* <Card className="">
-            <Card.Header className="p-3" style={{ backgroundColor: "purple" }}>
-              <div className="d-flex ">
-                <h3 className="px-4 pt-2 text-white">$Fees:</h3>
-                <div className="px-2">
-                  <div>
-                    <h5 className="text-white">Hourly</h5>
-                    <h5 className="text-white">1000</h5>
-                  </div>
-                </div>
-                <div className="px-2">
-                  <div>
-                    <h5 className="text-white">WEEKLY(3 DAYS)</h5>
-                    <h5 className="text-white">2,500</h5>
-                  </div>
-                </div>
-                <div className="px-1">
-                  <div>
-                    <h5 className="text-white">MONTHLY(12 DAYS)</h5>
-                    <h5 className="text-white">10,500</h5>
-                  </div>
-                </div>
-              </div>
-            </Card.Header>
-            <Card.Body className="py-2">
-              <div>
-                <h3>Booking a time Slot</h3>
-                <h4>Morning</h4>
-                <div>
-                  {" "}
-                  <Button className=" mx-3 btn  ">10.00 Am</Button>
-                  <Button className=" mx-2  btn ">10.00 Am</Button>
-                  <Button className=" mx-2 btn ">10.00 Am</Button>
-                  <Button className=" mx-3 btn ">10.00 Am</Button>
-                </div>
-                <h4>AfterNoon</h4>
-                <div>
-                  {" "}
-                  <Button className=" mx-3 btn ">10.00 Am</Button>
-                  <Button className=" mx-2  btn ">10.00 Am</Button>
-                  <Button className=" mx-2 btn ">10.00 Am</Button>
-                  <Button className=" mx-3 btn ">10.00 Am</Button>
-                </div>
-                <h4>Evening</h4>
-                <div>
-                  {" "}
-                  <Button className=" mx-3 btn ">10.00 Am</Button>
-                  <Button className=" mx-2  btn ">10.00 Am</Button>
-                  <Button className=" mx-2 btn ">10.00 Am</Button>
-                  <Button className=" mx-3 btn ">10.00 Am</Button>
-                </div>
-              </div>
-              <div className="d-flex justify-content-center py-3 ">
-                <Button
-                  className="mx-3  btn-lg "
-                  style={{ textColor: "purple" }}
-                >
-                  BOOK NOW
-                </Button>
-              </div>
-            </Card.Body>
-          </Card> */}
         </Col>
       </Row>
     </div >
