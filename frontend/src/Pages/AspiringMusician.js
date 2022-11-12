@@ -17,10 +17,13 @@ const AspiringMusician = () => {
     const controller = new AbortController();
     const signal = controller.signal;
     let data = {
+      table: "teacher",
       page_size: 100,
       page_number: 1,
-      category_name: "vocal",
-      category_value: "ghazal"
+      columns: "*"
+      // category_name: "vocal",
+
+      // category_value: "ghazal"
     };
 
     const requestOptions = {
@@ -33,7 +36,7 @@ const AspiringMusician = () => {
     };
     const getTableData = async () => {
       try {
-        const response = await fetch("/api/read_teacher_main_data/", requestOptions);
+        const response = await fetch("/api/read_data/", requestOptions);
         const result = await response.json();
         if (response.ok && !signal.aborted) {
           setTeachers(result);
