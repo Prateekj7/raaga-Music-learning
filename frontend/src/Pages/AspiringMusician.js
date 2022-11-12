@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import TeacherCard from "./AspiringMusician/MusicTeacher/TeacherCard";
+import TeacherCard from "../components/MusicTeacher/TeacherCard";
 import styles from "./AspiringMusician.module.css";
-import Pagination from "./AspiringMusician/MusicTeacher/Paginaiton";
+import Pagination from "../components/Paginaiton";
 import { Col, Container, Row } from "react-bootstrap";
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";

@@ -5,8 +5,8 @@ import ReactPlayer from "react-player";
 import styles from "./ReadMore.module.css";
 import Form from 'react-bootstrap/Form';
 import { useForm } from "react-hook-form";
-import Notification from "../../../components/Notification";
-import { LoginContext } from "../../../LoginContext";
+import Notification from "../Notification";
+import { LoginContext } from "../../LoginContext";
 import Spinner from 'react-bootstrap/Spinner';
 
 const ReadMore = ({ teacher }) => {

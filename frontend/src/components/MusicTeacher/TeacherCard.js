@@ -2,10 +2,8 @@ import React, { useState, useRef } from "react";
 import styles from "./TeacherCard.module.css";
 import { Col, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
-import Review from "./Review";
 import ReadMore from "./ReadMore";
-import Collapse from "react-bootstrap/Collapse";
-import FeaturedArtistCard from "../../../components/FeaturedArtist/FeaturedArtistCard";
+import FeaturedArtistCard from "../FeaturedArtistCard";
 import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 

@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../../Pages/AspiringMusician/MusicTeacher/TeacherCard.module.css";
+import styles from "./MusicTeacher/TeacherCard.module.css";
 import { Col, Row } from "react-bootstrap";
-import FeaturedArtistCard from "../../components/FeaturedArtist/FeaturedArtistCard";
+import FeaturedArtistCard from "./FeaturedArtistCard";
 import Placeholder from 'react-bootstrap/Placeholder';
-import Button from "../Button/Button";
+import Button from "./Button";
 
 const TeacherCard = ({ skeleton = false, category_type, category_value, class_timestamp, meeting_link, person_name }) => {
     const getDateString = () => {
