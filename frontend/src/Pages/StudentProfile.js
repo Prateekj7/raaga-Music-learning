@@ -4,7 +4,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
-import FeaturedArtistCard from "../components/FeaturedArtist/FeaturedArtistCard";
 import { LoginContext } from "../LoginContext";
 import { FaEdit } from "react-icons/fa";
 import { useForm } from "react-hook-form";
