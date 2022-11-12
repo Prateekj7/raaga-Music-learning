@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styles from "../../Pages/AspiringMusician/MusicTeacher/TeacherCard.module.css";
 import { Col, Row } from "react-bootstrap";
-import { FaStar } from "react-icons/fa";
 import FeaturedArtistCard from "../../components/FeaturedArtist/FeaturedArtistCard";
+import Placeholder from 'react-bootstrap/Placeholder';
+import Button from "../Button/Button";
 
-const TeacherCard = ({ category_type, category_value, class_timestamp, meeting_link, person_name }) => {
+const TeacherCard = ({ skeleton = false, category_type, category_value, class_timestamp, meeting_link, person_name }) => {
     const getDateString = () => {
         const dateObj = new Date(class_timestamp.slice(0, 4), class_timestamp.slice(5, 7), class_timestamp.slice(8, 10));
         const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -21,32 +22,45 @@ const TeacherCard = ({ category_type, category_value, class_timestamp, meeting_l
         <div className={`my-2 px-3`}>
             <Row>
                 <Col lg={2}>
-                    <div >
-                        <FeaturedArtistCard showFooter={false} />
-                    </div>
+                    <FeaturedArtistCard showFooter={false} skeleton={skeleton} />
                 </Col>
                 <Col lg={10}>
                     <div className={`${styles["testimonial-card-text"]} px-lg-4 pt-4 d-flex flex-column `}>
-                        <h4 className={`${styles["teacher-name"]}`}>{`${category_type} class with ${person_name}`}</h4>
+                        <h4 className={`${styles["teacher-name"]}`}>
+                            {skeleton ?
+                                <Placeholder animation="glow">
+                                    <Placeholder xs={6} />
+                                </Placeholder> :
+                                `${category_type} class with ${person_name}`
+                            }
+                        </h4>
                         <div className={`${styles["teacher-experience"]}`}>
-                            {`${category_value}`}
+                            {skeleton ?
+                                <Placeholder animation="glow">
+                                    <Placeholder xs={2} />
+                                </Placeholder> :
+                                `${category_value}`}
                         </div>
                         <div className={`${styles["teacher-rate"]}`}>
-                            {getDateString()}
+                            {skeleton ?
+                                <Placeholder animation="glow" className={`${styles["teacher-rate-placeholder"]}`}>
+                                    <Placeholder xs={5} />
+                                </Placeholder> :
+                                getDateString()}
                         </div>
 
                         <div className="d-flex align-items-end">
-                            <button
-                                className={`${styles["login-button"]} me-2 mt-3`}
+                            <Button
+                                skeleton={skeleton}
+                                text="Join"
+                                className="me-2 mt-3"
                                 onClick={handleOpenMeeting}
-
-                            >
-                                Join
-                            </button>
-                            <button className={`${styles["login-button"]} me-2 mt-3`}
-                            >
-                                {"Cancel"}
-                            </button>
+                            />
+                            <Button
+                                skeleton={skeleton}
+                                text="Cancel"
+                                className="me-2 mt-3"
+                            />
                         </div>
                     </div>
                 </Col>

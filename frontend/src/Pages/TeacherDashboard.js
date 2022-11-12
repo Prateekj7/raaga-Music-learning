@@ -11,6 +11,10 @@ const TeacherDashboard = () => {
     const [students, setStudents] = useState([]);
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
+    let loading = true;
+    if (students.length > 0) {
+        loading = false;
+    }
 
     useEffect(() => {
         const controller = new AbortController();
@@ -76,18 +80,20 @@ const TeacherDashboard = () => {
             </Row>
             <Row>
                 <div className="border-bottom border-dark my-3"></div>
-                <div className="m-0 p-0">
-                    {students.map((meeting) => (
-                        <MeetingCard
-                            key={meeting.id}
-                            category_type={meeting.category_type}
-                            category_value={meeting.category_value}
-                            class_timestamp={meeting.class_timestamp}
-                            meeting_link={meeting.meeting_link}
-                            person_name={meeting.student_name}
-                        ></MeetingCard>
-                    ))}
-                </div>
+                <ul className="m-0 p-0">
+                    {loading ?
+                        Array.from(Array(5), () => <MeetingCard skeleton />) :
+                        students.map((meeting) => (
+                            <MeetingCard
+                                key={meeting.id}
+                                category_type={meeting.category_type}
+                                category_value={meeting.category_value}
+                                class_timestamp={meeting.class_timestamp}
+                                meeting_link={meeting.meeting_link}
+                                person_name={meeting.student_name}
+                            ></MeetingCard>
+                        ))}
+                </ul>
             </Row>
             <div className="d-flex justify-content-center mt-4">
                 <Pagination></Pagination>
