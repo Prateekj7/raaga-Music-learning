@@ -6,16 +6,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
 import { LoginContext } from "../LoginContext";
-import Form from 'react-bootstrap/Form';
 
 const TeacherDashboard = () => {
     const [students, setStudents] = useState([]);
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-
-    let data = {
-        id: loggedInUser.id,
-    };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -25,7 +20,7 @@ const TeacherDashboard = () => {
             page_size: 100,
             page_number: 1,
             column_name: "teacher_id",
-            column_value: data.id,
+            column_value: loggedInUser.id,
             columns: "*"
         };
 
@@ -85,7 +80,11 @@ const TeacherDashboard = () => {
                     {students.map((meeting) => (
                         <MeetingCard
                             key={meeting.id}
-                            meeting={meeting}
+                            category_type={meeting.category_type}
+                            category_value={meeting.category_value}
+                            class_timestamp={meeting.class_timestamp}
+                            meeting_link={meeting.meeting_link}
+                            person_name={meeting.student_name}
                         ></MeetingCard>
                     ))}
                 </div>

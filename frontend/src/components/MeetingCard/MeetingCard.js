@@ -4,11 +4,9 @@ import { Col, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import FeaturedArtistCard from "../../components/FeaturedArtist/FeaturedArtistCard";
 
-const TeacherCard = ({ meeting }) => {
-    const { category_type, category_value, class_timestamp, meeting_link, teacher_name } = meeting;
+const TeacherCard = ({ category_type, category_value, class_timestamp, meeting_link, person_name }) => {
     const getDateString = () => {
         const dateObj = new Date(class_timestamp.slice(0, 4), class_timestamp.slice(5, 7), class_timestamp.slice(8, 10));
-        console.log(class_timestamp.slice(11, 16))
         const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         let day = weekdays[dateObj.getDay()];
@@ -24,12 +22,12 @@ const TeacherCard = ({ meeting }) => {
             <Row>
                 <Col lg={2}>
                     <div >
-                        <FeaturedArtistCard showFooter={false} imgUrl={meeting.image_url} />
+                        <FeaturedArtistCard showFooter={false} />
                     </div>
                 </Col>
                 <Col lg={10}>
                     <div className={`${styles["testimonial-card-text"]} px-lg-4 pt-4 d-flex flex-column `}>
-                        <h4 className={`${styles["teacher-name"]}`}>{`${category_type} class with ${teacher_name}`}</h4>
+                        <h4 className={`${styles["teacher-name"]}`}>{`${category_type} class with ${person_name}`}</h4>
                         <div className={`${styles["teacher-experience"]}`}>
                             {`${category_value}`}
                         </div>

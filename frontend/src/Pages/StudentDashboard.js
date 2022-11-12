@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MeetingCard from "../components/MeetingCard/MeetingCard"
 import styles from "./AspiringMusician.module.css";
 import Pagination from "./AspiringMusician/MusicTeacher/Paginaiton";
 import { Col, Container, Row } from "react-bootstrap";
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
-import Form from 'react-bootstrap/Form';
+import { LoginContext } from "../LoginContext";
+
 
 const StudentDashboard = () => {
     const [teachers, setTeachers] = useState([]);
+    const { loggedInUserContext } = useContext(LoginContext);
+    const [loggedInUser, setLoggedInUser] = loggedInUserContext;
 
     useEffect(() => {
         const controller = new AbortController();
@@ -18,7 +21,7 @@ const StudentDashboard = () => {
             page_size: 100,
             page_number: 1,
             column_name: "student_id",
-            column_value: "1",
+            column_value: loggedInUser.id,
             columns: "*"
         };
 
@@ -78,7 +81,11 @@ const StudentDashboard = () => {
                     {teachers.map((meeting) => (
                         <MeetingCard
                             key={meeting.id}
-                            meeting={meeting}
+                            category_type={meeting.category_type}
+                            category_value={meeting.category_value}
+                            class_timestamp={meeting.class_timestamp}
+                            meeting_link={meeting.meeting_link}
+                            person_name={meeting.teacher_name}
                         ></MeetingCard>
                     ))}
                 </div>
