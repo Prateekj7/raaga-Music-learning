@@ -1,0 +1,52 @@
+.login-button,
+.skeleton {
+  padding: 0.3125rem 2.375rem;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  border-radius: 1rem;
+}
+
+.login-button {
+  color: var(--grape_purple);
+  background-color: var(--white);
+  border: solid 1px var(--grape_purple);
+}
+
+.skeleton,
+.skeleton:disabled {
+  color: var(--grey);
+  background-color: var(--grey);
+  border: solid 1px var(--grey);
+}
+
+.login-button:hover {
+  color: var(--white);
+  background-color: var(--grape_purple);
+  border: solid 1px var(--grape_purple);
+}
+
+.login-button:active {
+  color: var(--white);
+  background-color: var(--grape_purple);
+  border: solid 1px var(--white);
+}
+
+.login-button:disabled {
+  opacity: 0.4;
+  color: var(--grape_purple);
+  background-color: var(--white);
+  border: solid 1px var(--grape_purple);
+}
+
+.login-button:focus,
+.login-button:active:focus {
+  color: var(--white);
+  background-color: var(--grape_purple);
+  border: solid 1px var(--white);
+}
+
+.login-button:disabled:hover {
+  color: var(--grape_purple);
+  background-color: var(--white);
+  border: solid 1px var(--grape_purple);
+}

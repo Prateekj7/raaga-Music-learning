@@ -49,3 +49,9 @@
   font-weight: var(--fw-med);
   color: var(--grape_purple);
 }
+
+.teacher-rate-placeholder {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-med);
+  color: var(--black);
+}

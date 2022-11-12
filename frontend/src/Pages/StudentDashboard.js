@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from "react";
-import MeetingCard from "../components/MeetingCard/MeetingCard"
+import React, { useEffect, useState, useContext } from "react";
+import MeetingCard from "../components/MeetingCard"
 import styles from "./AspiringMusician.module.css";
-import Pagination from "./AspiringMusician/MusicTeacher/Paginaiton";
+import Pagination from "../components/Paginaiton";
 import { Col, Container, Row } from "react-bootstrap";
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
-import Form from 'react-bootstrap/Form';
+import { LoginContext } from "../LoginContext";
+
 
 const StudentDashboard = () => {
     const [teachers, setTeachers] = useState([]);
+    const { loggedInUserContext } = useContext(LoginContext);
+    const [loggedInUser, setLoggedInUser] = loggedInUserContext;
+    let loading = true;
+    if (teachers.length > 0) {
+        loading = false;
+    }
 
     useEffect(() => {
         const controller = new AbortController();
@@ -18,7 +25,7 @@ const StudentDashboard = () => {
             page_size: 100,
             page_number: 1,
             column_name: "student_id",
-            column_value: "1",
+            column_value: loggedInUser.id,
             columns: "*"
         };
 
@@ -75,12 +82,18 @@ const StudentDashboard = () => {
             <Row>
                 <div className="border-bottom border-dark my-3"></div>
                 <div className="m-0 p-0">
-                    {teachers.map((meeting) => (
-                        <MeetingCard
-                            key={meeting.id}
-                            meeting={meeting}
-                        ></MeetingCard>
-                    ))}
+                    {loading ?
+                        Array.from(Array(5), (e, i) => <MeetingCard key={i} skeleton />) :
+                        teachers.map((meeting) => (
+                            <MeetingCard
+                                key={meeting.id}
+                                category_type={meeting.category_type}
+                                category_value={meeting.category_value}
+                                class_timestamp={meeting.class_timestamp}
+                                meeting_link={meeting.meeting_link}
+                                person_name={meeting.teacher_name}
+                            ></MeetingCard>
+                        ))}
                 </div>
             </Row>
             <div className="d-flex justify-content-center mt-4">

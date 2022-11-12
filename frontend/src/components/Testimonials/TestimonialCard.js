@@ -1,6 +1,6 @@
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import FeaturedArtistCard from '../FeaturedArtist/FeaturedArtistCard';
+import FeaturedArtistCard from '../FeaturedArtistCard';
 import styles from "./TestimonialCard.module.css";
 import React, { useMemo } from "react";
 
