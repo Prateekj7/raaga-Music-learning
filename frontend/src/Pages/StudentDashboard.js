@@ -12,6 +12,10 @@ const StudentDashboard = () => {
     const [teachers, setTeachers] = useState([]);
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
+    let loading = true;
+    if (teachers.length > 0) {
+        loading = false;
+    }
 
     useEffect(() => {
         const controller = new AbortController();
@@ -78,16 +82,18 @@ const StudentDashboard = () => {
             <Row>
                 <div className="border-bottom border-dark my-3"></div>
                 <div className="m-0 p-0">
-                    {teachers.map((meeting) => (
-                        <MeetingCard
-                            key={meeting.id}
-                            category_type={meeting.category_type}
-                            category_value={meeting.category_value}
-                            class_timestamp={meeting.class_timestamp}
-                            meeting_link={meeting.meeting_link}
-                            person_name={meeting.teacher_name}
-                        ></MeetingCard>
-                    ))}
+                    {loading ?
+                        Array.from(Array(5), () => <MeetingCard skeleton />) :
+                        teachers.map((meeting) => (
+                            <MeetingCard
+                                key={meeting.id}
+                                category_type={meeting.category_type}
+                                category_value={meeting.category_value}
+                                class_timestamp={meeting.class_timestamp}
+                                meeting_link={meeting.meeting_link}
+                                person_name={meeting.teacher_name}
+                            ></MeetingCard>
+                        ))}
                 </div>
             </Row>
             <div className="d-flex justify-content-center mt-4">
