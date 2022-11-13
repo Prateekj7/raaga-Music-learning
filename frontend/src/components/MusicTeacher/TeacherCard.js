@@ -93,7 +93,7 @@ const TeacherCard = ({ skeleton = false, teacher }) => {
       <Row>
         {skeleton ?
           null :
-          <Accordion flush className="mb-3 p-lg-0 mx-lg-0">
+          <Accordion flush className="p-lg-0 mx-lg-0">
             <Accordion.Item eventKey="0">
               <CustomToggle ref={accordionRef} eventKey="0" className="d-none">Read More</CustomToggle>
               <Accordion.Body className="mx-0 px-0">
@@ -104,7 +104,7 @@ const TeacherCard = ({ skeleton = false, teacher }) => {
             </Accordion.Item>
           </Accordion>
         }
-        <div className={`${styles["border-dashed"]}`}></div>
+        <div className={`${styles["border-dashed"]} my-3 `}></div>
       </Row>
     </div>
   );

@@ -66,7 +66,7 @@ const TeacherCard = ({ skeleton = false, category_type, category_value, class_ti
                 </Col>
             </Row>
             <Row>
-                <div className={`${styles["border-dashed"]}`}></div>
+                <div className={`${styles["border-dashed"]} my-3`}></div>
             </Row>
         </div>
     );
