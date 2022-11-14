@@ -157,4 +157,11 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     )
 }
+CORS_ALLOWED_ORIGINS = [
+"http://localhost",
+"http://localhost:80",
+"http://127.0.0.1:80",
+"http://3.6.79.101:80",
+"http://3.6.79.101",
+]
 
