@@ -81,7 +81,7 @@ def insert_data(request):
     
     return Response('ok')
 
-@api_view(['POST'])
+@api_view(['GET'])
 def read_data(request):
     params = request.data
 
@@ -113,7 +113,7 @@ def read_data(request):
     return Response(results)
 
 
-@api_view(['POST'])
+@api_view(['GET'])
 def read_teacher_main_data(request):
     params = request.data
     
@@ -129,7 +129,7 @@ def read_teacher_main_data(request):
     
     return Response(results)
 
-@api_view(['POST'])
+@api_view(['GET'])
 def read_teacher_metadata(request):
     params = request.data
     
