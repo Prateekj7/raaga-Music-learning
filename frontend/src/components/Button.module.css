@@ -12,6 +12,16 @@
   border: solid 1px var(--grape_purple);
 }
 
+.selected {
+  color: var(--white);
+  background-color: var(--grape_purple);
+}
+
+.login-button.selected:focus {
+  color: var(--white);
+  background-color: var(--grape_purple);
+}
+
 .skeleton,
 .skeleton:disabled {
   color: var(--grey);
