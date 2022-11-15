@@ -12,28 +12,28 @@ import Loading from "./Loading";
 
 
 function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
-    const { loggedInUserContext } = useContext(LoginContext);
-    const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-    const [otpSentNotification, setOtpSentNotification] = useState("");
-    const handleSignUp = (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const formDataObj = Object.fromEntries(formData.entries());
-        setOtpSentNotification("OTP has been sent to +91-9954199108");
-    };
+    // const { loggedInUserContext } = useContext(LoginContext);
+    // const [loggedInUser, setLoggedInUser] = loggedInUserContext;
+    // const [otpSentNotification, setOtpSentNotification] = useState("");
+    // const handleSignUp = (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData(e.target);
+    //     const formDataObj = Object.fromEntries(formData.entries());
+    //     setOtpSentNotification("OTP has been sent to +91-9954199108");
+    // };
 
-    const handleSubmitSignUpOTP = (e) => {
-        e.preventDefault();
-        handleCloseDrawer();
-        setOtpSentNotification("");
-        setTimeout(() => {
-            setLoggedInUser({
-                isLoggedIn: true,
-                category: "student",
-                id: "10001"
-            });
-        }, 1000);
-    };
+    // const handleSubmitSignUpOTP = (e) => {
+    //     e.preventDefault();
+    //     handleCloseDrawer();
+    //     setOtpSentNotification("");
+    //     setTimeout(() => {
+    //         setLoggedInUser({
+    //             isLoggedIn: true,
+    //             category: "student",
+    //             id: "10001"
+    //         });
+    //     }, 1000);
+    // };
     const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
@@ -169,8 +169,18 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                     title="Please enter a valid phone number"
                     required />
             </Form.Group>
+            <button
+                variant="primary"
+                type="submit"
+                value="SignUp"
+                className={`${styles["get-otp-button"]}`}
+                
+
+            >
+                Submit OTP
+            </button>
         </Form>
-        <Form onSubmit={handleSubmitSignUpOTP} id="submitSignUpOTPForm">
+        {/* <Form onSubmit={handleSubmitSignUpOTP} id="submitSignUpOTPForm">
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className={`${styles["form-label"]} mb-2`}>{otpSentNotification}</Form.Label>
                 <Form.Control
@@ -181,9 +191,9 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                     required
                 />
             </Form.Group>
-        </Form>
+        </Form> */}
 
-        {otpSentNotification === "" ?
+        {/* {otpSentNotification === "" ?
             <button
                 variant="primary"
                 type="submit"
@@ -201,7 +211,8 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
 
             >
                 Submit OTP
-            </button>}
+            </button>} */}
+           
 
         <span className={`${styles["footer-text"]} d-flex align-items-center flex-column mt-5`}>
             <p>

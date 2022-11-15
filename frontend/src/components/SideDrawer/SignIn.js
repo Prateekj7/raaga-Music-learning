@@ -12,9 +12,9 @@ import {
 import Alert from './Alert';
 
 function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
-    const { loggedInUserContext } = useContext(LoginContext);
-    const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-    const [otpSentNotification, setOtpSentNotification] = useState("");
+    // const { loggedInUserContext } = useContext(LoginContext);
+    // const [loggedInUser, setLoggedInUser] = loggedInUserContext;
+    // const [otpSentNotification, setOtpSentNotification] = useState("");
     const [alert,setAlert]= useState(null)
     const showAlert=(message,type)=>{
         setAlert({
@@ -26,22 +26,22 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
         },1000)
     }
 
-    const handleSendOtp = (e) => {
-        e.preventDefault();
-        setOtpSentNotification("OTP has been sent to +91-9954199108");
-    };
-    const handleSubmitSignInOTP = (e) => {
-        e.preventDefault();
-        handleCloseDrawer();
-        setOtpSentNotification("");
-        setTimeout(() => {
-            setLoggedInUser({
-                isLoggedIn: true,
-                category: "student",
-                id: "10001"
-            });
-        }, 1000);
-    };
+    // const handleSendOtp = (e) => {
+    //     e.preventDefault();
+    //     setOtpSentNotification("OTP has been sent to +91-9954199108");
+    // };
+    // const handleSubmitSignInOTP = (e) => {
+    //     e.preventDefault();
+    //     handleCloseDrawer();
+    //     setOtpSentNotification("");
+    //     setTimeout(() => {
+    //         setLoggedInUser({
+    //             isLoggedIn: true,
+    //             category: "student",
+    //             id: "10001"
+    //         });
+    //     }, 1000);
+    // };
     const emailRef = useRef("");
   const passwordRef = useRef("");
   const navigate = useNavigate();
@@ -115,16 +115,26 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
                     required
                 />
             </Form.Group>
-        </Form>
-        {errorElement}
-        <button
+            <button
           className="btn btn-link text-white p-1 m-1  text-decoration-none"
           onClick={resetPassword}
         >
         Forget Password?
         </button>
+            <button
+                variant="primary"
+                type="submit"
+                className={`${styles["get-otp-button"]}`}
+                
 
-        <Form onSubmit={handleSubmitSignInOTP} id="submitSignInOTPForm">
+            >
+                Submit OTP
+            </button>
+        </Form>
+        {errorElement}
+      
+
+        {/* <Form onSubmit={handleSubmitSignInOTP} id="submitSignInOTPForm">
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className={`${styles["form-label"]} mb-2`}>{otpSentNotification}</Form.Label>
                 <Form.Control
@@ -135,9 +145,9 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
                     required
                 />
             </Form.Group>
-        </Form>
+        </Form> */}
 
-        {otpSentNotification === "" ?
+        {/* {otpSentNotification === "" ?
             <button
                 variant="primary"
                 type="submit"
@@ -155,7 +165,8 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
 
             >
                 Submit OTP
-            </button>}
+            </button>} */}
+           
 
         <span className={`${styles["footer-text"]} d-flex align-items-center flex-column mt-5`}>
             <p>
