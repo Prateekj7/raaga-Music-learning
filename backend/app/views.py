@@ -83,13 +83,13 @@ def insert_data(request):
 
 @api_view(['GET'])
 def read_data(request):
-    params = request.data
+    params = request.GET
 
     table = params['table']
     columns = ", ".join(params['columns'])
     
-    page_size = params.get('page_size')
-    page_number = params.get('page_number')
+    page_size = int(params.get('page_size'))
+    page_number = int(params.get('page_number'))
     if page_size and page_number:
         limit = page_size
         offset = (page_number - 1) * limit
@@ -115,10 +115,10 @@ def read_data(request):
 
 @api_view(['GET'])
 def read_teacher_main_data(request):
-    params = request.data
+    params = request.GET
     
-    limit = params['page_size']
-    offset = (params['page_number'] - 1) * limit
+    limit = int(params['page_size'])
+    offset = (int(params['page_number']) - 1) * limit
     category_name = params['category_name']
     category_value = params['category_value']
 
@@ -131,7 +131,7 @@ def read_teacher_main_data(request):
 
 @api_view(['GET'])
 def read_teacher_metadata(request):
-    params = request.data
+    params = request.GET
     
     id = params['id']
 
