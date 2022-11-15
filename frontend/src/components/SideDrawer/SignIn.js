@@ -1,13 +1,30 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import styles from "./SideDrawer.module.css";
 import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
-
+import {
+    useSendPasswordResetEmail,
+    useSignInWithEmailAndPassword,
+  } from "react-firebase-hooks/auth";
+  import {  useLocation, useNavigate } from "react-router-dom";
+  import auth from "../../firebase.init";
+  import Loading from "./Loading";
+import Alert from './Alert';
 
 function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
     const [otpSentNotification, setOtpSentNotification] = useState("");
+    const [alert,setAlert]= useState(null)
+    const showAlert=(message,type)=>{
+        setAlert({
+            msg:message,
+            type:type
+        })
+        setTimeout(()=>{
+            setAlert(null)
+        },1000)
+    }
 
     const handleSendOtp = (e) => {
         e.preventDefault();
@@ -25,9 +42,50 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
             });
         }, 1000);
     };
+    const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
+  let errorElement;
+
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+  
+
+  if (loading || sending) {
+    return <Loading></Loading>;
+  }
+
+  if (user) {
+    navigate(from, { replace: true });
+  }
+  if (error) {
+    errorElement = <p className="text-danger">Error: {error?.message}</p>;
+  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    await signInWithEmailAndPassword(email, password);
+  };
+  const resetPassword = async () => {
+    const email = emailRef.current.value;
+    if (email) {
+      await sendPasswordResetEmail(email);
+      showAlert("Check your email","success");
+    } else {
+        showAlert("Please Enter your email","success");
+    }
+  };
     return <div>
-        <Form onSubmit={handleSendOtp} id="sendOTPForm">
-            <Form.Group className="mb-4" controlId="formBasicPhone">
+        <Alert alert={alert}></Alert>
+        <Form onSubmit={handleSubmit} id="sendOTPForm">
+            {/* <Form.Group className="mb-4" controlId="formBasicPhone">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your mobile number</Form.Label>
                 <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
                     name="signInPhone"
@@ -38,8 +96,33 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
                     title="Please enter a valid phone number"
                     required
                 />
+            </Form.Group> */}
+            <Form.Group className="mb-4" controlId="formBasicEmail">
+                <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your email</Form.Label>
+                <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
+                     ref={emailRef}
+                     type="email"
+                     placeholder="Enter email"
+                     required
+                />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="formBasicPassword">
+                <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your password</Form.Label>
+                <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
+                    ref={passwordRef}
+                    type="password"
+                    placeholder="Password"
+                    required
+                />
             </Form.Group>
         </Form>
+        {errorElement}
+        <button
+          className="btn btn-link text-white p-1 m-1  text-decoration-none"
+          onClick={resetPassword}
+        >
+        Forget Password?
+        </button>
 
         <Form onSubmit={handleSubmitSignInOTP} id="submitSignInOTPForm">
             <Form.Group className="mb-3" controlId="formBasicPassword">

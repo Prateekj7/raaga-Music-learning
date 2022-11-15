@@ -2,6 +2,13 @@ import React, { useState, useContext } from 'react';
 import styles from "./SideDrawer.module.css";
 import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
+import {  useNavigate } from "react-router-dom";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+import Loading from "./Loading";
 
 
 function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
@@ -27,9 +34,48 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
             });
         }, 1000);
     };
+    const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+  
+  const navigate = useNavigate();
+  const navigateLogin = () => {
+    navigate("/");
+  };
 
+  let signInError;
+
+  if (loading || updating) {
+    return <Loading></Loading>;
+  }
+
+  if(error||updateError){
+    signInError=(
+      <p className='text-danger'>
+        {error?.message||updateError?.message}
+      </p>
+    )
+  }
+
+  if (user) {
+    navigate("/");
+  }
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+   
+
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName: name });
+    console.log("Updated profile");
+  };
     return <div>
-        <Form onSubmit={handleSignUp} id="signUpForm">
+        <Form onSubmit={handleRegister} id="signUpForm">
+           
+          
             <Form.Group className="mb-4" controlId="formUserTypeRadio">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Sign up as a teacher or student</Form.Label>
 
@@ -76,6 +122,16 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                     placeholder="Email ID *"
                     required />
             </Form.Group>
+            <Form.Group className="mb-4" controlId="formBasicEmail">
+                <Form.Label visuallyHidden>Password</Form.Label>
+                <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
+                    name="password"
+                    type="password"
+                    placeholder="Password *"
+                    required />
+            </Form.Group>
+            {signInError}
+            
             <Form.Group className="mb-3" controlId="formBasicGenderRadio">
                 <div key={`inline-radio`} className="d-flex">
                     <Form.Check
