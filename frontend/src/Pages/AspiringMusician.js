@@ -6,56 +6,66 @@ import { Col, Container, Row } from "react-bootstrap";
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
 import Form from 'react-bootstrap/Form';
+import { useQuery } from "@tanstack/react-query";
+import axios from 'axios';
+import Button from "../components/Button";
 
 const AspiringMusician = () => {
-  const [teachers, setTeachers] = useState([]);
-  let loading = true;
-  if (teachers.length > 0) {
-    loading = false;
+  const [filter, setFilter] = useState({ categoryName: "vocal", categoryValue: "Ghazal" });
+  const teacherQueryFn = () => {
+    return axios.get(`/api/read_teacher_main_data?page_size=100&page_number=1&category_name=${filter.categoryName}&category_value=${filter.categoryValue}`)
+  };
+  const VocalOptionsQueryFn = () => {
+    return axios.get(`/api/read_data?page_size=100&page_number=1&table=vocal&columns=*`)
+  };
+  const InstrumentalOptionsQueryFn = () => {
+    return axios.get(`/api/read_data?page_size=100&page_number=1&table=instrumental&columns=*`)
+  };
+
+  const { isLoading: isLoadingTeachers, data: teachers } = useQuery({
+    queryKey: ['teachers', filter.categoryName, filter.categoryValue],
+    queryFn: teacherQueryFn,
+  });
+  const { isLoading: isLoadingVocalOptions, data: vocalOptions } = useQuery({
+    queryKey: ['vocalOptions'],
+    queryFn: VocalOptionsQueryFn,
+  });
+  const { isLoading: isLoadingInstrumentalOptions, data: instrumentalOptions } = useQuery({
+    queryKey: ['instrumentalOptions'],
+    queryFn: InstrumentalOptionsQueryFn,
+  });
+
+  function DropDownOptions() {
+    const mappingFn = (item) =>
+      <option value={item.name} key={item.id}>
+        {item.name}
+      </option>;
+
+    if (filter.categoryName == "vocal" && (!isLoadingVocalOptions)) {
+      return vocalOptions?.data.map(mappingFn);
+    }
+    else if (filter.categoryName == "instrumental" && (!isLoadingInstrumentalOptions)) {
+      return instrumentalOptions?.data.map(mappingFn);
+    }
+    else {
+      return [];
+    }
+
   }
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    let data = {
-      table: "teacher",
-      page_size: 100,
-      page_number: 1,
-      columns: "*"
-      // category_name: "vocal",
 
-      // category_value: "ghazal"
-    };
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data),
-      signal: signal
-    };
-    const getTableData = async () => {
-      try {
-        const response = await fetch("/api/read_data/", requestOptions);
-        const result = await response.json();
-        if (response.ok && !signal.aborted) {
-          setTeachers(result);
-          console.log(result);
-        } else {
-          throw Error(result);
-        }
-      } catch (err) {
-        if (err.name === "AbortError") {
-          console.log("successfully aborted");
-        } else {
-          console.log(err);
-        }
+  const handleFilterChange = (e) => {
+    if (e.target.name === "categoryValue") {
+      setFilter((prevState) => ({ ...prevState, categoryValue: e.target.value }));
+    }
+    else {
+      if (e.target.name === "vocal") {
+        setFilter({ categoryName: "vocal", categoryValue: "Ghazal" });
       }
-    };
-
-    getTableData();
-    return () => controller.abort();
-  }, []);
+      else if (e.target.name === "instrumental") {
+        setFilter({ categoryName: "instrumental", categoryValue: "Sitar" });
+      }
+    }
+  };
 
   return (
     <Container fluid className={`${styles["aspiring-musician-container"]}`}>
@@ -69,10 +79,20 @@ const AspiringMusician = () => {
         </Col>
         <Col>
           <div className={`pb-lg-4 py-3 d-flex justify-content-lg-end`}>
-            <button className={`${styles["login-button"]} me-4`}>
-              Vocal
-            </button>
-            <button className={`${styles["login-button"]}`}>Instrument</button>
+            <Button
+              name="vocal"
+              className={`me-4`}
+              selected={filter.categoryName === "vocal"}
+              onClick={handleFilterChange}
+              text="Vocal"
+            />
+            <Button
+              name="instrumental"
+              className={`me-4`}
+              selected={filter.categoryName === "instrumental"}
+              onClick={handleFilterChange}
+              text="Instrumental"
+            />
           </div>
         </Col>
 
@@ -83,11 +103,13 @@ const AspiringMusician = () => {
             <div className={`${styles["dropdown-label"]} me-3`}>Select Genre</div>
           </Col>
           <Col lg={2}>
-            <Form.Select aria-label="Default select example">
-              <option>Indian classical</option>
-              <option value="1">Ghazal</option>
-              <option value="2">Western Classical</option>
-              <option value="3">Pop</option>
+            <Form.Select
+              aria-label="Default select example"
+              value={filter.categoryValue}
+              onChange={handleFilterChange}
+              name="categoryValue"
+            >
+              <DropDownOptions />
             </Form.Select>
           </Col>
         </div>
@@ -95,14 +117,16 @@ const AspiringMusician = () => {
       <Row>
         <div className="border-bottom border-dark my-3"></div>
         <ul className="m-0 p-0">
-          {loading ?
+          {isLoadingTeachers ?
             Array.from(Array(5), (e, i) => <TeacherCard key={i} skeleton />) :
-            teachers.map((teacher) => (
-              <TeacherCard
-                key={teacher.id}
-                teacher={teacher}
-              ></TeacherCard>
-            ))}
+            teachers?.data.length === 0 ?
+              <h5 className="d-flex justify-content-center">Sorry no teachers found, please try selecting other genre.</h5> :
+              teachers?.data.map((teacher) => (
+                <TeacherCard
+                  key={teacher.id}
+                  teacher={teacher}
+                ></TeacherCard>
+              ))}
         </ul>
       </Row>
       <div className="d-flex justify-content-center mt-4">
