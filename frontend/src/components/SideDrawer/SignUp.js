@@ -177,7 +177,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 
 
             >
-                Submit OTP
+                SignOut
             </button>
         </Form>
         {/* <Form onSubmit={handleSubmitSignUpOTP} id="submitSignUpOTPForm">

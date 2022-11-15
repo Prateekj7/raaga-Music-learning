@@ -128,7 +128,7 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
                 
 
             >
-                Submit OTP
+                SignIn
             </button>
         </Form>
         {errorElement}
