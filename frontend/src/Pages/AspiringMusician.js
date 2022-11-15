@@ -36,8 +36,7 @@ const AspiringMusician = () => {
     };
     const getTableData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/read_data/", requestOptions);
-        const testResp = await fetch("http://django-backend:8000/api/read_data/", requestOptions);
+        const response = await fetch("http://localhost:8000/api/read_data/", requestOptions);
         const result = await response.json();
         if (response.ok && !signal.aborted) {
           setTeachers(result);
