@@ -41,7 +41,7 @@ def foo(request):
 @api_view(['POST'])
 def check_user_existance(request):
     def check_existance(table):
-        query = f"SELECT id FROM {table} WHERE contact_number = '{phone}'"
+        query = f"SELECT id FROM {table} WHERE email_id = '{email_id}'"
         with connection.cursor() as cursor:
             cursor.execute(query)
             result = cursor.fetchall()
@@ -49,7 +49,7 @@ def check_user_existance(request):
         return result
     
     params = request.data
-    phone = params['phone']
+    email_id = params['email_id']
 
     result = check_existance('student')
     if len(result):
@@ -70,7 +70,8 @@ def insert_data(request):
     table = params['table']
     data = params['data']
 
-    data['id'] = str(uuid.uuid4())
+    id = str(uuid.uuid4())
+    data['id'] = id
 
     columns = data.keys()
     values = data.values()
@@ -79,7 +80,7 @@ def insert_data(request):
     with connection.cursor() as cursor:
         cursor.execute(query)
     
-    return Response('ok')
+    return Response(id)
 
 @api_view(['GET'])
 def read_data(request):
