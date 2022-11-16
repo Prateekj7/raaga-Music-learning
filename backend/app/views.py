@@ -41,7 +41,7 @@ def foo(request):
 @api_view(['POST'])
 def check_user_existance(request):
     def check_existance(table):
-        query = f"SELECT id FROM {table} WHERE contact_number = '{phone}'"
+        query = f"SELECT id FROM {table} WHERE email_id = '{email_id}'"
         with connection.cursor() as cursor:
             cursor.execute(query)
             result = cursor.fetchall()
@@ -49,7 +49,7 @@ def check_user_existance(request):
         return result
     
     params = request.data
-    phone = params['phone']
+    email_id = params['email_id']
 
     result = check_existance('student')
     if len(result):
