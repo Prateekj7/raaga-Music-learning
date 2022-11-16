@@ -62,9 +62,12 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
 
   if (user) {
     navigate(from, { replace: true });
+    handleCloseDrawer()
   }
   if (error) {
-    errorElement = <p className="text-danger">Error: {error?.message}</p>;
+    
+    errorElement = handleShowSignUpPage();
+    
   }
   const handleSubmit = async (event) => {
     event.preventDefault();

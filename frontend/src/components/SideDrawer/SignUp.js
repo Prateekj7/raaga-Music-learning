@@ -58,7 +58,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
   }
 
   if (user) {
-    navigate("/");
+    handleHideSignupPage()
   }
 
   const handleRegister = async (event) => {
@@ -174,7 +174,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 type="submit"
                 value="SignUp"
                 className={`${styles["get-otp-button"]}`}
-                onClick={handleHideSignupPage}
+                
 
             >
                 SignUp
