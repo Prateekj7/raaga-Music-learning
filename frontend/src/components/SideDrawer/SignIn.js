@@ -1,68 +1,129 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import styles from "./SideDrawer.module.css";
 import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
-import { useNavigate } from "react-router-dom";
+import {
+    useSendPasswordResetEmail,
+    useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
+import { useLocation, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
+import Loading from "./Loading";
+import Alert from './Alert';
+import axios from 'axios';
 import { useForm } from "react-hook-form";
 import Notification from "../Notification";
+import { useMutation } from "@tanstack/react-query";
 
 
 function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-    const [potentialUser, setPotentialUser] = useState({ category: "", phone: "" });
-    const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
+    const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
-    const [showNotification, setShowNotification] = useState({ show: false, message: "" });
+    const [signInWithEmailAndPassword, user, loading, error] =
+        useSignInWithEmailAndPassword(auth);
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+    const { isLoading: isLoadingPost, mutate: signInUserDB, isSuccess: isSuccessPost } = useMutation({
+        mutationFn: userDetails => {
+            return axios.post('/api/check_user_existance/', userDetails)
+        },
+        onSuccess: (result, postOptions) => {
+            setTimeout(() => {
+                if (postOptions.table === "student") {
+                    navigate("/aspiring-musician-dashboard");
+                }
+                else {
+                    navigate("/music-teacher-dashboard");
+                }
+                handleCloseDrawer();
+            }, 2000)
+            setTimeout(() => {
+                setLoggedInUser({
+                    isLoggedIn: true,
+                    category: result.data.type,
+                    id: result.data.id
+                });
+            }, 3000)
+        }
+    })
 
-    const handleSendOtp = (formData) => {
-        if (formData.signInPhone === "9654535144") {
-            setPotentialUser({ category: "teacher", phone: formData.signInPhone });
-        }
-        else if (formData.signInPhone === "9954199108") {
-            setPotentialUser({ category: "student", phone: formData.signInPhone });
-        }
-        else {
-            setShowNotification({ show: true, message: "User not found! Please Sign Up." });
-        }
-    };
-    const handleSubmitSignInOTP = () => {
-        handleCloseDrawer();
-        setPotentialUser({ category: "", phone: "" });
-        setTimeout(() => {
-            setLoggedInUser({
-                isLoggedIn: true,
-                category: potentialUser.category,
-                id: "10001"
+    let signInError;
+
+    if (loading || sending || isLoadingPost) {
+        return <Loading></Loading>;
+    }
+
+    if (isSuccessPost) {
+        return <Notification show={true} containerPosition="absolute" message="You have successfully logged in !" />
+    }
+
+    if (error) {
+        signInError = (
+            <p className='text-white'>
+                Sorry! User not found, please sign up.
+            </p>
+        )
+    }
+
+    const handleLogin = async (formData) => {
+        const { email, password } = formData;
+        const loggedIntoFirebase = await signInWithEmailAndPassword(email, password);
+        if (loggedIntoFirebase) {
+            signInUserDB({
+                email_id: email,
             });
-        }, 1000);
-
-        if (potentialUser.category === "teacher") {
-            navigate("/music-teacher-dashboard");
         }
-        else if (potentialUser.category === "student") {
-            navigate("/aspiring-musician-dashboard");
-        }
-
     };
+    // const resetPassword = async () => {
+    //     const email = emailRef.current.value;
+    //     if (email) {
+    //         await sendPasswordResetEmail(email);
+    //         showAlert("Check your email", "success");
+    //     } else {
+    //         showAlert("Please Enter your email", "success");
+    //     }
+    // };
     return <div>
-        <Notification show={showNotification.show} setShow={setShowNotification} message={showNotification.message} />
-        <Form onSubmit={handleSubmit(handleSendOtp)} id="sendOTPForm">
-            <Form.Group className="mb-4" controlId="formBasicPhone">
-                <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your mobile number</Form.Label>
+        <Form onSubmit={handleSubmit(handleLogin)} id="sendOTPForm">
+            <Form.Group className="mb-4" controlId="formBasicEmail">
+                <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your email</Form.Label>
                 <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
-                    {...register("signInPhone")}
-                    type="tele"
-                    placeholder="ex- 919954199108"
-                    pattern="[0-9]{7,15}"
-                    maxLength="15"
-                    title="Please enter a valid phone number"
+                    type="email"
+                    placeholder="Enter email"
                     required
+                    {...register("email")}
                 />
             </Form.Group>
-        </Form>
+            <Form.Group className="mb-4" controlId="formBasicPassword">
+                <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your password</Form.Label>
+                <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
+                    type="password"
+                    placeholder="Password"
+                    required
+                    {...register("password")}
+                />
+            </Form.Group>
+            {/* <button
+                className="btn btn-link text-white p-1 m-1  text-decoration-none"
+            onClick={resetPassword}
+            >
+                Forget Password?
+            </button> */}
+            <button
+                variant="primary"
+                type="submit"
+                className={`${styles["get-otp-button"]} mb-3`}
 
-        <Form onSubmit={handleSubmit(handleSubmitSignInOTP)} id="submitSignInOTPForm">
+
+            >
+                SignIn
+            </button>
+        </Form>
+        {signInError}
+
+
+        {/* <Form onSubmit={handleSubmitSignInOTP} id="submitSignInOTPForm">
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className={`${styles["form-label"]} mb-2`}>
                     {potentialUser.phone === "" ? "" : `OTP sent to +91-${potentialUser.phone}`}
@@ -75,9 +136,9 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
                     required
                 />
             </Form.Group>
-        </Form>
+        </Form> */}
 
-        {potentialUser.phone === "" ?
+        {/* {otpSentNotification === "" ?
             <button
                 variant="primary"
                 type="submit"
@@ -95,7 +156,8 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
 
             >
                 Submit OTP
-            </button>}
+            </button>} */}
+
 
         <span className={`${styles["footer-text"]} d-flex align-items-center flex-column mt-5`}>
             <p>
