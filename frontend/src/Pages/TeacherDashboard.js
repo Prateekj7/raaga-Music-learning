@@ -6,58 +6,22 @@ import { Col, Container, Row } from "react-bootstrap";
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
 import { LoginContext } from "../LoginContext";
+import { useQuery } from "@tanstack/react-query";
+import axios from 'axios';
 
 const TeacherDashboard = () => {
-    const [students, setStudents] = useState([]);
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-    let loading = true;
-    if (students.length > 0) {
-        loading = false;
-    }
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-        let data = {
-            table: "class",
-            page_size: 100,
-            page_number: 1,
-            column_name: "teacher_id",
-            column_value: loggedInUser.id,
-            columns: "*"
-        };
-
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data),
-            signal: signal
-        };
-        const getTableData = async () => {
-            try {
-                const response = await fetch("/api/read_data/", requestOptions);
-                const result = await response.json();
-                if (response.ok && !signal.aborted) {
-                    setStudents(result);
-                    console.log(result);
-                } else {
-                    throw Error(result);
-                }
-            } catch (err) {
-                if (err.name === "AbortError") {
-                    console.log("successfully aborted");
-                } else {
-                    console.log(err);
-                }
-            }
-        };
-
-        getTableData();
-        return () => controller.abort();
-    }, []);
+    const meetingsQueryFn = () => {
+        return axios.get(`/api/read_data?table=class&page_size=100&page_number=1&column_name=teacher_id&columns=*&column_value=${loggedInUser.id}`)
+    };
+    const { isLoading: isLoading, data: meetings } = useQuery({
+        queryKey: ['teacherMeetings', loggedInUser.id],
+        queryFn: meetingsQueryFn,
+        select: (data) => {
+            return data.data;
+        }
+    });
 
     return (
         <Container fluid className={`${styles["aspiring-musician-container"]}`}>
@@ -81,9 +45,9 @@ const TeacherDashboard = () => {
             <Row>
                 <div className="border-bottom border-dark my-3"></div>
                 <ul className="m-0 p-0">
-                    {loading ?
+                    {isLoading ?
                         Array.from(Array(5), (e, i) => <MeetingCard key={i} skeleton />) :
-                        students.map((meeting) => (
+                        meetings.map((meeting) => (
                             <MeetingCard
                                 key={meeting.id}
                                 category_type={meeting.category_type}

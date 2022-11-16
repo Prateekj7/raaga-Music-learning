@@ -8,12 +8,13 @@ import { useForm } from "react-hook-form";
 import Notification from "../Notification";
 import { LoginContext } from "../../LoginContext";
 import Spinner from 'react-bootstrap/Spinner';
+import { useQuery, useMutation } from "@tanstack/react-query";
+import axios from 'axios';
 
 const ReadMore = ({ teacher }) => {
   const { loggedInUserContext } = useContext(LoginContext);
   const [loggedInUser, setLoggedInUser] = loggedInUserContext;
   const { name, image_url, experience, hourly_rate, video, address } = teacher;
-  const [teacherReadMore, setTeacherReadMore] = useState();
   const [selectedDateTime, setSelectedDateTime] = useState({
     date: "",
     time: "",
@@ -21,6 +22,26 @@ const ReadMore = ({ teacher }) => {
   const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
   const [showNotification, setShowNotification] = useState({ show: false, message: "" });
   const [loading, setLoading] = useState(false);
+  const { isLoading, mutate: createMeeting } = useMutation({
+    mutationFn: newMeeting => {
+      return axios.post('/api/book_class/', newMeeting)
+    },
+    onSuccess: () => {
+      setShowNotification({ show: true, message: "Class booked ! Please check your dashboard." });
+    }
+  })
+
+  const teacherQueryFn = () => {
+    return axios.get(`/api/read_teacher_metadata?id=${teacher.id}`);
+  };
+
+  const { isLoading: isLoadingReadMore, data: teacherReadMore } = useQuery({
+    queryKey: ['teachers', teacher.id],
+    queryFn: teacherQueryFn,
+    select: (data) => {
+      return data.data;
+    }
+  });
 
   //create schedule object for date and time
   const schedule = [
@@ -52,50 +73,17 @@ const ReadMore = ({ teacher }) => {
     }
   ]
 
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    let data = {
-      id: teacher.id,
-    };
-
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-      signal: signal
-    };
-
-    const getTableData = async () => {
-      try {
-        const response = await fetch("/api/read_teacher_metadata/", requestOptions);
-        const result = await response.json();
-        if (response.ok && !signal.aborted) {
-          setTeacherReadMore(result);
-          console.log(result);
-        } else {
-          throw Error(result);
-        }
-      } catch (err) {
-        if (err.name === "AbortError") {
-          console.log("successfully aborted");
-        } else {
-          console.log(err);
-        }
-      }
-    };
-
-    getTableData();
-    return () => controller.abort();
-  }, []);
-
   const handleBookClass = (formData) => {
     if (!loggedInUser.isLoggedIn) {
       setShowNotification({ show: true, message: "Please login to book a class !" });
       return;
     }
-    setLoading(true);
-    let data = {
+    if ((loggedInUser.isLoggedIn) && (loggedInUser.category !== "student")) {
+      setShowNotification({ show: true, message: "Please login as student to book a class !" });
+      return;
+    }
+
+    let meeting = {
       data: {
         //Prateek, please put your code here
         "student_id": 1,
@@ -110,31 +98,9 @@ const ReadMore = ({ teacher }) => {
         "payment_timestamp": "2022-10-30T11:00"
       }
     };
-
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-
-    const getTableData = async () => {
-      try {
-        const response = await fetch("/api/book_class/", requestOptions);
-        const result = await response.json();
-        if (response.ok) {
-          console.log(result);
-          setLoading(false);
-          setShowNotification({ show: true, message: "Class booked ! Please check your dashboard." });
-        } else {
-          throw Error(result);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getTableData();
+    createMeeting(meeting)
   };
+
   return (
     <div>
       <Notification show={showNotification.show} setShow={setShowNotification} message={showNotification.message} />
@@ -153,7 +119,7 @@ const ReadMore = ({ teacher }) => {
       <div className="border-bottom border-dark pb-4"></div>
       <Row>
         <Col lg="7">
-          <div className="d-flex align-items-center my-3">
+          <div className="d-flex flex-column flex-lg-row align-items-start align-items-lg-center my-3">
             <h4 className={`${styles["teacher-name"]} p-0 m-0 me-2`}>{name}</h4>
             <h5 className={`${styles["teacher-experience"]} p-0 m-0 me-2`}>{experience} Years experience</h5>
             <div >
@@ -177,16 +143,16 @@ const ReadMore = ({ teacher }) => {
             </p>
           </div>
           <div className="d-flex">
-            <p className={`${styles["read-more-med"]} me-2`}>
+            <strong className={`${styles["read-more-bold"]} me-2`}>
               Special Qualification in music:
-            </p>
-            <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.qualification} </strong>
+            </strong>
+            <p className={`${styles["read-more-med"]}`}>{teacherReadMore?.qualification} </p>
           </div>
           <div className="d-flex">
-            <p className={`${styles["read-more-med"]} me-2`}>
+            <strong className={`${styles["read-more-bold"]} me-2`}>
               No. of Students taught:
-            </p>
-            <strong className={`${styles["read-more-bold"]}`}>{teacherReadMore?.student_count} </strong>
+            </strong>
+            <p className={`${styles["read-more-med"]}`}>{teacherReadMore?.student_count} </p>
           </div>
         </Col>
 
@@ -220,7 +186,7 @@ const ReadMore = ({ teacher }) => {
                   size="sm"
                   role="status"
                   aria-hidden="true"
-                  className={loading ? "me-2" : "d-none"}
+                  className={isLoading ? "me-2" : "d-none"}
                 />
                 Book Now
               </Button>
