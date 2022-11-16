@@ -58,7 +58,8 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
     }
 
     if (user) {
-        handleHideSignupPage()
+        navigate("/aspiring-musician-profile")
+        handleCloseDrawer()
     }
 
     const handleRegister = async (event) => {
