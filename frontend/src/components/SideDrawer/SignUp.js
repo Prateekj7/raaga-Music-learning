@@ -38,7 +38,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 setLoggedInUser({
                     isLoggedIn: true,
                     category: postOptions.table,
-                    id: result
+                    id: result.data
                 });
             }, 4000)
         }
@@ -127,7 +127,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                     placeholder="Email ID *"
                     required />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="formBasicEmail">
+            <Form.Group className="mb-4" controlId="formBasicPassword">
                 <Form.Label visuallyHidden>Password</Form.Label>
                 <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
                     {...register("password")}
