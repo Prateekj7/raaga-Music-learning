@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import styles from "./SideDrawer.module.css";
 import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  useCreateUserWithEmailAndPassword,
-  useUpdateProfile,
+    useCreateUserWithEmailAndPassword,
+    useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Loading from "./Loading";
@@ -35,47 +35,47 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
     //     }, 1000);
     // };
     const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-  
-  const navigate = useNavigate();
-  const navigateLogin = () => {
-    navigate("/");
-  };
+        useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
-  let signInError;
+    const navigate = useNavigate();
+    const navigateLogin = () => {
+        navigate("/");
+    };
 
-  if (loading || updating) {
-    return <Loading></Loading>;
-  }
+    let signInError;
 
-  if(error||updateError){
-    signInError=(
-      <p className='text-danger'>
-        {error?.message||updateError?.message}
-      </p>
-    )
-  }
+    if (loading || updating) {
+        return <Loading></Loading>;
+    }
 
-  if (user) {
-    handleHideSignupPage()
-  }
+    if (error || updateError) {
+        signInError = (
+            <p className='text-danger'>
+                {error?.message || updateError?.message}
+            </p>
+        )
+    }
 
-  const handleRegister = async (event) => {
-    event.preventDefault();
-    const name = event.target.name.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-   
+    if (user) {
+        handleHideSignupPage()
+    }
 
-    await createUserWithEmailAndPassword(email, password);
-    await updateProfile({ displayName: name });
-    console.log("Updated profile");
-  };
+    const handleRegister = async (event) => {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name });
+        console.log("Updated profile");
+    };
     return <div>
         <Form onSubmit={handleRegister} id="signUpForm">
-           
-          
+
+
             <Form.Group className="mb-4" controlId="formUserTypeRadio">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Sign up as a teacher or student</Form.Label>
 
@@ -131,7 +131,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                     required />
             </Form.Group>
             {signInError}
-            
+
             <Form.Group className="mb-3" controlId="formBasicGenderRadio">
                 <div key={`inline-radio`} className="d-flex">
                     <Form.Check
@@ -174,7 +174,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 type="submit"
                 value="SignUp"
                 className={`${styles["get-otp-button"]}`}
-                
+
 
             >
                 SignUp
@@ -212,7 +212,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
             >
                 Submit OTP
             </button>} */}
-           
+
 
         <span className={`${styles["footer-text"]} d-flex align-items-center flex-column mt-5`}>
             <p>

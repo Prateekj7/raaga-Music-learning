@@ -4,9 +4,9 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
-region =  "us-east-1"
-app_id = "ce796be37f32f178af652b26eexample"
-origination_number = "+12065550199"
+region =  "ap-south-1"
+app_id = "101a21873a6747cfb418f7c00d2319b8"
+origination_number = "+18555550142"
 # message = (
 #     "This is a sample message sent from Amazon Pinpoint by using the AWS SDK for "
 #     "Python (Boto 3).")
@@ -15,7 +15,7 @@ origination_number = "+12065550199"
 # template_version = "1"
 
 
-pinpoint_client = boto3.client('pinpoint', region_name=region)
+pinpoint_client = boto3.client('pinpoint', region_name=region, aws_access_key_id='AKIAUPVLMECBCPIEEFRE', aws_secret_access_key='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')
 
 def send_message(destination_number, message, message_type):
     """
@@ -48,7 +48,7 @@ def send_message(destination_number, message, message_type):
                     'SMSMessage': {
                         'Body': message,
                         'MessageType': message_type,
-                        'OriginationNumber': origination_number
+                        'SenderId': 'RaagaMedia'
                     }
                 }
             }
@@ -105,8 +105,33 @@ def send_templated_message(destination_number, message_type, template_name, temp
         return response['MessageResponse']['Result'][destination_number]['MessageId']
 
 
+def publish_sms(phone_number, message):
+    """
+    Publishes a text message directly to a phone number without need for a
+    subscription.
+
+    :param phone_number: The phone number that receives the message. This must be
+                            in E.164 format. For example, a United States phone
+                            number might be +12065550101.
+    :param message: The message to send.
+    :return: The ID of the message.
+    """
+    sns_client = boto3.client('sns', region_name=region, aws_access_key_id='AKIAUPVLMECBCPIEEFRE', aws_secret_access_key='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')
+    try:
+        response = sns_client.publish(
+            PhoneNumber=phone_number, Message=message)
+        message_id = response['MessageId']
+        logger.info("Published message to %s.", phone_number)
+    except ClientError:
+        logger.exception("Couldn't publish message to %s.", phone_number)
+        raise
+    else:
+        return message_id
+
 if __name__ == '__main__':
-    destination_number = "+14255550142"
-    message = ("This is a sample message sent from Amazon Pinpoint by using the AWS SDK for Python (Boto 3).")
+    destination_number = "+917992233668"
+    message = "Testing using AWS"
     message_type = "TRANSACTIONAL"
-    message_id = send_message(destination_number, message, message_type)
+    # message_id = send_message(destination_number, message, message_type)
+    message_id = publish_sms(destination_number, message)
+    print()

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import styles from "./SideDrawer.module.css";
 import logo from "../../images/logo.png";
@@ -7,17 +7,28 @@ import Form from 'react-bootstrap/Form';
 import { LoginContext } from "../../LoginContext";
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import { useNavigate } from "react-router-dom";
 
-function SideDrawer({ show, handleCloseDrawer }) {
+function SideDrawer({ showDrawer, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-
+    const navigate = useNavigate();
     const [showSignUpPage, setShowSignUpPage] = useState(false);
     const handleShowSignUpPage = () => {
         setShowSignUpPage(true);
     };
     const handleHideSignupPage = () => {
         setShowSignUpPage(false);
+    };
+
+    const handleNavigate = (e) => {
+        if (loggedInUser.category === "student") {
+            navigate(`/aspiring-musician-${e.target.id}`);
+        }
+        else if (loggedInUser.category === "teacher") {
+            navigate(`/music-teacher-${e.target.id}`);
+        }
+        handleCloseDrawer();
     };
 
     const handleSignOut = () => {
@@ -30,6 +41,7 @@ function SideDrawer({ show, handleCloseDrawer }) {
                 id: ""
             });
         }, 1000);
+        navigate("/");
     };
 
     function LogOutPage() {
@@ -37,6 +49,17 @@ function SideDrawer({ show, handleCloseDrawer }) {
             <button
                 variant="primary"
                 className={`${styles["get-otp-button"]} mb-3`}
+                id="dashboard"
+                onClick={handleNavigate}
+
+            >
+                Dashboard
+            </button>
+            <button
+                variant="primary"
+                className={`${styles["get-otp-button"]} mb-3`}
+                id="profile"
+                onClick={handleNavigate}
 
             >
                 My Profile
@@ -54,7 +77,7 @@ function SideDrawer({ show, handleCloseDrawer }) {
 
     return (
         <>
-            <Offcanvas show={show} onHide={handleCloseDrawer} placement={'end'} className={`${styles["side-drawer"]} p-3`}>
+            <Offcanvas show={showDrawer} onHide={handleCloseDrawer} placement={'end'} className={`${styles["side-drawer"]} p-3`}>
                 <Offcanvas.Header closeButton className={`${styles["side-drawer-header"]} pb-4`} closeVariant='white'>
                     <Offcanvas.Title></Offcanvas.Title>
                 </Offcanvas.Header>

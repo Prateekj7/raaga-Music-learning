@@ -5,25 +5,25 @@ import { LoginContext } from "../../LoginContext";
 import {
     useSendPasswordResetEmail,
     useSignInWithEmailAndPassword,
-  } from "react-firebase-hooks/auth";
-  import {  useLocation, useNavigate } from "react-router-dom";
-  import auth from "../../firebase.init";
-  import Loading from "./Loading";
+} from "react-firebase-hooks/auth";
+import { useLocation, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
+import Loading from "./Loading";
 import Alert from './Alert';
 
 function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
     // const { loggedInUserContext } = useContext(LoginContext);
     // const [loggedInUser, setLoggedInUser] = loggedInUserContext;
     // const [otpSentNotification, setOtpSentNotification] = useState("");
-    const [alert,setAlert]= useState(null)
-    const showAlert=(message,type)=>{
+    const [alert, setAlert] = useState(null)
+    const showAlert = (message, type) => {
         setAlert({
-            msg:message,
-            type:type
+            msg: message,
+            type: type
         })
-        setTimeout(()=>{
+        setTimeout(() => {
             setAlert(null)
-        },1000)
+        }, 1000)
     }
 
     // const handleSendOtp = (e) => {
@@ -43,55 +43,55 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
     //     }, 1000);
     // };
     const emailRef = useRef("");
-  const passwordRef = useRef("");
-  const navigate = useNavigate();
-  const location = useLocation();
+    const passwordRef = useRef("");
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  let from = location.state?.from?.pathname || "/";
-  let errorElement;
+    let from = location.state?.from?.pathname || "/";
+    let errorElement;
 
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+    const [signInWithEmailAndPassword, user, loading, error] =
+        useSignInWithEmailAndPassword(auth);
 
-  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
-  
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
-  if (loading || sending) {
-    return <Loading></Loading>;
-  }
 
-  if (user) {
-    navigate(from, { replace: true });
-    handleCloseDrawer()
-  }
-  if (error) {
-    
-    errorElement = handleShowSignUpPage();
-    
-  }
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-
-    await signInWithEmailAndPassword(email, password);
-  };
-  const resetPassword = async () => {
-    const email = emailRef.current.value;
-    if (email) {
-      await sendPasswordResetEmail(email);
-      showAlert("Check your email","success");
-    } else {
-        showAlert("Please Enter your email","success");
+    if (loading || sending) {
+        return <Loading></Loading>;
     }
-  };
+
+    if (user) {
+        navigate(from, { replace: true });
+        handleCloseDrawer()
+    }
+    if (error) {
+
+        errorElement = handleShowSignUpPage();
+
+    }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+
+        await signInWithEmailAndPassword(email, password);
+    };
+    const resetPassword = async () => {
+        const email = emailRef.current.value;
+        if (email) {
+            await sendPasswordResetEmail(email);
+            showAlert("Check your email", "success");
+        } else {
+            showAlert("Please Enter your email", "success");
+        }
+    };
     return <div>
         <Alert alert={alert}></Alert>
         <Form onSubmit={handleSubmit} id="sendOTPForm">
             {/* <Form.Group className="mb-4" controlId="formBasicPhone">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your mobile number</Form.Label>
                 <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
-                    name="signInPhone"
+                    {...register("signInPhone")}
                     type="tele"
                     placeholder="ex- 919954199108"
                     pattern="[0-9]{7,15}"
@@ -103,10 +103,10 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
             <Form.Group className="mb-4" controlId="formBasicEmail">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Enter your email</Form.Label>
                 <Form.Control className={`${styles["form-number-input"]} shadow-none p-0`}
-                     ref={emailRef}
-                     type="email"
-                     placeholder="Enter email"
-                     required
+                    ref={emailRef}
+                    type="email"
+                    placeholder="Enter email"
+                    required
                 />
             </Form.Group>
             <Form.Group className="mb-4" controlId="formBasicPassword">
@@ -119,31 +119,33 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
                 />
             </Form.Group>
             <button
-          className="btn btn-link text-white p-1 m-1  text-decoration-none"
-          onClick={resetPassword}
-        >
-        Forget Password?
-        </button>
+                className="btn btn-link text-white p-1 m-1  text-decoration-none"
+                onClick={resetPassword}
+            >
+                Forget Password?
+            </button>
             <button
                 variant="primary"
                 type="submit"
                 className={`${styles["get-otp-button"]}`}
-                
+
 
             >
                 SignIn
             </button>
         </Form>
         {errorElement}
-      
+
 
         {/* <Form onSubmit={handleSubmitSignInOTP} id="submitSignInOTPForm">
             <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className={`${styles["form-label"]} mb-2`}>{otpSentNotification}</Form.Label>
+                <Form.Label className={`${styles["form-label"]} mb-2`}>
+                    {potentialUser.phone === "" ? "" : `OTP sent to +91-${potentialUser.phone}`}
+                </Form.Label>
                 <Form.Control
                     type="password"
                     placeholder="OTP"
-                    disabled={otpSentNotification === ""}
+                    disabled={potentialUser.phone === ""}
                     minLength={6} maxLength={6}
                     required
                 />
@@ -169,7 +171,7 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
             >
                 Submit OTP
             </button>} */}
-           
+
 
         <span className={`${styles["footer-text"]} d-flex align-items-center flex-column mt-5`}>
             <p>

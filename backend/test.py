@@ -24,17 +24,17 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/insert_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-
-    # data = {
-    #     "table": "teacher",
-    #     "page_size": 10,
-    #     "page_number": 1,
-    #     "columns": ['name', 'location'],
-    #     "id": '1'
-    # }
-    # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
-    # print(res, json.loads(res.content))
+    data = {
+        "table": "vocal",
+        "columns": ["name"],
+        "page_number": 1,
+        "page_size": 10,
+        "id_column_name": "student_id",
+        "id_column_value": "1"
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
+    print(res, json.loads(res.content))
 
     # data = {
     #     "page_size": 10,
@@ -55,12 +55,12 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/read_teacher_metadata/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    data = {
-        "id": "11943187-79b1-41f7-9534-4a967b7007ca"
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # data = {
+    #     "id": "11943187-79b1-41f7-9534-4a967b7007ca"
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
 
     # data = {
     #     "id": "11943187-79b1-41f7-9534-4a967b7007ca",

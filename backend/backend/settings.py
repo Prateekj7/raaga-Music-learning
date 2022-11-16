@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-wypw$285r#25$%i4gn72p0t7dh2u$=2%u#*-gm+z(+xi)@%0h8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django-backend', '127.0.0.1', 'ec2-43-205-111-44.ap-south-1.compute.amazonaws.com','3.6.79.101',]
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django-backend', '127.0.0.1', 'ec2-43-205-111-44.ap-south-1.compute.amazonaws.com','3.6.79.101', 'raagamedia.com']
 
 # Application definition
 
@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
+#newly added for CORS
+# CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -146,11 +148,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #      'http://localhost:3000', 'http://localhost:80',
 # ]
 
-CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com", 'http://127.0.0.1:3000', 'http://0.0.0.0:3000', "http://localhost:3000", "http://ec2-43-205-111-44.ap-south-1.compute.amazonaws.com", 'http://127.0.0.1:80', 'http://0.0.0.0:80', "http://localhost:80", "http://3.6.79.101:80",]
-CORS_ORIGIN_ALLOW_ALL = True
+
+
+CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com", 'http://127.0.0.1:3000', 'http://0.0.0.0:3000', "http://localhost:3000", "http://ec2-43-205-111-44.ap-south-1.compute.amazonaws.com", 'http://127.0.0.1:80', 'http://0.0.0.0:80', "http://localhost:80", "http://3.6.79.101:80", "http://raagamedia.com:80", "http://raagamedia.com",]
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     )
 }
+

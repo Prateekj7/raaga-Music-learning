@@ -3,13 +3,8 @@
 
 # django-backend_readme
 
-1. pip/pip3 install -r requirements.txt
-2. python/python3 manage.py makemigrations
-3. python/python3 manage.py migrate
-4. sudo chmod 666 /var/run/docker.sock
-5. sudo service docker start && docker-compose -f docker-compose.local.yml up
-6. python/python3 manage.py runserver
-7. python/python3 manage.py runserver
+1. sudo chmod 666 /var/run/docker.sock
+2. sudo service docker start && docker-compose -f docker-compose.local.yml up
 
 
 ### Create Superuser for Djnago Admin
