@@ -26,7 +26,12 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
         },
         onSuccess: (result, postOptions) => {
             setTimeout(() => {
-                navigate("/aspiring-musician-profile");
+                if (postOptions.table === "student") {
+                    navigate("/aspiring-musician-profile");
+                }
+                else {
+                    navigate("/music-teacher-profile");
+                }
                 handleCloseDrawer();
             }, 2500)
             setTimeout(() => {
