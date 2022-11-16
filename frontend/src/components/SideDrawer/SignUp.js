@@ -174,10 +174,10 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 type="submit"
                 value="SignUp"
                 className={`${styles["get-otp-button"]}`}
-                
+                onClick={handleHideSignupPage}
 
             >
-                SignOut
+                SignUp
             </button>
         </Form>
         {/* <Form onSubmit={handleSubmitSignUpOTP} id="submitSignUpOTPForm">
@@ -228,7 +228,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 className={`${styles["signup-button"]} m-0`}
                 onClick={handleHideSignupPage}
             >
-                Login now !
+                SignIn now !
             </button>
         </span>
     </div>
