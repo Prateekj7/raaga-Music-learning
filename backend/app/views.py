@@ -70,7 +70,8 @@ def insert_data(request):
     table = params['table']
     data = params['data']
 
-    data['id'] = str(uuid.uuid4())
+    id = str(uuid.uuid4())
+    data['id'] = id
 
     columns = data.keys()
     values = data.values()
@@ -79,7 +80,7 @@ def insert_data(request):
     with connection.cursor() as cursor:
         cursor.execute(query)
     
-    return Response('ok')
+    return Response(id)
 
 @api_view(['GET'])
 def read_data(request):
