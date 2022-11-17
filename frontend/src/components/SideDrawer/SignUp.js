@@ -88,7 +88,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Sign up as a teacher or student</Form.Label>
                 <Dropdown>
                 <Dropdown.Toggle variant="secondary" className={`${styles["dropdown"]}`} id="dropdown-custom-1">Why do you want to join?</Dropdown.Toggle>
-                <Dropdown.Menu className='bg-secondary'>
+                <Dropdown.Menu className={`${styles["dropdown-menu"]}`}>
                 <Dropdown.Item eventKey="1">1.To learn music</Dropdown.Item>
                 <Dropdown.Item eventKey="2">2.To teach music</Dropdown.Item>
                 </Dropdown.Menu>
