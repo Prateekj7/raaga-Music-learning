@@ -89,8 +89,8 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 <Dropdown>
                 <Dropdown.Toggle variant="secondary" className={`${styles["dropdown"]}`} id="dropdown-custom-1">Why do you want to join?</Dropdown.Toggle>
                 <Dropdown.Menu className={`${styles["dropdown-menu"]}`}>
-                <Dropdown.Item eventKey="1">1.To learn music</Dropdown.Item>
-                <Dropdown.Item eventKey="2">2.To teach music</Dropdown.Item>
+                <Dropdown.Item className="text-white" eventKey="1">1.To learn music</Dropdown.Item>
+                <Dropdown.Item className="text-white" eventKey="2">2.To teach music</Dropdown.Item>
                 </Dropdown.Menu>
                 </Dropdown>{' '}
                 {/* <div key={`inline-radio`} className="d-flex">
