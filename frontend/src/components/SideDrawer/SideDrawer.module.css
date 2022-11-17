@@ -85,3 +85,24 @@
   background-color: #6b6b6b;
   border: solid 1px #3e3e3e;
 }
+
+.dropdown {
+  padding: 0.5rem 2.375rem;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  color: var(--white);
+  border-radius: 1.25rem;
+  background-color: #3e3e3e;
+  border: solid 1px #6b6b6b;
+}
+
+.dropdown:hover {
+  color: var(--white);
+  background-color: #6b6b6b;
+  border: solid 1px #6b6b6b;
+}
+.dropdown:active {
+  color: var(--white);
+  background-color: #6b6b6b;
+  border: solid 1px #3e3e3e;
+}
