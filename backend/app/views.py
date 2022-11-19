@@ -123,7 +123,7 @@ def read_teacher_main_data(request):
     category_name = params['category_name']
     category_value = params['category_value']
 
-    query = f"SELECT id, name, experience, rating, schedule -> '{category_name}' -> '{category_value}' -> 'hourly_rate' as hourly_rate, image_url FROM teacher where schedule -> '{category_name}' is not NULL and schedule -> '{category_name}' -> '{category_value}' is not NULL limit {limit} offset {offset}"
+    query = f"SELECT id, name, experience, rating, schedule -> '{category_name}' -> '{category_value}' -> 'class_details' -> 'hourly_rate' as hourly_rate, image_url FROM teacher where schedule -> '{category_name}' is not NULL and schedule -> '{category_name}' -> '{category_value}' is not NULL limit {limit} offset {offset}"
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = get_query_results(cursor)
