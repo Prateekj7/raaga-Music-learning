@@ -184,19 +184,19 @@ def read_teacher_schedules(request):
     category_value = params['category_value']
 
     available_schedule = []
-    query = f"select schedule -> '{category_name}' -> '{category_value}' as schedule from teacher where id = '{id}'"
+    query = f"select schedule -> '{category_name}' -> '{category_value}' -> 'class_timings' as schedule from teacher where id = '{id}'"
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = get_query_results(cursor)
-        print(results)
-        possible_schedule = prepare_possible_schedule()
-        selected_schedule = json.loads(results[0]['schedule'])
-        
-        for day in selected_schedule.keys():
-            if day in possible_schedule.keys():
-                for time in selected_schedule[day]:
-                    for date in possible_schedule[day]:
-                        available_schedule.append(date + 'T' + str(time) + ':00')
+        if results[0]['schedule']:
+            possible_schedule = prepare_possible_schedule()
+            selected_schedule = json.loads(results[0]['schedule'])
+
+            for day in selected_schedule.keys():
+                if day in possible_schedule.keys():
+                    for time in selected_schedule[day]:
+                        for date in possible_schedule[day]:
+                            available_schedule.append(date + 'T' + str(time) + ':00')
     
     return Response(available_schedule)
 
