@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
 
     # data = {
-    #     "table": "student",
+    #     "table": "teacher",
     #     "data": {
     #         "name": "Mohan Kumar Sah",
     #         "contact_number": "+91123456789",
@@ -25,15 +25,13 @@ if __name__ == "__main__":
     # print(res, json.loads(res.content))
 
     # data = {
-    #     "table": "vocal",
-    #     "columns": ["name"],
-    #     "page_number": 1,
-    #     "page_size": 10,
-    #     "id_column_name": "student_id",
-    #     "id_column_value": "1"
+    #     "table": "teacher",
+    #     "columns": ["schedule"],
+    #     "id_column_name": "id",
+    #     "id_column_value": "f6b8f76c-7c19-4adf-89fe-f635127b48dd"
     # }
-    # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
+    # # data = json.dumps(data)
+    # res = requests.get('http://127.0.0.1:8000/api/read_data?table=teacher&columns=["schedule"]&id_column_name=id&id_column_value=f6b8f76c-7c19-4adf-89fe-f635127b48dd', headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
@@ -63,9 +61,16 @@ if __name__ == "__main__":
     # print(res, json.loads(res.content))
 
     # data = {
-    #     "id": "11943187-79b1-41f7-9534-4a967b7007ca",
+    #     "id": "f6b8f76c-7c19-4adf-89fe-f635127b48dd"
+    # }
+    # data = json.dumps(data)
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_raw_schedule/?id=554077d7-ee48-4676-b457-37f0488ba969', headers=headers)
+    # print(res, json.loads(res.content))
+    
+    # data = {
+    #     "id": "f6b8f76c-7c19-4adf-89fe-f635127b48dd",
     #     "category_name": "vocal",
-    #     "category_value": 'indian_classical'
+    #     "category_value": 'Indian Classical'
     # }
     # data = json.dumps(data)
     # res = requests.post('http://127.0.0.1:8000/api/read_teacher_schedules/', data=data, headers=headers)

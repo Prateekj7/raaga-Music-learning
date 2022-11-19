@@ -143,6 +143,19 @@ def read_teacher_metadata(request):
     
     return Response(results[0])
 
+@api_view(['GET'])
+def read_teacher_raw_schedule(request):
+    params = request.GET
+    
+    id = params['id']
+
+    query = f"SELECT schedule FROM teacher where id = '{id}'"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = get_query_results(cursor)
+    
+    return Response(json.loads(results[0]['schedule']))
+
 @api_view(['POST'])
 def read_teacher_reviews(request):
     params = request.data
