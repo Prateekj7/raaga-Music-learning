@@ -16,10 +16,10 @@ const AspiringMusician = () => {
     return axios.get(`/api/read_teacher_main_data?page_size=100&page_number=1&category_name=${filter.categoryName}&category_value=${filter.categoryValue}`)
   };
   const VocalOptionsQueryFn = () => {
-    return axios.get(`/api/read_data?page_size=100&page_number=1&table=vocal&columns=*`)
+    return axios.get(`/api/read_data?page_size=100&page_number=1&table=vocal&columns=["*"]`)
   };
   const InstrumentalOptionsQueryFn = () => {
-    return axios.get(`/api/read_data?page_size=100&page_number=1&table=instrumental&columns=*`)
+    return axios.get(`/api/read_data?page_size=100&page_number=1&table=instrumental&columns=["*"]`)
   };
 
   const { isLoading: isLoadingTeachers, data: teachers } = useQuery({

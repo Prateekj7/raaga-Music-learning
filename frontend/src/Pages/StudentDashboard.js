@@ -13,7 +13,7 @@ const StudentDashboard = () => {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
     const meetingsQueryFn = () => {
-        return axios.get(`/api/read_data?table=class&page_size=100&page_number=1&column_name=student_id&columns=*&column_value=${loggedInUser.id}`)
+        return axios.get(`/api/read_data?table=class&page_size=100&page_number=1&column_name=student_id&columns=["*"]&column_value=${loggedInUser.id}`)
     };
     const { isLoading: isLoading, data: meetings } = useQuery({
         queryKey: ['studentMeetings', loggedInUser.id],
