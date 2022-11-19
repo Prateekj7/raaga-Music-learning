@@ -89,11 +89,11 @@ def read_data(request):
     table = params['table']
     columns = ", ".join(params['columns'])
     
-    page_size = int(params.get('page_size'))
-    page_number = int(params.get('page_number'))
+    page_size = params.get('page_size')
+    page_number = params.get('page_number')
     if page_size and page_number:
-        limit = page_size
-        offset = (page_number - 1) * limit
+        limit = int(page_size)
+        offset = (int(page_number) - 1) * limit
     else:
         limit = "all"
         offset = "0"
