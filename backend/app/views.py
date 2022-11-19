@@ -87,7 +87,7 @@ def read_data(request):
     params = request.GET
 
     table = params['table']
-    columns = ", ".join(params['columns'])
+    columns = ", ".join(json.loads(params['columns']))
     
     page_size = params.get('page_size')
     page_number = params.get('page_number')
