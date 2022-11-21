@@ -12,7 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import Notification from "../Notification";
-import { Dropdown } from 'react-bootstrap';
+
 
 
 
@@ -85,14 +85,11 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
         <Form onSubmit={handleSubmit(handleRegister)} id="signUpForm">
 
             <Form.Group className="mb-4" controlId="formUserTypeDropDown">
-                <Form.Label className={`${styles["form-label"]} mb-3`}>Sign up as a teacher or student</Form.Label>
-                <Dropdown>
-                <Dropdown.Toggle variant="secondary" className={`${styles["dropdown"]}`} id="dropdown-custom-1">Why do you want to join?</Dropdown.Toggle>
-                <Dropdown.Menu className={`${styles["dropdown-menu"]}`}>
-                <Dropdown.Item className="text-white" eventKey="1">1.To learn music</Dropdown.Item>
-                <Dropdown.Item className="text-white" eventKey="2">2.To teach music</Dropdown.Item>
-                </Dropdown.Menu>
-                </Dropdown>{' '}
+                <Form.Label className={`${styles["form-label"]} mb-3`}>Why do you want to join?</Form.Label>
+                <select className={`${styles["dropdown"]}`}>
+                <option className={`${styles["dropdown-menu"]}`}value="To learn music">To learn music</option>
+                <option  className={`${styles["dropdown-menu"]}`}value="To teach music">To teach music</option>
+                </select>
                 {/* <div key={`inline-radio`} className="d-flex">
                     <Form.Check
                         className={`${styles["form-label"]}`}
