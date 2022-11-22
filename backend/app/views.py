@@ -157,6 +157,21 @@ def read_teacher_raw_schedule(request):
     return Response(json.loads(results[0]['schedule']))
 
 @api_view(['POST'])
+def update_teacher_raw_schedule(request):
+    params = request.data
+
+    id = params['id']
+    schedule = params['schedule']
+
+    # statement = ", ".join(["=".join([key, f"'{val}'"]) for key, val in data.items()])
+    
+    query = "UPDATE teacher SET schedule = '{}' where id = '{}'".format(json.dumps(schedule), id)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+    
+    return Response('ok')
+
+@api_view(['POST'])
 def read_teacher_reviews(request):
     params = request.data
 

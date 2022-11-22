@@ -26,6 +26,8 @@ urlpatterns = [
     path('api/read_data/', read_data),
     path('api/read_teacher_main_data/', read_teacher_main_data),
     path('api/read_teacher_metadata/', read_teacher_metadata),
+    path('api/read_teacher_raw_schedule/', read_teacher_raw_schedule),
+    path('api/update_teacher_raw_schedule/', update_teacher_raw_schedule),
     path('api/read_teacher_reviews/', read_teacher_reviews),
     path('api/read_teacher_schedules/', read_teacher_schedules),
     path('api/update_count/', update_count),
@@ -36,5 +38,4 @@ urlpatterns = [
     path('api/book_class/', book_class),
     path('api/check_user_existance/', check_user_existance),
     path('api/get_csrf_token/', get_csrf_token),
-    path('api/read_teacher_raw_schedule/', read_teacher_raw_schedule),
 ]
