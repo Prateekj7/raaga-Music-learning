@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/hello_world/', foo),
     path('api/insert_data/', insert_data),
+    path('api/update_data/', update_data),
     path('api/read_data/', read_data),
     path('api/read_teacher_main_data/', read_teacher_main_data),
     path('api/read_teacher_metadata/', read_teacher_metadata),

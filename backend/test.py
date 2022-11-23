@@ -24,6 +24,18 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/insert_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
+    data = {
+        "table": "teacher",
+        "id": "5bf1502c-3859-4a7d-b338-57fc9b2ee025",
+        "data": {
+            "contact_number": "+919910172938",
+            "about": "Multi Talented Guys"
+        }
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/api/update_data/', data=data, headers=headers)
+    print(res, json.loads(res.content))
+
     # data = {
     #     "table": "teacher",
     #     "columns": ["schedule"],
@@ -67,31 +79,31 @@ if __name__ == "__main__":
     # res = requests.get('http://127.0.0.1:8000/api/read_teacher_raw_schedule/?id=554077d7-ee48-4676-b457-37f0488ba969', headers=headers)
     # print(res, json.loads(res.content))
 
-    data = {
-        "id": "5bf1502c-3859-4a7d-b338-57fc9b2ee025",
-        "schedule": {
-                    "instrumental": {
-                        "Guitar": {
-                            "class_details": {
-                                "class_mode": "Both",
-                                "hourly_rate": 200
-                            },
-                            "class_timings": {
-                                "Fri": [8, 21],
-                                "Mon": [8, 21],
-                                "Sat": [8, 21],
-                                "Thu": [8, 21],
-                                "Tue": [8, 21],
-                                "Wed": [8, 21]
-                            }
-                        }
-                    }
-                }
+    # data = {
+    #     "id": "5bf1502c-3859-4a7d-b338-57fc9b2ee025",
+    #     "schedule": {
+    #                 "instrumental": {
+    #                     "Guitar": {
+    #                         "class_details": {
+    #                             "class_mode": "Both",
+    #                             "hourly_rate": 200
+    #                         },
+    #                         "class_timings": {
+    #                             "Fri": [8, 21],
+    #                             "Mon": [8, 21],
+    #                             "Sat": [8, 21],
+    #                             "Thu": [8, 21],
+    #                             "Tue": [8, 21],
+    #                             "Wed": [8, 21]
+    #                         }
+    #                     }
+    #                 }
+    #             }
         
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/api/update_teacher_raw_schedule/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/update_teacher_raw_schedule/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
     
     # data = {
     #     "id": "f6b8f76c-7c19-4adf-89fe-f635127b48dd",

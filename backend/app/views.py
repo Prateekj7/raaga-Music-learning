@@ -82,6 +82,22 @@ def insert_data(request):
     
     return Response(id)
 
+@api_view(['POST'])
+def update_data(request):
+    params = request.data
+
+    table = params['table']
+    id = params['id']
+    data = params['data']
+
+    statement = ", ".join(["=".join([key, "NULL"]) if not val else "=".join([key, f"'{json.dumps(val)}'"]) if type(val) == dict else "=".join([key, f"{val}"]) if type(val) in [float, int] else "=".join([key, f"'{val}'"]) for key, val in data.items()])
+    
+    query = "UPDATE {} SET {} where id = '{}'".format(table, statement, id)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+    
+    return Response('ok')
+
 @api_view(['GET'])
 def read_data(request):
     params = request.GET
