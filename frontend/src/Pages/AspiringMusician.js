@@ -6,34 +6,14 @@ import { Col, Container, Row } from "react-bootstrap";
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
 import Form from 'react-bootstrap/Form';
-import { useQuery } from "@tanstack/react-query";
-import axios from 'axios';
 import Button from "../components/Button";
-
+import { useVocalGenres, useInstrumentalGenres } from "../hooks/useGenresData";
+import { useTeachersData } from "../hooks/useTeachersData";
 const AspiringMusician = () => {
   const [filter, setFilter] = useState({ categoryName: "vocal", categoryValue: "Ghazal" });
-  const teacherQueryFn = () => {
-    return axios.get(`/api/read_teacher_main_data?page_size=100&page_number=1&category_name=${filter.categoryName}&category_value=${filter.categoryValue}`)
-  };
-  const VocalOptionsQueryFn = () => {
-    return axios.get(`/api/read_data?page_size=100&page_number=1&table=vocal&columns=["*"]`)
-  };
-  const InstrumentalOptionsQueryFn = () => {
-    return axios.get(`/api/read_data?page_size=100&page_number=1&table=instrumental&columns=["*"]`)
-  };
-
-  const { isLoading: isLoadingTeachers, data: teachers } = useQuery({
-    queryKey: ['teachers', filter.categoryName, filter.categoryValue],
-    queryFn: teacherQueryFn,
-  });
-  const { isLoading: isLoadingVocalOptions, data: vocalOptions } = useQuery({
-    queryKey: ['vocalOptions'],
-    queryFn: VocalOptionsQueryFn,
-  });
-  const { isLoading: isLoadingInstrumentalOptions, data: instrumentalOptions } = useQuery({
-    queryKey: ['instrumentalOptions'],
-    queryFn: InstrumentalOptionsQueryFn,
-  });
+  const { isLoading: isLoadingTeachers, data: teachers } = useTeachersData(filter.categoryName, filter.categoryValue);
+  const { isLoading: isLoadingVocalOptions, data: vocalOptions } = useVocalGenres();
+  const { isLoading: isLoadingInstrumentalOptions, data: instrumentalOptions } = useInstrumentalGenres();
 
   function DropDownOptions() {
     const mappingFn = (item) =>
@@ -42,10 +22,10 @@ const AspiringMusician = () => {
       </option>;
 
     if (filter.categoryName == "vocal" && (!isLoadingVocalOptions)) {
-      return vocalOptions?.data.map(mappingFn);
+      return vocalOptions.map(mappingFn);
     }
     else if (filter.categoryName == "instrumental" && (!isLoadingInstrumentalOptions)) {
-      return instrumentalOptions?.data.map(mappingFn);
+      return instrumentalOptions.map(mappingFn);
     }
     else {
       return [];
@@ -119,9 +99,9 @@ const AspiringMusician = () => {
         <ul className="m-0 p-0">
           {isLoadingTeachers ?
             Array.from(Array(5), (e, i) => <TeacherCard key={i} skeleton />) :
-            teachers?.data.length === 0 ?
+            teachers.length === 0 ?
               <h5 className="d-flex justify-content-center">Sorry no teachers found, please try selecting other genre.</h5> :
-              teachers?.data.map((teacher) => (
+              teachers.map((teacher) => (
                 <TeacherCard
                   key={teacher.id}
                   teacher={teacher}
