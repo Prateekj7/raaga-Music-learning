@@ -22,7 +22,7 @@ function Schedule({ }) {
     const [showNotification, setShowNotification] = useState({ show: false, message: "" });
 
     const scheduleQueryFn = () => {
-        return (axios.get(`api/read_teacher_raw_schedule/?id=09d40dce-b258-4d13-9b0c-3047991ac71f`))
+        return (axios.get(`api/read_teacher_raw_schedule/?id=${loggedInUser.id}`))
     };
     const { isLoading: isLoadingSchedule, data: savedScheduleAndFees } = useQuery({
         enabled: genreOptions?.length !== 0,
@@ -63,8 +63,8 @@ function Schedule({ }) {
         onSuccess: (data) => { setEditingSchedule(data.savedSchedule); setEditingGenreFees(data.savedGenreFees) }
     });
     const { isLoadingSaveSchedule, mutate: saveSchedule } = useMutation({
-        mutationFn: schedule => {
-            return axios.post('/api/book_class/', schedule)
+        mutationFn: postBody => {
+            return axios.post('/api/update_teacher_raw_schedule/', postBody)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['schedule', loggedInUser.id] })
@@ -129,24 +129,23 @@ function Schedule({ }) {
     };
     const handleSubmitSchedule = () => {
         for (const genreOption of editingGenreAndFees) {
-            console.log(genreOption);
             if (genreOption.fees === 0) {
                 setShowNotification({ show: true, message: `Please enter fees for ${genreOption.label}` });
                 return;
             }
         }
         setEditMode(false);
-        let postBody = {};
+        let scheduleToSend = {};
         let parentGenre;
         let genre;
         for (const genreOption of editingGenreAndFees) {
             [parentGenre, genre] = genreOption.value.split("-");
-            postBody[parentGenre] = { [genre]: {} };
-            postBody[parentGenre][genre]["class_details"] = {
+            scheduleToSend[parentGenre] = { [genre]: {} };
+            scheduleToSend[parentGenre][genre]["class_details"] = {
                 "class_mode": 'Online',
                 "hourly_rate": genreOption.fees,
             };
-            postBody[parentGenre][genre]["class_timings"] = {
+            scheduleToSend[parentGenre][genre]["class_timings"] = {
                 "Mon": [],
                 "Tue": [],
                 "Wed": [],
@@ -159,13 +158,13 @@ function Schedule({ }) {
         for (const [day, daySchedule] of Object.entries(editingSchedule)) {
             for (const [time, genreOption] of Object.entries(daySchedule)) {
                 [parentGenre, genre] = genreOption.value.split("-");
-                postBody[parentGenre][genre]["class_timings"][day].push(time);
+                scheduleToSend[parentGenre][genre]["class_timings"][day].push(Number(time));
             }
         }
-        // saveSchedule({
-        //     table: "teacher",
-        //     data: 
-        // });
+        saveSchedule({
+            id: loggedInUser.id,
+            schedule: scheduleToSend
+        });
     };
 
     return (
