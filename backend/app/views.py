@@ -313,9 +313,25 @@ def validate_payment_order(request):
 
 @api_view(['POST'])
 def book_class(request):
+    def get_user_name(id, user_type):
+        query = f"Select name from {user_type} where id = '{id}'"
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            result = cursor.fetchall()
+        
+        return result[0][0]
+
     params = request.data
 
     data = params['data']
+
+    if "student_name" not in data:
+        print("Not Present")
+        data["student_name"] = get_user_name(id = data["student_id"], user_type = 'student')
+
+    if "teacher_name" not in data:
+        print("Not Present")
+        data["teacher_name"] = get_user_name(id = data["teacher_id"], user_type = 'teacher')
 
     duration = 60 # minutes
     

@@ -24,17 +24,17 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/insert_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    data = {
-        "table": "teacher",
-        "id": "5bf1502c-3859-4a7d-b338-57fc9b2ee025",
-        "data": {
-            "contact_number": "+919910172938",
-            "about": "Multi Talented Guys"
-        }
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/api/update_data/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # data = {
+    #     "table": "teacher",
+    #     "id": "5bf1502c-3859-4a7d-b338-57fc9b2ee025",
+    #     "data": {
+    #         "contact_number": "+919910172938",
+    #         "about": "Multi Talented Guys"
+    #     }
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/update_data/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
 
     # data = {
     #     "table": "teacher",
@@ -122,24 +122,22 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/generate_payment_order/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    # data = {
-    #     'data':{
-    #         "student_id": 1,
-    #         "student_name": "Anish Kumar",
-    #         "teacher_id": 1,
-    #         "teacher_name": "Mohan Kumar",
-    #         "category_type": "Vocal",
-    #         "category_value": 'Indian Classical',
-    #         "class_timestamp": "2022-10-30T11:00",
-    #         "payment_id": 1,
-    #         "payment_amount": 1000,
-    #         "payment_timestamp": "2022-10-30T11:00"
-    #     }
+    data = {
+        'data':{
+            "student_id": "6039d3a7-0104-4fec-b311-63e6e64b531f",
+            "teacher_id": 'f6b8f76c-7c19-4adf-89fe-f635127b48dd',
+            "category_type": "Vocal",
+            "category_value": 'Indian Classical',
+            "class_timestamp": "2022-10-30T11:00",
+            "payment_id": 1,
+            "payment_amount": 1000,
+            "payment_timestamp": "2022-10-30T11:00"
+        }
         
-    # }
-    # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/book_class/', data=data, headers=headers)
-    # print(res, json.loads(res.content))
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/api/book_class/', data=data, headers=headers)
+    print(res, json.loads(res.content))
 
     # data = {
     #     'email_id': "contact@mayoorschoolofmusic.com"   
