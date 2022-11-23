@@ -15,14 +15,23 @@
   fill: #691a589f;
 }
 
+.schedule-table td {
+  font-size: var(--fs-s);
+  overflow: hidden;
+}
+
 .schedule-table td:hover {
   cursor: pointer;
+  background-color: rgba(207, 253, 255, 0.553);
 }
+
 td.disabled {
   cursor: not-allowed;
+  background-color: white;
 }
 td.disabled:hover {
   cursor: not-allowed;
+  background-color: white;
 }
 
 .login-button {

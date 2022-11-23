@@ -102,9 +102,13 @@ function CustomCell({ isDisabled, availableGenres }) {
             rootClose
         >
             <td
-                style={{ backgroundColor: selectedGenre ? chroma(selectedGenre.color).alpha(0.2).css() : "white" }}
-                className={`${isDisabled ? styles["disabled"] : ""}`}
-            ></td>
+                style={selectedGenre ? {
+                    backgroundColor: chroma(selectedGenre.color).alpha(0.2).css(),
+                    color: selectedGenre.color
+                } : null}
+                className={`${!editMode ? styles["disabled"] : ""}`}
+            >
+            </td>
         </OverlayTrigger>
     );
 }
