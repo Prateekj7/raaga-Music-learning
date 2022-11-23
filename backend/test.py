@@ -105,14 +105,14 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/update_teacher_raw_schedule/', data=data, headers=headers)
     # print(res, json.loads(res.content))
     
-    # data = {
-    #     "id": "f6b8f76c-7c19-4adf-89fe-f635127b48dd",
-    #     "category_name": "vocal",
-    #     "category_value": 'Indian Classical'
-    # }
-    # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_schedules/', data=data, headers=headers)
-    # print(res, json.loads(res.content))
+    data = {
+        "id": "554077d7-ee48-4676-b457-37f0488ba969",
+        "category_name": "instrumental",
+        "category_value": 'Guitar'
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/api/read_teacher_timelines/', data=data, headers=headers)
+    print(res, json.loads(res.content))
 
     # data = {
     #     'amount': 5000, 
@@ -122,22 +122,22 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/generate_payment_order/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    data = {
-        'data':{
-            "student_id": "6039d3a7-0104-4fec-b311-63e6e64b531f",
-            "teacher_id": 'f6b8f76c-7c19-4adf-89fe-f635127b48dd',
-            "category_type": "Vocal",
-            "category_value": 'Indian Classical',
-            "class_timestamp": "2022-10-30T11:00",
-            "payment_id": 1,
-            "payment_amount": 1000,
-            "payment_timestamp": "2022-10-30T11:00"
-        }
+    # data = {
+    #     'data':{
+    #         "student_id": "6039d3a7-0104-4fec-b311-63e6e64b531f",
+    #         "teacher_id": 'f6b8f76c-7c19-4adf-89fe-f635127b48dd',
+    #         "category_type": "Vocal",
+    #         "category_value": 'Indian Classical',
+    #         "class_timestamp": "2022-10-30T11:00",
+    #         "payment_id": 1,
+    #         "payment_amount": 1000,
+    #         "payment_timestamp": "2022-10-30T11:00"
+    #     }
         
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/api/book_class/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/book_class/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
 
     # data = {
     #     'email_id': "contact@mayoorschoolofmusic.com"   
