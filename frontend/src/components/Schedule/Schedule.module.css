@@ -1,6 +1,6 @@
-.schedule-table {
+/* .schedule-table {
   table-layout: fixed;
-}
+} */
 
 .schedule-table th {
   font-weight: var(--fw-med);
@@ -17,7 +17,8 @@
 
 .schedule-table td {
   font-size: var(--fs-s);
-  overflow: hidden;
+  word-wrap: break-word;
+  max-width: 4rem;
 }
 
 .schedule-table td:hover {

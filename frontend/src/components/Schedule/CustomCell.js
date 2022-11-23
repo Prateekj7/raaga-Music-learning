@@ -104,6 +104,7 @@ function CustomCell({ editMode, availableGenres, selectedGenre, handleChangeSche
                 } : null}
                 className={`${!editMode ? styles["disabled"] : ""}`}
             >
+                {selectedGenre?.label}
             </td>
         </OverlayTrigger>
     );
