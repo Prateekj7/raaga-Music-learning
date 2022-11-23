@@ -1,20 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import chroma from 'chroma-js';
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
-import { useForm } from "react-hook-form";
 import InputGroup from 'react-bootstrap/InputGroup';
-
-
-const options = [
-    { value: 'vocal-indian_classical', label: 'Indian Classical (Vocal)', color: '#e83f47', },
-    { value: 'vocal-ghazal', label: 'Ghazal (Vocal)', color: '#5e00a1', },
-    { value: 'vocal-pop', label: 'Pop (Vocal)', color: '#691a58' },
-    { value: 'instrumental-guitar', label: 'Guitar (Instrumental)', color: '#cd9c5c', },
-    { value: 'instrumental-piano', label: 'Piano (Instrumental)', color: '#131415' },
-
-];
 
 const customStyles = {
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -68,9 +57,7 @@ const customStyles = {
     }),
 }
 
-function MyComponent({ isDisabled, selectedGenres, handleChangeGenres, handleChangeFees }) {
-    const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
-
+function MyComponent({ isDisabled, editingGenreAndFees, handleChangeGenres, handleChangeFees, options }) {
     return <>
         <Select
             className="my-3"
@@ -79,13 +66,13 @@ function MyComponent({ isDisabled, selectedGenres, handleChangeGenres, handleCha
             isMulti
             placeholder="Select the topics you want to teach"
             onChange={handleChangeGenres}
-            value={selectedGenres}
+            value={editingGenreAndFees}
             isSearchable={false}
             isDisabled={isDisabled}
         />
         <Form id="hourly-rate-form " className="mb-3">
-            {selectedGenres.map((genre, index) =>
-                <Form.Group key={genre.value} as={Row} className="mb-lg-3" controlId="formBasicName">
+            {editingGenreAndFees.map((genre, index) =>
+                <Form.Group key={genre.value} as={Row} className="mb-lg-3" controlId="formBasicFees">
                     <Form.Label column sm="4">{genre.label}</Form.Label>
                     <Col>
                         <InputGroup >
@@ -97,6 +84,7 @@ function MyComponent({ isDisabled, selectedGenres, handleChangeGenres, handleCha
                                 placeholder={`Your rate for ${genre.label}`}
                                 onChange={handleChangeFees}
                                 disabled={isDisabled}
+                                value={genre.fees}
                             />
                             <InputGroup.Text id="basic-addon1">per hour</InputGroup.Text>
                         </InputGroup>
