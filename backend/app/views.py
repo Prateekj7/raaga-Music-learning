@@ -202,7 +202,7 @@ def read_teacher_reviews(request):
     return Response(results[0])
 
 @api_view(['POST'])
-def read_teacher_schedules(request):
+def read_teacher_timelines(request):
     def prepare_possible_schedule():
         timing = {
             "Sun": [],

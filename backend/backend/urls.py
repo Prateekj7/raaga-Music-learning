@@ -30,7 +30,7 @@ urlpatterns = [
     path('api/read_teacher_raw_schedule/', read_teacher_raw_schedule),
     path('api/update_teacher_raw_schedule/', update_teacher_raw_schedule),
     path('api/read_teacher_reviews/', read_teacher_reviews),
-    path('api/read_teacher_schedules/', read_teacher_schedules),
+    path('api/read_teacher_timelines/', read_teacher_timelines),
     path('api/update_count/', update_count),
     path('api/send_otp/', send_otp),
     path('api/verify_otp/', verify_otp),
