@@ -97,6 +97,14 @@ function TeacherProfile() {
         setEditProfileMode(true);
     };
 
+    if (!loggedInUser.isLoggedIn && (loggedInUser.category !== "teacher")) {
+        return (
+            <Container fluid className={`${styles["aspiring-musician-container"]}`}>
+                <h4>Please login to view your profile</h4>
+            </Container >
+        );
+    }
+
     return (
         <Container fluid className={`${styles["aspiring-musician-container"]}`}>
             <Row>
