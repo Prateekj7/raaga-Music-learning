@@ -57,7 +57,7 @@ const customStyles = {
         },
     }),
 }
-function CustomPopover(props, availableGenres, selectedGenre, handleChangeGenres) {
+function CustomPopover(props, availableGenres, selectedGenre, handleChangeSchedule) {
     return (
         <Popover {...props} id="popover-basic">
             <Popover.Header as="h3">Select topic for this time slot</Popover.Header>
@@ -67,7 +67,7 @@ function CustomPopover(props, availableGenres, selectedGenre, handleChangeGenres
                     options={availableGenres}
                     styles={customStyles}
                     placeholder="Choose topic"
-                    onChange={handleChangeGenres}
+                    onChange={handleChangeSchedule}
                     value={selectedGenre}
                     isSearchable={false}
                 />
@@ -75,36 +75,37 @@ function CustomPopover(props, availableGenres, selectedGenre, handleChangeGenres
                 <button className="me-2" onClick={() => document.body.click()}>Save</button>
                 <button onClick={() => {
                     document.body.click();
-                    handleChangeGenres(null);
+                    handleChangeSchedule(null);
                 }}>Delete</button>
             </Popover.Body>
         </Popover>
     );
 }
 
-function CustomCell({ isDisabled, availableGenres }) {
+function CustomCell({ editMode, availableGenres, selectedGenre, handleChangeSchedule }) {
     const [showPopover, setShowPopover] = useState();
-    const [selectedGenre, setSelectedGenre] = useState();
-    const handleChangeGenres = (selectedOption) => {
-        setSelectedGenre(selectedOption);
-    };
-
     const handleTogglePopover = (show) => {
         setShowPopover(show);
     };
+
     return (
         <OverlayTrigger
             show={showPopover}
             onToggle={handleTogglePopover}
-            trigger={isDisabled ? "" : "click"}
+            trigger={!editMode ? "" : "click"}
             placement="auto"
-            overlay={(props) => CustomPopover(props, availableGenres, selectedGenre, handleChangeGenres)}
+            overlay={(props) => CustomPopover(props, availableGenres, selectedGenre, handleChangeSchedule)}
             rootClose
         >
             <td
-                style={{ backgroundColor: selectedGenre ? chroma(selectedGenre.color).alpha(0.2).css() : "white" }}
-                className={`${isDisabled ? styles["disabled"] : ""}`}
-            ></td>
+                style={selectedGenre ? {
+                    backgroundColor: chroma(selectedGenre.color).alpha(0.2).css(),
+                    color: selectedGenre.color
+                } : null}
+                className={`${!editMode ? styles["disabled"] : ""}`}
+            >
+                {selectedGenre?.label}
+            </td>
         </OverlayTrigger>
     );
 }
