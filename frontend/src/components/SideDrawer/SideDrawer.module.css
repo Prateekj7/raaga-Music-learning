@@ -87,6 +87,7 @@
 }
 
 .dropdown {
+  width: 100%;
   padding: 0.5rem 2.375rem;
   font-size: var(--fs-s);
   font-weight: var(--fw-med);
@@ -104,7 +105,7 @@
 .dropdown:active {
   color: var(--white);
   background-color: #6b6b6b;
-  border: solid 1px #3e3e3e;
+  border: solid 1px #6b6b6b;
 }
 .dropdown-menu {
   padding: 0.5rem 2.375rem;

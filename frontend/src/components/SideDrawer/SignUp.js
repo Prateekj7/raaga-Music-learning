@@ -86,7 +86,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
 
             <Form.Group className="mb-4" controlId="formUserTypeDropDown">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Why do you want to join?</Form.Label>
-                <select className={`${styles["dropdown"]}`}>
+                <select className={`${styles["dropdown"]} text-center`}>
                 <option className={`${styles["dropdown-menu"]}`}value="To learn music">To learn music</option>
                 <option  className={`${styles["dropdown-menu"]}`}value="To teach music">To teach music</option>
                 </select>
