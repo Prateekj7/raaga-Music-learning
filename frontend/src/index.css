@@ -69,3 +69,7 @@ code {
     --bs-gutter-y: 7rem;
   }
 }
+
+.react-datepicker__time-list-item--disabled {
+  display: none;
+}
