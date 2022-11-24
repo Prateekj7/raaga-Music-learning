@@ -201,7 +201,7 @@ def read_teacher_reviews(request):
     
     return Response(results[0])
 
-@api_view(['POST'])
+@api_view(['GET'])
 def read_teacher_timelines(request):
     def prepare_possible_schedule():
         timing = {
@@ -221,7 +221,7 @@ def read_teacher_timelines(request):
 
         return timing
 
-    params = request.data
+    params = request.GET
 
     id = params['id']
     category_name = params['category_name']
