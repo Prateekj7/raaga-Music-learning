@@ -1,27 +1,26 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Button, Card, Col, Container, Row, Dropdown } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Button, Col, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import ReactPlayer from "react-player";
 import styles from "./ReadMore.module.css";
 import Form from 'react-bootstrap/Form';
-import { useForm } from "react-hook-form";
 import Notification from "../Notification";
 import { LoginContext } from "../../LoginContext";
 import Spinner from 'react-bootstrap/Spinner';
 import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import dayjs from "dayjs";
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 const ReadMore = ({ teacher, filter }) => {
+  dayjs.extend(customParseFormat);
   const { loggedInUserContext } = useContext(LoginContext);
   const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-  const { name, image_url, experience, hourly_rate, video, address } = teacher;
-  const [selectedDateTime, setSelectedDateTime] = useState({
-    date: "",
-    time: "",
-  });
-  const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
+  const { name, experience } = teacher;
   const [showNotification, setShowNotification] = useState({ show: false, message: "" });
-  const [loading, setLoading] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(dayjs().toDate());
   const { isLoading, mutate: createMeeting } = useMutation({
     mutationFn: newMeeting => {
       return axios.post('/api/book_class/', newMeeting)
@@ -31,49 +30,55 @@ const ReadMore = ({ teacher, filter }) => {
     }
   })
 
-  const teacherQueryFn = () => {
-    return axios.get(`/api/read_teacher_metadata?id=${teacher.id}`);
-  };
-
   const { isLoading: isLoadingReadMore, data: teacherReadMore } = useQuery({
     queryKey: ['teachers', teacher.id],
-    queryFn: teacherQueryFn,
+    queryFn: () => {
+      return axios.get(`/api/read_teacher_metadata?id=${teacher.id}`);
+    },
     select: (data) => {
       return data.data;
     }
   });
 
-  //create schedule object for date and time
-  const schedule = [
-    {
-      date: "2021-05-01",
-      time: [
-        {
-          time: "10:00",
-          booked: true,
-        },
-        {
-          time: "11:00",
-          booked: false,
-        },
-      ]
+  const { isLoading: isLoadingAvailableSlots, data: availableSlots, isSuccess: isSuccessAvailableSlots } = useQuery({
+    queryKey: ['availableSlots', teacher.id, filter.categoryName, filter.categoryValue],
+    queryFn: () => {
+      return axios.get(`/api/read_teacher_timelines?id=${teacher.id}&category_name=${filter.categoryName}&category_value=${filter.categoryValue}`);
     },
-    {
-      date: "2021-05-02",
-      time: [
-        {
-          time: "10:00",
-          booked: false,
-        },
-        {
-          time: "11:00",
-          booked: false,
-        },
-      ]
-    }
-  ]
+    select: (data) => {
+      let availableSlots = {};
+      let dateString = {};
+      for (const dateTimeString of data.data) {
+        dateString = dateTimeString.slice(0, 10);
+        availableSlots[dateString] = [];
+        availableSlots[dateString].push(dayjs(dateTimeString).toDate());
+      }
+      return availableSlots;
+    },
+  });
 
-  const handleBookClass = (formData) => {
+  const getIncludedDates = () => {
+    if (isSuccessAvailableSlots) {
+      return Object.keys(availableSlots).map((dateString) => dayjs(dateString, "YYYY-MM-DD").toDate());
+    }
+    else {
+      return [];
+    }
+  };
+
+  const getIncludedTimes = () => {
+    let result;
+    if (isSuccessAvailableSlots) {
+      result = availableSlots[dayjs(selectedDate)?.format("YYYY-MM-DD")] ?? [];
+    }
+    else {
+      result = [];
+    }
+    return result;
+  };
+
+  const handleBookClass = (e) => {
+    e.preventDefault();
     if (!loggedInUser.isLoggedIn) {
       setShowNotification({ show: true, message: "Please login to book a class !" });
       return;
@@ -83,22 +88,30 @@ const ReadMore = ({ teacher, filter }) => {
       return;
     }
 
-    let meeting = {
-      data: {
-        //Prateek, please put your code here
-        "student_id": 1,
-        "student_name": "Anish Kumar",
-        "teacher_id": 1,
-        "teacher_name": "Mohan Kumar",
-        "category_type": "Vocal",
-        "category_value": 'Indian Classical',
-        "class_timestamp": "2022-10-30T11:00",
-        "payment_id": 1,
-        "payment_amount": 1000,
-        "payment_timestamp": "2022-10-30T11:00"
+    let isSelectedSlotAvailable = false;
+    for (const dateTimes of Object.values(availableSlots)) {
+      for (const dateTime of dateTimes) {
+        if (+selectedDate === +dateTime) {
+          isSelectedSlotAvailable = true;
+          break;
+        }
       }
-    };
-    createMeeting(meeting)
+    }
+    if (!isSelectedSlotAvailable) {
+      setShowNotification({ show: true, message: "Sorry! selected slot is not available" });
+      return;
+    }
+
+    createMeeting({
+      "student_id": loggedInUser.id,
+      "teacher_id": teacher.id,
+      "category_type": filter.categoryName,
+      "category_value": filter.categoryValue,
+      "class_timestamp": selectedDate,
+      "payment_id": 1,
+      "payment_amount": teacher.hourly_rate,
+      "payment_timestamp": selectedDate
+    })
   };
 
   return (
@@ -159,23 +172,17 @@ const ReadMore = ({ teacher, filter }) => {
         <Col lg="4">
           <div className="my-3">
             <h5 className={`${styles["teacher-name"]} p-0 m-0 mb-3`}>Book a class with {name}</h5>
-            <Form onSubmit={handleSubmit(handleBookClass)} id="booking-class-form">
-              <Form.Group controlId="formBookingDate" className="mb-3">
-                <Form.Label visuallyHidden>Booking date</Form.Label>
-                <Form.Select {...register("bookingDate")} aria-label="Select class booking date">
-                  <option>Select class date</option>
-                  {schedule.map((item, index) => (
-                    <option key={index} value={item.date}>{item.date}</option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-              <Form.Group controlId="formBookingTime" className="mb-3">
-                <Form.Label visuallyHidden>Booking time</Form.Label>
-                <Form.Select {...register("bookingTime")} aria-label="Select class booking time">
-                  <option>Select class time</option>
-                  <option>11:00 am</option>
-                </Form.Select>
-              </Form.Group>
+            <Form onSubmit={handleBookClass} id="booking-class-form">
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate((date))}
+                className="mb-3 w-100"
+                showTimeSelect
+                placeholderText="Select date and time"
+                dateFormat="MMMM d, yyyy h:mm aa"
+                includeDates={getIncludedDates()}
+                includeTimes={getIncludedTimes()}
+              />
 
               <Button className={`${styles["login-button"]}`}
                 type="submit"
