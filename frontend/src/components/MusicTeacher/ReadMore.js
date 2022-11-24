@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from 'axios';
 
-const ReadMore = ({ teacher }) => {
+const ReadMore = ({ teacher, filter }) => {
   const { loggedInUserContext } = useContext(LoginContext);
   const [loggedInUser, setLoggedInUser] = loggedInUserContext;
   const { name, image_url, experience, hourly_rate, video, address } = teacher;

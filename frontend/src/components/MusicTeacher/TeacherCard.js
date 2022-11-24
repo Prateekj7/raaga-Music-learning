@@ -9,7 +9,7 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Button from "../Button";
 
-const TeacherCard = ({ skeleton = false, teacher }) => {
+const TeacherCard = ({ skeleton = false, teacher, filter }) => {
   const accordionRef = useRef(null);
   const [accordianOpen, setAccordianOpen] = useState(false);
 
@@ -99,6 +99,7 @@ const TeacherCard = ({ skeleton = false, teacher }) => {
               <Accordion.Body className="mx-0 px-0">
                 <ReadMore
                   teacher={teacher}
+                  filter={filter}
                 ></ReadMore>
               </Accordion.Body>
             </Accordion.Item>

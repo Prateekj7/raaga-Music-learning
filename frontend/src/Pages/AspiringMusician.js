@@ -105,6 +105,7 @@ const AspiringMusician = () => {
                 <TeacherCard
                   key={teacher.id}
                   teacher={teacher}
+                  filter={filter}
                 ></TeacherCard>
               ))}
         </ul>
