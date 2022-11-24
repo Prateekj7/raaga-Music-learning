@@ -221,6 +221,17 @@ def read_teacher_timelines(request):
 
         return timing
 
+    def read_teacher_active_timelines(id):
+        results = []
+        date = datetime.datetime.today().date()
+        query = f"SELECT class_timestamp from class where teacher_id = '{id}' and class_timestamp > '{str(date) + 'T00:00'}'"
+        print(query)
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            results = get_query_results(cursor)
+
+        return [result['class_timestamp'] for result in results]
+    
     params = request.GET
 
     id = params['id']
@@ -228,6 +239,7 @@ def read_teacher_timelines(request):
     category_value = params['category_value']
 
     available_schedule = []
+    booked_schedule = read_teacher_active_timelines(id)
     query = f"select schedule -> '{category_name}' -> '{category_value}' -> 'class_timings' as schedule from teacher where id = '{id}'"
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -240,7 +252,9 @@ def read_teacher_timelines(request):
                 if day in possible_schedule.keys():
                     for time in selected_schedule[day]:
                         for date in possible_schedule[day]:
-                            available_schedule.append(date + 'T' + str(time) + ':00')
+                            timeline = date + 'T' + str(time) + ':00'
+                            if timeline not in booked_schedule:
+                                available_schedule.append(timeline)
     
     return Response(available_schedule)
 
@@ -326,11 +340,9 @@ def book_class(request):
     data = params['data']
 
     if "student_name" not in data:
-        print("Not Present")
         data["student_name"] = get_user_name(id = data["student_id"], user_type = 'student')
 
     if "teacher_name" not in data:
-        print("Not Present")
         data["teacher_name"] = get_user_name(id = data["teacher_id"], user_type = 'teacher')
 
     duration = 60 # minutes
