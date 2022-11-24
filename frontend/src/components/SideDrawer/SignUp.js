@@ -13,6 +13,9 @@ import axios from 'axios';
 import { useForm } from "react-hook-form";
 import Notification from "../Notification";
 
+
+
+
 function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
@@ -81,10 +84,13 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
     return <div>
         <Form onSubmit={handleSubmit(handleRegister)} id="signUpForm">
 
-            <Form.Group className="mb-4" controlId="formUserTypeRadio">
-                <Form.Label className={`${styles["form-label"]} mb-3`}>Sign up as a teacher or student</Form.Label>
-
-                <div key={`inline-radio`} className="d-flex">
+            <Form.Group className="mb-4" controlId="formUserTypeDropDown">
+                <Form.Label className={`${styles["form-label"]} mb-3`}>Why do you want to join?</Form.Label>
+                <select className={`${styles["dropdown"]} text-center`}>
+                <option className={`${styles["dropdown-menu"]}`}value="To learn music">To learn music</option>
+                <option  className={`${styles["dropdown-menu"]}`}value="To teach music">To teach music</option>
+                </select>
+                {/* <div key={`inline-radio`} className="d-flex">
                     <Form.Check
                         className={`${styles["form-label"]}`}
                         inline
@@ -106,7 +112,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                         value="student"
                         required
                     />
-                </div>
+                </div> */}
             </Form.Group>
 
             <Form.Group className="mb-4" controlId="formBasicName">
