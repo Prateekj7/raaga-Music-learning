@@ -23,6 +23,14 @@ const TeacherDashboard = () => {
         }
     });
 
+    if (!loggedInUser.isLoggedIn && (loggedInUser.category !== "teacher")) {
+        return (
+            <Container fluid className={`${styles["aspiring-musician-container"]}`}>
+                <h4>Please login to view your dashboard</h4>
+            </Container >
+        );
+    }
+
     return (
         <Container fluid className={`${styles["aspiring-musician-container"]}`}>
             <Row>
@@ -47,16 +55,18 @@ const TeacherDashboard = () => {
                 <ul className="m-0 p-0">
                     {isLoading ?
                         Array.from(Array(5), (e, i) => <MeetingCard key={i} skeleton />) :
-                        meetings.map((meeting) => (
-                            <MeetingCard
-                                key={meeting.id}
-                                category_type={meeting.category_type}
-                                category_value={meeting.category_value}
-                                class_timestamp={meeting.class_timestamp}
-                                meeting_link={meeting.meeting_link}
-                                person_name={meeting.student_name}
-                            ></MeetingCard>
-                        ))}
+                        meetings.length === 0 ?
+                            <h5 className="d-flex justify-content-center">No lessons scheduled yet.</h5> :
+                            meetings.map((meeting) => (
+                                <MeetingCard
+                                    key={meeting.id}
+                                    category_type={meeting.category_type}
+                                    category_value={meeting.category_value}
+                                    class_timestamp={meeting.class_timestamp}
+                                    meeting_link={meeting.meeting_link}
+                                    person_name={meeting.student_name}
+                                ></MeetingCard>
+                            ))}
                 </ul>
             </Row>
             <div className="d-flex justify-content-center mt-4">
