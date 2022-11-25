@@ -29,6 +29,13 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
         },
         onSuccess: (result, postOptions) => {
             setTimeout(() => {
+                setLoggedInUser({
+                    isLoggedIn: true,
+                    category: postOptions.table,
+                    id: result.data
+                });
+            }, 1500)
+            setTimeout(() => {
                 if (postOptions.table === "student") {
                     navigate("/aspiring-musician-profile");
                 }
@@ -36,14 +43,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                     navigate("/music-teacher-profile");
                 }
                 handleCloseDrawer();
-            }, 2500)
-            setTimeout(() => {
-                setLoggedInUser({
-                    isLoggedIn: true,
-                    category: postOptions.table,
-                    id: result.data
-                });
-            }, 4000)
+            }, 2000)
         }
     })
 

@@ -30,6 +30,14 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
         },
         onSuccess: (result) => {
             setTimeout(() => {
+                setLoggedInUser({
+                    isLoggedIn: true,
+                    category: result.data.type,
+                    id: result.data.id
+                });
+            }, 1500)
+
+            setTimeout(() => {
                 if (result.data.type === "student") {
                     navigate("/aspiring-musician-dashboard");
                 }
@@ -38,13 +46,6 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
                 }
                 handleCloseDrawer();
             }, 2000)
-            setTimeout(() => {
-                setLoggedInUser({
-                    isLoggedIn: true,
-                    category: result.data.type,
-                    id: result.data.id
-                });
-            }, 3000)
         }
     })
 
