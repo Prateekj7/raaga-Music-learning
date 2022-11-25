@@ -1,18 +1,26 @@
 import styles from "./FeaturedArtistCard.module.css";
-import React from "react";
+import React, { useState } from "react";
 
 function FeaturedArtistCard({
     showFooter,
-    imgUrl = "https://www.pngitem.com/pimgs/m/135-1356850_blossom-powerpuff-girls-png-transparent-background-powerpuff-girls.png",
+    imgUrl,
     skeleton
 }) {
+
+    const defaultImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+    const [cardImg, setCardImg] = useState(imgUrl ?? defaultImg);
+    const handleDefaultImage = () => {
+        setCardImg(defaultImg);
+    };
 
     return (
         <div className={`${styles["card"]}`}>
             <div className={`${styles["Stroke-28"]}`}>
                 <div className={`${styles["card_img"]} ${skeleton ? styles["skeleton"] : ""}`}>
                     {skeleton ? null :
-                        <img src={imgUrl}
+                        <img
+                            onError={handleDefaultImage}
+                            src={cardImg}
                             alt="user-image" />
                     }
                 </div>
