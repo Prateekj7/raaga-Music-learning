@@ -136,6 +136,7 @@ function StudentProfile() {
                                     <Form.Control className={`${styles["form-number-input"]} shadow-none`}
                                         {...register("email_id")}
                                         type="email"
+                                        disabled
                                     />
                                 </Col>
                             </Form.Group>
