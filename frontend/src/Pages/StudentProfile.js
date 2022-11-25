@@ -59,6 +59,14 @@ function StudentProfile() {
         setEditProfileMode(true);
     };
 
+    if (!loggedInUser.isLoggedIn && (loggedInUser.category !== "student")) {
+        return (
+            <Container fluid className={`${styles["aspiring-musician-container"]}`}>
+                <h4>Please login to view your profile</h4>
+            </Container >
+        );
+    }
+
     return (
         <Container fluid className={`${styles["aspiring-musician-container"]}`}>
             <Row>
