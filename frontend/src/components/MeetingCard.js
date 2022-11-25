@@ -5,6 +5,10 @@ import FeaturedArtistCard from "./FeaturedArtistCard";
 import Placeholder from 'react-bootstrap/Placeholder';
 import Button from "./Button";
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const TeacherCard = ({ skeleton = false, category_type, category_value, class_timestamp, meeting_link, person_name }) => {
     const getDateString = () => {
         const dateObj = new Date(class_timestamp.slice(0, 4), class_timestamp.slice(5, 7), class_timestamp.slice(8, 10));
@@ -12,7 +16,7 @@ const TeacherCard = ({ skeleton = false, category_type, category_value, class_ti
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         let day = weekdays[dateObj.getDay()];
         let month = months[dateObj.getMonth()];
-        return `${day}, ${class_timestamp.slice(8, 10)}, ${month} ${class_timestamp.slice(0, 4)} at ${class_timestamp.slice(11, 16)} am`
+        return `${day}, ${class_timestamp.slice(8, 10)} ${month} ${class_timestamp.slice(0, 4)} at ${class_timestamp.slice(11, 16)}`
     };
     const handleOpenMeeting = () => {
         window.location.href = meeting_link;
@@ -31,7 +35,7 @@ const TeacherCard = ({ skeleton = false, category_type, category_value, class_ti
                                 <Placeholder animation="glow">
                                     <Placeholder xs={6} />
                                 </Placeholder> :
-                                `${category_type} class with ${person_name}`
+                                `${capitalizeFirstLetter(category_type)} class with ${capitalizeFirstLetter(person_name)}`
                             }
                         </h4>
                         <div className={`${styles["teacher-experience"]}`}>
