@@ -39,4 +39,5 @@ urlpatterns = [
     path('api/book_class/', book_class),
     path('api/check_user_existance/', check_user_existance),
     path('api/get_csrf_token/', get_csrf_token),
+    path('api/read_teacher_details/', read_teacher_details),
 ]

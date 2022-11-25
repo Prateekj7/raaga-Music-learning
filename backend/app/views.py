@@ -147,6 +147,19 @@ def read_teacher_main_data(request):
     return Response(results)
 
 @api_view(['GET'])
+def read_teacher_details(request):
+    params = request.GET
+    
+    teacher_id = params['teacher_id']
+
+    query = f"SELECT id, name, experience, rating, schedule, image_url, about, gender, email_id, contact_number, city, state, pin_code, qualification, achievement, experience FROM teacher where id = '{teacher_id}'"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = get_query_results(cursor)
+    
+    return Response(results)
+
+@api_view(['GET'])
 def read_teacher_metadata(request):
     params = request.GET
     
