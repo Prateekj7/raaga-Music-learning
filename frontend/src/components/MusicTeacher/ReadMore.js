@@ -91,7 +91,7 @@ const ReadMore = ({ teacher, filter }) => {
     let isSelectedSlotAvailable = false;
     for (const dateTimes of Object.values(availableSlots)) {
       for (const dateTime of dateTimes) {
-        if (+selectedDate === +dateTime) {
+        if (dayjs(selectedDate).isSame(dayjs(dateTime), "minute")) {
           isSelectedSlotAvailable = true;
           break;
         }
@@ -103,14 +103,16 @@ const ReadMore = ({ teacher, filter }) => {
     }
 
     createMeeting({
-      "student_id": loggedInUser.id,
-      "teacher_id": teacher.id,
-      "category_type": filter.categoryName,
-      "category_value": filter.categoryValue,
-      "class_timestamp": selectedDate,
-      "payment_id": 1,
-      "payment_amount": teacher.hourly_rate,
-      "payment_timestamp": selectedDate
+      data: {
+        "student_id": loggedInUser.id,
+        "teacher_id": teacher.id,
+        "category_type": filter.categoryName,
+        "category_value": filter.categoryValue,
+        "class_timestamp": dayjs(selectedDate).format("YYYY-MM-DDTH:mm"),
+        "payment_id": 1,
+        "payment_amount": teacher.hourly_rate,
+        "payment_timestamp": dayjs(selectedDate).format("YYYY-MM-DDTH:mm")
+      }
     })
   };
 
@@ -175,7 +177,7 @@ const ReadMore = ({ teacher, filter }) => {
             <Form onSubmit={handleBookClass} id="booking-class-form">
               <DatePicker
                 selected={selectedDate}
-                onChange={(date) => setSelectedDate((date))}
+                onChange={(date) => setSelectedDate(date)}
                 className="mb-3 w-100"
                 showTimeSelect
                 placeholderText="Select date and time"
