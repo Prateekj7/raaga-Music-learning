@@ -86,33 +86,13 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
 
             <Form.Group className="mb-4" controlId="formUserTypeDropDown">
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Why do you want to join?</Form.Label>
-                <select className={`${styles["dropdown"]} text-center`}>
-                <option className={`${styles["dropdown-menu"]}`}value="To learn music">To learn music</option>
-                <option  className={`${styles["dropdown-menu"]}`}value="To teach music">To teach music</option>
+                <select className=
+                    {`${styles["dropdown"]} text-center`}
+                    {...register("userType")}    
+                >
+                <option className={`${styles["dropdown-menu"]}`}value="student">To learn music</option>
+                <option  className={`${styles["dropdown-menu"]}`}value="teacher">To teach music</option>
                 </select>
-                {/* <div key={`inline-radio`} className="d-flex">
-                    <Form.Check
-                        className={`${styles["form-label"]}`}
-                        inline
-                        label="Music Teacher"
-                        {...register("userType")}
-                        type={"radio"}
-                        id={`teacher`}
-                        value="teacher"
-                        defaultChecked
-                        required
-                    />
-                    <Form.Check
-                        className={`${styles["form-label"]}`}
-                        inline
-                        label="Aspiring Musician"
-                        {...register("userType")}
-                        type={"radio"}
-                        id={`student`}
-                        value="student"
-                        required
-                    />
-                </div> */}
             </Form.Group>
 
             <Form.Group className="mb-4" controlId="formBasicName">
