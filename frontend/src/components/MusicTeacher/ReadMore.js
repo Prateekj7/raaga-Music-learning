@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
-import ReactPlayer from "react-player";
+import ReactPlayer from 'react-player/youtube'
 import styles from "./ReadMore.module.css";
 import Form from 'react-bootstrap/Form';
 import Notification from "../Notification";
@@ -121,13 +121,13 @@ const ReadMore = ({ teacher, filter }) => {
       <Notification show={showNotification.show} setShow={setShowNotification} message={showNotification.message} />
       <Row>
         <Col lg={6}>
-          <div>
+          {teacherReadMore?.video_url ?
             <ReactPlayer
               controls={true}
               url={teacherReadMore?.video_url}
               width="100%"
-            />
-          </div>
+            /> : null
+          }
         </Col>
       </Row>
 
@@ -175,6 +175,7 @@ const ReadMore = ({ teacher, filter }) => {
           <div className="my-3">
             <h5 className={`${styles["teacher-name"]} p-0 m-0 mb-3`}>Book a class with {name}</h5>
             <Form onSubmit={handleBookClass} id="booking-class-form">
+              <Form.Label>Select your your preferred time to book a 60 min online lesson -</Form.Label>
               <DatePicker
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
