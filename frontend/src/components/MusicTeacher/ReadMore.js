@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Notification from "../Notification";
 import { LoginContext } from "../../LoginContext";
 import Spinner from 'react-bootstrap/Spinner';
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 const ReadMore = ({ teacher, filter }) => {
+  const queryClient = useQueryClient();
   dayjs.extend(customParseFormat);
   const { loggedInUserContext } = useContext(LoginContext);
   const [loggedInUser, setLoggedInUser] = loggedInUserContext;
@@ -27,6 +28,8 @@ const ReadMore = ({ teacher, filter }) => {
     },
     onSuccess: () => {
       setShowNotification({ show: true, message: "Class booked ! Please check your dashboard." });
+      queryClient.invalidateQueries({ queryKey: ['studentMeetings'] });
+      queryClient.invalidateQueries({ queryKey: ['teacherMeetings'] });
     }
   })
 
