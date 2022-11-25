@@ -140,7 +140,10 @@ function Schedule({ }) {
         let genre;
         for (const genreOption of editingGenreAndFees) {
             [parentGenre, genre] = genreOption.value.split("-");
-            scheduleToSend[parentGenre] = { [genre]: {} };
+            scheduleToSend[parentGenre] = {
+                ...scheduleToSend[parentGenre],
+                [genre]: {}
+            };
             scheduleToSend[parentGenre][genre]["class_details"] = {
                 "class_mode": 'Online',
                 "hourly_rate": genreOption.fees,
