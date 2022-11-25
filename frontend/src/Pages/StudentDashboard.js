@@ -22,7 +22,7 @@ const StudentDashboard = () => {
             return data.data;
         }
     });
-    if (!loggedInUser.isLoggedIn && (loggedInUser.category !== "student")) {
+    if (!loggedInUser.isLoggedIn || (loggedInUser.category !== "student")) {
         return (
             <Container fluid className={`${styles["aspiring-musician-container"]}`}>
                 <h4>Please login to view your dashboard</h4>
