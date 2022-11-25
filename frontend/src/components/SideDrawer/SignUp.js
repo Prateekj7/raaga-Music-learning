@@ -32,7 +32,7 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 if (postOptions.table === "student") {
                     navigate("/aspiring-musician-profile");
                 }
-                else {
+                else if (postOptions.table === "teacher") {
                     navigate("/music-teacher-profile");
                 }
                 handleCloseDrawer();
@@ -88,10 +88,10 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                 <Form.Label className={`${styles["form-label"]} mb-3`}>Why do you want to join?</Form.Label>
                 <select className=
                     {`${styles["dropdown"]} text-center`}
-                    {...register("userType")}    
+                    {...register("userType")}
                 >
-                <option className={`${styles["dropdown-menu"]}`}value="student">To learn music</option>
-                <option  className={`${styles["dropdown-menu"]}`}value="teacher">To teach music</option>
+                    <option className={`${styles["dropdown-menu"]}`} value="student">To learn music</option>
+                    <option className={`${styles["dropdown-menu"]}`} value="teacher">To teach music</option>
                 </select>
             </Form.Group>
 

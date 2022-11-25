@@ -28,12 +28,12 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
         mutationFn: userDetails => {
             return axios.post('/api/check_user_existance/', userDetails)
         },
-        onSuccess: (result, postOptions) => {
+        onSuccess: (result) => {
             setTimeout(() => {
-                if (postOptions.table === "student") {
+                if (result.data.type === "student") {
                     navigate("/aspiring-musician-dashboard");
                 }
-                else {
+                else if (result.data.type === "teacher") {
                     navigate("/music-teacher-dashboard");
                 }
                 handleCloseDrawer();
