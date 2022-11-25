@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./TeacherProfile.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
@@ -9,58 +9,33 @@ import { LoginContext } from "../LoginContext";
 import { FaEdit } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import Schedule from "../components/Schedule/Schedule";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from 'axios';
 
 function TeacherProfile() {
-
+    const queryClient = useQueryClient();
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-    const [savedProfile, setSavedProfile] = useState();
     const [editProfileMode, setEditProfileMode] = useState(false);
     const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
-
-    useEffect(() => {
-        let data = {
-            id: loggedInUser.id,
-        };
-
-        const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        };
-
-        const testData = {
-            name: "Joe Satriani",
-            gender: "male",
-            city: "Duliajan",
-            state: "Assam",
-            pin_code: "211008",
-            about: "I am a multi talented Grammy award winning multi instrumentalist.",
-            qualification: "Berklee College of Music",
-            contact_number: "919954199108",
-            email_id: "jor@gmail.com",
-            achievement: "Grammy, Tony, Emmy, Academy",
-            experience: "25",
-        };
-
-        const getTableData = async () => {
-            try {
-                setSavedProfile(testData);
-                reset(testData);
-                // const response = await fetch("/api/read_teacher_metadata/", requestOptions);
-                // const result = await response.json();
-                // if (response.ok) {
-                //     setSavedProfile(result[0]);
-                // } else {
-                //     throw Error(result);
-                // }
-            } catch (err) {
-                console.log(err.message);
-            }
-        };
-
-        getTableData();
-    }, [loggedInUser.id]);
+    const { isLoading: isLoadingProfile, data: savedProfile } = useQuery({
+        queryKey: ['teacherProfile', loggedInUser.id],
+        queryFn: () => {
+            return axios.get(`/api/read_teacher_details/?teacher_id=${loggedInUser.id}`);
+        },
+        select: (data) => {
+            return data.data[0];
+        },
+        onSuccess: (data) => reset(data),
+    });
+    const { isLoadingUpdateProfile, mutate: updateProfile } = useMutation({
+        mutationFn: postBody => {
+            return axios.post('/api/update_data/', postBody)
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['teacherProfile', loggedInUser.id] })
+        }
+    })
 
     const handleSaveProfile = (formData) => {
         setEditProfileMode(false);
@@ -69,23 +44,11 @@ function TeacherProfile() {
         }
         const dirtyForm = Object.keys(dirtyFields)
             .reduce((finalData, key) => ({ ...finalData, [key]: formData[key] }), {});
-        setSavedProfile((oldState) => ({ ...oldState, ...dirtyForm }));
-        // const getTableData = async () => {
-        //     try {
-        //         setSavedProfile((oldState) => { return { ...oldState, ...formDataObj }; });
-        //         // const response = await fetch("/api/read_teacher_metadata/", requestOptions);
-        //         // const result = await response.json();
-        //         // if (response.ok) {
-        //         //     setSavedProfile(result[0]);
-        //         // } else {
-        //         //     throw Error(result);
-        //         // }
-        //     } catch (err) {
-        //         console.log(err.message);
-        //     }
-        // };
-
-        // getTableData();
+        updateProfile({
+            "table": "teacher",
+            "id": loggedInUser.id,
+            "data": dirtyForm
+        })
     };
     const handleCancelEditProfile = (e) => {
         e.preventDefault();
@@ -118,7 +81,7 @@ function TeacherProfile() {
             </Row>
             <Row>
                 <Col xs={12} md={3}>
-                    <FeaturedArtistCard showFooter={false} />
+                    <FeaturedArtistCard showFooter={false} imgURL={savedProfile?.image_url} />
                 </Col>
                 <Col xs={12} md={9}>
                     <div className="d-flex align-items-start mb-2">

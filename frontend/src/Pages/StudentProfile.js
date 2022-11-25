@@ -1,61 +1,40 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./TeacherProfile.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import doubleArrowIcon from "../images/doubleArrowIcon.png";
 import singleArrowIcon from "../images/singleArrowIcon.svg";
+import FeaturedArtistCard from "../components/FeaturedArtistCard";
 import { LoginContext } from "../LoginContext";
 import { FaEdit } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from 'axios';
 
 function StudentProfile() {
-
+    const queryClient = useQueryClient();
     const { loggedInUserContext } = useContext(LoginContext);
     const [loggedInUser, setLoggedInUser] = loggedInUserContext;
-    const [savedProfile, setSavedProfile] = useState();
     const [editProfileMode, setEditProfileMode] = useState(false);
     const { register, handleSubmit, reset, formState: { isDirty, dirtyFields } } = useForm();
-
-    useEffect(() => {
-        let data = {
-            id_column_value: loggedInUser.id,
-            id_column_name: "id",
-            table: "student",
-            columns: "*"
-        };
-
-        const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        };
-
-        const testData = {
-            name: "Abhiroop Dutta",
-            gender: "male",
-            city: "Prayagraj",
-            state: "Uttar Pradesh",
-            pin_code: "784022",
-        };
-
-        const getTableData = async () => {
-            try {
-                setSavedProfile(testData);
-                reset(testData);
-                // const response = await fetch("/api/read_data/", requestOptions);
-                // const result = await response.json();
-                // if (response.ok) {
-                //     setSavedProfile(result[0]);
-                // } else {
-                //     throw Error(result);
-                // }
-            } catch (err) {
-                console.log(err.message);
-            }
-        };
-
-        getTableData();
-    }, [loggedInUser.id]);
+    const { isLoading: isLoadingProfile, data: savedProfile } = useQuery({
+        queryKey: ['studentProfile', loggedInUser.id],
+        queryFn: () => {
+            return axios.get(`/api/read_data?table=student&columns=["*"]&id_column_name=id&id_column_value=${loggedInUser.id}`);
+        },
+        select: (data) => {
+            return data.data[0];
+        },
+        onSuccess: (data) => reset(data),
+    });
+    const { isLoadingUpdateProfile, mutate: updateProfile } = useMutation({
+        mutationFn: postBody => {
+            return axios.post('/api/update_data/', postBody)
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['studentProfile', loggedInUser.id] })
+        }
+    })
 
     const handleSaveProfile = (formData) => {
         setEditProfileMode(false);
@@ -64,7 +43,11 @@ function StudentProfile() {
         }
         const dirtyForm = Object.keys(dirtyFields)
             .reduce((finalData, key) => ({ ...finalData, [key]: formData[key] }), {});
-        setSavedProfile((oldState) => ({ ...oldState, ...dirtyForm }));
+        updateProfile({
+            "table": "student",
+            "id": loggedInUser.id,
+            "data": dirtyForm
+        })
     };
     const handleCancelEditProfile = (e) => {
         e.preventDefault();
@@ -88,9 +71,9 @@ function StudentProfile() {
                 </Col>
             </Row>
             <Row>
-                {/* <Col xs={12} md={3}>
-                    <FeaturedArtistCard showFooter={false} />
-                </Col> */}
+                <Col xs={12} md={3}>
+                    <FeaturedArtistCard showFooter={false} imgURL={savedProfile?.image_url} />
+                </Col>
                 <Col xs={12} md={9}>
                     <div className="d-flex align-items-start mb-2">
                         <h4 className="">Basic Info </h4>
@@ -157,36 +140,6 @@ function StudentProfile() {
                                         pattern="[0-9]{7,15}"
                                         maxLength="15"
                                         title="Please enter a valid phone number"
-                                    />
-                                </Col>
-                            </Form.Group>
-                            <Form.Group as={Row} className="mb-lg-3" controlId="formBasicCity">
-                                <Form.Label column sm="2">City</Form.Label>
-                                <Col>
-                                    <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        {...register("city")}
-                                        type="text"
-                                        maxLength={50}
-                                    />
-                                </Col>
-                            </Form.Group>
-                            <Form.Group as={Row} className="mb-lg-3" controlId="formBasicState">
-                                <Form.Label column sm="2">State</Form.Label>
-                                <Col>
-                                    <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        {...register("state")}
-                                        type="text"
-                                        maxLength={50}
-                                    />
-                                </Col>
-                            </Form.Group>
-                            <Form.Group as={Row} className="mb-lg-3" controlId="formBasicPinCode">
-                                <Form.Label column sm="2">Pincode</Form.Label>
-                                <Col>
-                                    <Form.Control className={`${styles["form-number-input"]} shadow-none `}
-                                        {...register("pin_code")}
-                                        type="text"
-                                        maxLength={20}
                                     />
                                 </Col>
                             </Form.Group>
