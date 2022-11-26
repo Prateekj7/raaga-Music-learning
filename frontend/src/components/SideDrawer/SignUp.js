@@ -76,7 +76,8 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
                     name: name,
                     email_id: email,
                     gender: gender,
-                    contact_number: contactNumber
+                    contact_number: contactNumber,
+                    schedule: '{ "vocal": {}, "instrumental": {} }'
                 }
             });
         }
