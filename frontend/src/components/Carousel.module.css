@@ -13,16 +13,27 @@
 .carousel-heading-1 {
   margin: 0;
   font-weight: var(--fw-reg);
-  font-size: var(--fs-3xl);
+  font-size: 0.75rem;
   color: var(--white);
 }
 .carousel-heading-2 {
-  margin: 0;
+  /* margin-top: 2rem; */
   font-weight: var(--fw-reg);
-  font-size: var(--fs-5xl);
+  font-size: 1.2rem;
   color: var(--tan);
 }
 
+@media (min-width: 50em) {
+  .carousel-heading-1 {
+    margin: 0;
+    font-size: 2.125rem;
+  }
+
+  .carousel-heading-2 {
+    margin: 0;
+    font-size: 4rem;
+  }
+}
 .prev-button {
   transform: rotate(180deg);
 }
