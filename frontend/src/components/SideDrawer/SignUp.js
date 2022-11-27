@@ -70,16 +70,19 @@ function SignUp({ handleHideSignupPage, handleCloseDrawer }) {
         const { userType, name, email, password, gender, contactNumber } = formData;
         const createdInFirebase = await createUserWithEmailAndPassword(email, password);
         if (createdInFirebase) {
-            createUserInDB({
+            let postBody = {
                 table: userType,
                 data: {
                     name: name,
                     email_id: email,
                     gender: gender,
                     contact_number: contactNumber,
-                    schedule: '{ "vocal": {}, "instrumental": {} }'
                 }
-            });
+            }
+            if (userType === "teacher") {
+                postBody.data.schedule = '{ "vocal": {}, "instrumental": {} }';
+            }
+            createUserInDB(postBody);
         }
     };
     return <div>
