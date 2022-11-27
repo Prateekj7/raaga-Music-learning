@@ -11,7 +11,13 @@ import { useVocalGenres, useInstrumentalGenres } from "../hooks/useGenresData";
 import { useTeachersData } from "../hooks/useTeachersData";
 const AspiringMusician = () => {
   const [filter, setFilter] = useState({ categoryName: "vocal", categoryValue: "Ghazal" });
-  const { isLoading: isLoadingTeachers, data: teachers } = useTeachersData(filter.categoryName, filter.categoryValue);
+  const {
+    isLoading: isLoadingTeachers,
+    data: teachers,
+    isSuccess: isSuccessTeachers,
+    isError: isErrorTeachers,
+  } =
+    useTeachersData(filter.categoryName, filter.categoryValue);
   const { isLoading: isLoadingVocalOptions, data: vocalOptions } = useVocalGenres();
   const { isLoading: isLoadingInstrumentalOptions, data: instrumentalOptions } = useInstrumentalGenres();
 
@@ -46,6 +52,36 @@ const AspiringMusician = () => {
       }
     }
   };
+
+  const showTeachers = () => {
+    if (isLoadingTeachers) {
+      return Array.from(Array(5), (e, i) => <TeacherCard key={i} skeleton />);
+    }
+    else if (isErrorTeachers) {
+      return (
+        <h5 className="d-flex justify-content-center">
+          Sorry some error occurred. Please try again later.
+        </h5>);
+    }
+    else if (isSuccessTeachers) {
+      if (teachers.length === 0) {
+        return (
+          <h5 className="d-flex justify-content-center">
+            Sorry no teachers found, please try selecting other genre.
+          </h5>);
+      }
+      else {
+        return teachers.map((teacher) => (
+          <TeacherCard
+            key={teacher.id}
+            teacher={teacher}
+            filter={filter}
+          ></TeacherCard>
+        ))
+      }
+    }
+
+  }
 
   return (
     <Container fluid className={`${styles["aspiring-musician-container"]}`}>
@@ -97,17 +133,7 @@ const AspiringMusician = () => {
       <Row>
         <div className="border-bottom border-dark my-3"></div>
         <ul className="m-0 p-0">
-          {isLoadingTeachers ?
-            Array.from(Array(5), (e, i) => <TeacherCard key={i} skeleton />) :
-            teachers.length === 0 ?
-              <h5 className="d-flex justify-content-center">Sorry no teachers found, please try selecting other genre.</h5> :
-              teachers.map((teacher) => (
-                <TeacherCard
-                  key={teacher.id}
-                  teacher={teacher}
-                  filter={filter}
-                ></TeacherCard>
-              ))}
+          {showTeachers()}
         </ul>
       </Row>
       <div className="d-flex justify-content-center mt-4">
