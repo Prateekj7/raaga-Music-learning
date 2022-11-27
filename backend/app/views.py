@@ -14,6 +14,7 @@ from django.middleware.csrf import get_token
 import uuid
 from django.db import connection
 import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 def get_query_results(cursor):
     rows = cursor.fetchall()
@@ -144,6 +145,8 @@ def read_teacher_main_data(request):
         cursor.execute(query)
         results = get_query_results(cursor)
     
+    results = json.dumps(results, cls=DjangoJSONEncoder)
+    results = json.loads(results)
     return Response(results)
 
 @api_view(['GET'])
