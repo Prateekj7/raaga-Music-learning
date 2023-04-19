@@ -40,10 +40,11 @@ if __name__ == "__main__":
     #     "table": "teacher",
     #     "columns": ["schedule"],
     #     "id_column_name": "id",
-    #     "id_column_value": "f6b8f76c-7c19-4adf-89fe-f635127b48dd"
+    #     "id_column_value": "fbad295c-5642-4464-8ecd-843ec66bb508"
     # }
-    # # data = json.dumps(data)
-    # res = requests.get('http://127.0.0.1:8000/api/read_data?table=teacher&columns=["schedule"]&id_column_name=id&id_column_value=f6b8f76c-7c19-4adf-89fe-f635127b48dd', headers=headers)
+    # data = json.dumps(data)
+    # # res = requests.get('http://127.0.0.1:8000/api/read_data?table=teacher&columns=["schedule"]&id_column_name=id&id_column_value=f6b8f76c-7c19-4adf-89fe-f635127b48dd', headers=headers)
+    # res = requests.get('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
@@ -52,31 +53,36 @@ if __name__ == "__main__":
     #     "category_name": "vocal",
     #     "category_value": 'indian_classical'
     # }
-    # # data = json.dumps(data)
-    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_main_data/?page_size=10&page_number=1&category_name=vocal&category_value=Indian%20Classical&requested_by=6f0fa2b5-06cf-413f-99cd-31c13298b95d')
+    # data = json.dumps(data)
+    # # res = requests.get('http://127.0.0.1:8000/api/read_teacher_main_data/?page_size=10&page_number=1&category_name=vocal&category_value=Indian%20Classical&requested_by=6f0fa2b5-06cf-413f-99cd-31c13298b95d')
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_main_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
-    #     "id": "65469eff-157a-4be1-b914-af677773a152",
+    #     "id": "fbad295c-5642-4464-8ecd-843ec66bb508",
     #     "category_name": "vocal",
-    #     "category_value": 'indian_classical'
+    #     "category_value": 'indian_classical',
+    #     "requested_by": '6d87aec3-8472-4c63-a787-12dc6e26601b'
     # }
     # data = json.dumps(data)
-    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_metadata?id=b218faf3-7550-4143-a386-6eb18e7a35ef&requested_by=6f0fa2b5-06cf-413f-99cd-31c13298b95d')
+    # # res = requests.get('http://127.0.0.1:8000/api/read_teacher_metadata?id=b218faf3-7550-4143-a386-6eb18e7a35ef&requested_by=6f0fa2b5-06cf-413f-99cd-31c13298b95d')
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_metadata/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
     #     "id": "11943187-79b1-41f7-9534-4a967b7007ca"
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
+    # # res = requests.post('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_reviews/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
     #     "id": "f6b8f76c-7c19-4adf-89fe-f635127b48dd"
     # }
     # data = json.dumps(data)
-    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_raw_schedule/?id=554077d7-ee48-4676-b457-37f0488ba969', headers=headers)
+    # # res = requests.get('http://127.0.0.1:8000/api/read_teacher_raw_schedule/?id=554077d7-ee48-4676-b457-37f0488ba969', headers=headers)
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_raw_schedule/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
@@ -111,7 +117,7 @@ if __name__ == "__main__":
     #     "category_value": 'Guitar'
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_timelines/', data=data, headers=headers)
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_timelines/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
     # data = {
@@ -140,10 +146,10 @@ if __name__ == "__main__":
     # print(res, json.loads(res.content))
 
     # data = {
-    #     'email_id': "contact@mayoorschoolofmusic.com"   
+    #     'email_id': "sah.kumar.mohan@gmail.com"   
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/check_user_existance/', data=data, headers=headers)
+    # res = requests.get('http://127.0.0.1:8000/api/check_user_existance/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
 
@@ -166,14 +172,14 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/unlike_teacher/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    data = {
-        "teacher_id": "cfc5e5ba-201b-42f6-8be1-3c73b4382178",
-        "rated_by": "6f0fa2b5-06cf-413f-99cd-31c13298b95d",
-        "rating": 5
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/api/rate_teacher/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # data = {
+    #     "teacher_id": "fbad295c-5642-4464-8ecd-843ec66bb508",
+    #     "rated_by": "6d87aec3-8472-4c63-a787-12dc6e26601b",
+    #     "rating": 5
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/rate_teacher/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
     
     # data = {
     #     "teacher_id": "b218faf3-7550-4143-a386-6eb18e7a35ef",

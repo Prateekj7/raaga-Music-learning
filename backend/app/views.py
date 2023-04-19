@@ -39,7 +39,7 @@ def foo(request):
     print(request.data)
     return HttpResponse("Hello World!")
 
-@api_view(['POST'])
+@api_view(['GET'])
 def check_user_existance(request):
     def check_existance(table):
         query = f"SELECT id FROM {table} WHERE email_id = '{email_id}'"
@@ -101,10 +101,10 @@ def update_data(request):
 
 @api_view(['GET'])
 def read_data(request):
-    params = request.GET
+    params = request.data
 
     table = params['table']
-    columns = ", ".join(json.loads(params['columns']))
+    columns = ", ".join(params['columns'])
     
     page_size = params.get('page_size')
     page_number = params.get('page_number')
@@ -133,7 +133,7 @@ def read_data(request):
 
 @api_view(['GET'])
 def read_teacher_main_data(request):
-    params = request.GET
+    params = request.data
     
     limit = int(params['page_size'])
     offset = (int(params['page_number']) - 1) * limit
@@ -166,7 +166,7 @@ def read_teacher_main_data(request):
 
 @api_view(['GET'])
 def read_teacher_details(request):
-    params = request.GET
+    params = request.data
     
     teacher_id = params['teacher_id']
 
@@ -192,7 +192,7 @@ def read_teacher_details(request):
 
 @api_view(['GET'])
 def read_teacher_metadata(request):
-    params = request.GET
+    params = request.data
     
     id = params['id']
 
@@ -217,7 +217,7 @@ def read_teacher_metadata(request):
 
 @api_view(['GET'])
 def read_teacher_raw_schedule(request):
-    params = request.GET
+    params = request.data
     
     id = params['id']
 
@@ -243,7 +243,7 @@ def update_teacher_raw_schedule(request):
     
     return Response('ok')
 
-@api_view(['POST'])
+@api_view(['GET'])
 def read_teacher_reviews(request):
     params = request.data
 
@@ -288,7 +288,7 @@ def read_teacher_timelines(request):
 
         return [result['class_timestamp'] for result in results]
     
-    params = request.GET
+    params = request.data
 
     id = params['id']
     category_name = params['category_name']
