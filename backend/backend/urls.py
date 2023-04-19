@@ -40,4 +40,8 @@ urlpatterns = [
     path('api/check_user_existance/', check_user_existance),
     path('api/get_csrf_token/', get_csrf_token),
     path('api/read_teacher_details/', read_teacher_details),
+    path('api/like_teacher/', like_teacher),
+    path('api/unlike_teacher/', unlike_teacher),
+    path('api/rate_teacher/', rate_teacher),
+    path('api/unrate_teacher/', unrate_teacher),
 ]

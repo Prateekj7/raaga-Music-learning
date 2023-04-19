@@ -9,8 +9,8 @@ class StudentAdmin(admin.ModelAdmin):
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'gender', 'location', 'city', 'state', 'pin_code', 'about', 'qualification', 
-    'contact_number', 'email_id', 'achievement', 'experience', 'schedule', 'rating', 'reviews', 
-    'like_count', 'student_count', 'image_url', 'video_url']
+    'contact_number', 'email_id', 'achievement', 'experience', 'schedule', 'rated_by', 'reviews', 
+    'liked_by', 'student_count', 'image_url', 'video_url']
     search_fields = ['id', 'schedule']
     list_filter = ['gender']
 

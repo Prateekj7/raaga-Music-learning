@@ -140,13 +140,28 @@ def read_teacher_main_data(request):
     category_name = params['category_name']
     category_value = params['category_value']
 
-    query = f"SELECT id, name, experience, rating, schedule -> '{category_name}' -> '{category_value}' -> 'class_details' -> 'hourly_rate' as hourly_rate, image_url FROM teacher where schedule -> '{category_name}' is not NULL and schedule -> '{category_name}' -> '{category_value}' is not NULL limit {limit} offset {offset}"
+    if 'requested_by' in params:
+        column = f"rated_by -> '{params['requested_by']}' as rating,"
+    else:
+        column = ""
+    
+    query = f"""SELECT 
+                    id, name, experience, {column} 
+                    (select avg(js.value::float) from jsonb_each(rated_by) as js) as avg_rating,
+                    (select count(js.key) from jsonb_each(rated_by) as js) as rating_count,
+                    schedule -> '{category_name}' -> '{category_value}' -> 'class_details' -> 'hourly_rate' as hourly_rate, image_url 
+                FROM teacher
+                where
+                    schedule -> '{category_name}' is not NULL and schedule -> '{category_name}' -> '{category_value}' is not NULL 
+                limit {limit} offset {offset}
+            """
+    
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = get_query_results(cursor)
     
     results = json.dumps(results, cls=DjangoJSONEncoder)
-    results = json.loads(results)
+    # results = json.loads(results)
     return Response(results)
 
 @api_view(['GET'])
@@ -155,7 +170,20 @@ def read_teacher_details(request):
     
     teacher_id = params['teacher_id']
 
-    query = f"SELECT id, name, experience, rating, schedule, image_url, about, gender, email_id, contact_number, city, state, pin_code, qualification, achievement, experience FROM teacher where id = '{teacher_id}'"
+    if 'requested_by' in params:
+        column = f"rated_by -> '{params['requested_by']}' as rating,"
+    else:
+        column = ""
+
+    query = f"""SELECT 
+                    id, name, experience, {column}
+                    (select avg(js.value::float) from jsonb_each(rated_by) as js) as avg_rating,
+                    (select count(js.key) from jsonb_each(rated_by) as js) as rating_count,
+                    schedule, image_url, about, gender, email_id, contact_number, city, state, pin_code, qualification, achievement, experience 
+                FROM teacher 
+                where 
+                    id = '{teacher_id}'
+            """
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = get_query_results(cursor)
@@ -168,7 +196,19 @@ def read_teacher_metadata(request):
     
     id = params['id']
 
-    query = f"SELECT location, city, state, pin_code, about, qualification, achievement, like_count, student_count, video_url FROM teacher where id = '{id}'"
+    if 'requested_by' in params:
+        column = f"'{params['requested_by']}' in (select * from jsonb_array_elements_text(liked_by)) as is_liked,"
+    else:
+        column = ""
+
+    query = f"""SELECT 
+                    location, city, state, pin_code, about, qualification, achievement, {column}
+                    (select count(*) from jsonb_array_elements_text(liked_by)) as like_count, 
+                    student_count, video_url 
+                FROM teacher 
+                where 
+                    id = '{id}'
+            """
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = get_query_results(cursor)
@@ -379,4 +419,57 @@ def book_class(request):
     with connection.cursor() as cursor:
         cursor.execute(query)
     
+    return Response('ok')
+
+@api_view(['POST'])
+def like_teacher(request):
+    params = request.data
+
+    teacher_id = params['teacher_id']
+    liked_by = params['liked_by']
+
+    query = f"UPDATE teacher SET liked_by = liked_by || '{json.dumps([liked_by])}' where id = '{teacher_id}'"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+
+    return Response('ok')
+
+@api_view(['POST'])
+def unlike_teacher(request):
+    params = request.data
+
+    teacher_id = params['teacher_id']
+    unliked_by = params['unliked_by']
+
+    query = f"UPDATE teacher SET liked_by = liked_by - '{unliked_by}' where id = '{teacher_id}'"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+
+    return Response('ok')
+
+@api_view(['POST'])
+def rate_teacher(request):
+    params = request.data
+
+    teacher_id = params['teacher_id']
+    rated_by = params['rated_by']
+    rating = params['rating']
+
+    query = f"UPDATE teacher SET rated_by = rated_by || '{json.dumps({rated_by: rating})}' where id = '{teacher_id}'"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+
+    return Response('ok')
+
+@api_view(['POST'])
+def unrate_teacher(request):
+    params = request.data
+
+    teacher_id = params['teacher_id']
+    unrated_by = params['unrated_by']
+
+    query = f"UPDATE teacher SET rated_by = rated_by - '{unrated_by}' where id = '{teacher_id}'"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+
     return Response('ok')

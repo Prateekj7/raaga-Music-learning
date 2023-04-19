@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wypw$285r#25$%i4gn72p0t7dh2u$=2%u#*-gm+z(+xi)@%0h8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True # True for local False for Production
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django-backend', '127.0.0.1', 'ec2-43-205-111-44.ap-south-1.compute.amazonaws.com','3.6.79.101', 'raagamedia.com']
 
@@ -81,23 +81,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'raaga',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'raaga',
-    #     'HOST': 'postgres',
-    #     'PORT': '5432',
-    # }
-
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'raaga',
         'USER': 'postgres',
-        'PASSWORD': 'raaga_apnito_test_db',
-        'HOST': 'raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com',
+        'PASSWORD': 'raaga',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'postgres',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'raaga_apnito_test_db',
+    #     'HOST': 'raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com',
+    #     'PORT': '5432',
+    # }
 }
 
 

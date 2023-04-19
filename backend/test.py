@@ -52,8 +52,8 @@ if __name__ == "__main__":
     #     "category_name": "vocal",
     #     "category_value": 'indian_classical'
     # }
-    # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_main_data/', data=data, headers=headers)
+    # # data = json.dumps(data)
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_main_data/?page_size=10&page_number=1&category_name=vocal&category_value=Indian%20Classical&requested_by=6f0fa2b5-06cf-413f-99cd-31c13298b95d')
     # print(res, json.loads(res.content))
 
     # data = {
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     #     "category_value": 'indian_classical'
     # }
     # data = json.dumps(data)
-    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_metadata/', data=data, headers=headers)
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_metadata?id=b218faf3-7550-4143-a386-6eb18e7a35ef&requested_by=6f0fa2b5-06cf-413f-99cd-31c13298b95d')
     # print(res, json.loads(res.content))
 
     # data = {
@@ -105,14 +105,14 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/update_teacher_raw_schedule/', data=data, headers=headers)
     # print(res, json.loads(res.content))
     
-    data = {
-        "id": "554077d7-ee48-4676-b457-37f0488ba969",
-        "category_name": "instrumental",
-        "category_value": 'Guitar'
-    }
-    data = json.dumps(data)
-    res = requests.post('http://127.0.0.1:8000/api/read_teacher_timelines/', data=data, headers=headers)
-    print(res, json.loads(res.content))
+    # data = {
+    #     "id": "554077d7-ee48-4676-b457-37f0488ba969",
+    #     "category_name": "instrumental",
+    #     "category_value": 'Guitar'
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/read_teacher_timelines/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
 
     # data = {
     #     'amount': 5000, 
@@ -149,3 +149,36 @@ if __name__ == "__main__":
 
     # res = requests.get('http://127.0.0.1:8000/api/get_csrf_token/', headers=headers)
     # print(res, json.loads(res.content))    
+
+    # data = {
+    #     "teacher_id": "b218faf3-7550-4143-a386-6eb18e7a35ef",
+    #     "liked_by": "6f0fa2b5-06cf-413f-99cd-31c13298b95d"
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/like_teacher/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
+
+    # data = {
+    #     "teacher_id": "b218faf3-7550-4143-a386-6eb18e7a35ef",
+    #     "unliked_by": "6f0fa2b5-06cf-413f-99cd-31c13298b95d"
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/unlike_teacher/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
+
+    data = {
+        "teacher_id": "cfc5e5ba-201b-42f6-8be1-3c73b4382178",
+        "rated_by": "6f0fa2b5-06cf-413f-99cd-31c13298b95d",
+        "rating": 5
+    }
+    data = json.dumps(data)
+    res = requests.post('http://127.0.0.1:8000/api/rate_teacher/', data=data, headers=headers)
+    print(res, json.loads(res.content))
+    
+    # data = {
+    #     "teacher_id": "b218faf3-7550-4143-a386-6eb18e7a35ef",
+    #     "unrated_by": "6f0fa2b5-06cf-413f-99cd-31c13298b95d"
+    # }
+    # data = json.dumps(data)
+    # res = requests.post('http://127.0.0.1:8000/api/unrate_teacher/', data=data, headers=headers)
+    # print(res, json.loads(res.content))
