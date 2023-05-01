@@ -8,7 +8,19 @@ import singleArrowIcon from "../../images/singleArrowIcon.svg";
 import styles from "./News.module.css";
 import HorizontalCard from "./HorizontalCard";
 
-function News() {
+function News(props) {
+    const newsContent = [];
+    for (let index = 0; index < (props.isHomePage=== undefined|| props.isHomePage?2: 10); index++) {
+        newsContent.push(<Row>
+            <Col md={6}>
+                <HorizontalCard />
+            </Col >
+            <Col md={6}>
+                <HorizontalCard />
+            </Col >
+        </Row>)
+        
+    }
     const mainImage = useMemo(() => <Card className="bg-dark text-white mb-4">
         <Card.Img src={cardImage} className={`${styles["news-main-img"]}`} alt="Card image" />
         <Card.ImgOverlay className="d-flex flex-column justify-content-end">
@@ -34,22 +46,8 @@ function News() {
                     {mainImage}
                 </Col >
             </Row>
-            <Row>
-                <Col md={6}>
-                    <HorizontalCard />
-                </Col >
-                <Col md={6}>
-                    <HorizontalCard />
-                </Col >
-            </Row>
-            <Row>
-                <Col md={6}>
-                    <HorizontalCard />
-                </Col >
-                <Col md={6}>
-                    <HorizontalCard />
-                </Col >
-            </Row>
+            { newsContent}
+            
         </div>
     );
 }

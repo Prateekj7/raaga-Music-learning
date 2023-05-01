@@ -18,6 +18,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import News from "./Pages/News";
+import Reviews from "./Pages/Reviews";
 
 const queryClient = new QueryClient()
 
@@ -34,6 +36,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home showDrawer={handleShowDrawer} />}></Route>
             <Route path="/aspiring-musician" element={<AspiringMusician />}></Route>
+            <Route path="/News" element={<News />}></Route>
+            <Route path="/Reviews" element={<Reviews />}></Route>
             <Route path="/music-teacher" element={<MusicTeacherContactUs />}></Route>
             <Route path="/aspiring-musician-profile" element={<StudentProfile />}></Route>
             <Route path="/music-teacher-profile" element={<TeacherProfile />}></Route>

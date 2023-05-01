@@ -84,3 +84,31 @@ code {
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
+.breadcrumb-item+.breadcrumb-item::before {
+  display: none;
+}
+.breadcrumb svg{
+  align-self: center;
+  margin: 5px;
+}
+.breadcrumb-item a{
+  text-decoration: none;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-med);
+  color: var(--black);
+  line-height: 1.375rem;
+}
+.pagination span:focus, .active .page-link, .page-link .active {
+  color: white;
+  background-color: var(--grape_purple) !important;
+}
+.news-trending-container {
+  margin: 0;
+  padding: 0.4rem 1rem;
+}
+
+@media (min-width: 50em) {
+  .news-trending-container {
+    padding: 7rem 4rem;
+  }
+}

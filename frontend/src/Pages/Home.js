@@ -12,11 +12,11 @@ const Home = ({ showDrawer }) => {
     <div>
       <Carousel />
       <MusicianTeacherSection showDrawer={showDrawer} />
-      {/* <NewsTrendingSection /> */}
-      {/* <MusicChart /> */}
+      <NewsTrendingSection />
+      <MusicChart />
       {/* <TrendingVideos /> */}
-      {/* <FeaturedArtist /> */}
-      {/* <Testimonials /> */}
+      <FeaturedArtist />
+      <Testimonials />
     </div>
   );
 };

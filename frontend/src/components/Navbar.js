@@ -86,11 +86,11 @@ function BasicExample({ showDrawer, handleShowDrawer, handleCloseDrawer }) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-lg-auto px-2">
               <Nav.Link as={Link} to="/" eventKey="1">Home</Nav.Link>
-              {/* <Nav.Link as={Link} to="/" >News</Nav.Link> */}
-              {/* <Nav.Link as={Link} to="/" >Reviews</Nav.Link> */}
-              {/* <Nav.Link as={Link} to="/" >Songs</Nav.Link> */}
-              {/* <Nav.Link as={Link} to="/" >Lyrics</Nav.Link> */}
-              {/* <Nav.Link as={Link} to="/" >Biographies</Nav.Link> */}
+              <Nav.Link as={Link} to="/News" >News</Nav.Link>
+              <Nav.Link as={Link} to="/Reviews" >Reviews</Nav.Link>
+              <Nav.Link as={Link} to="/Songs" >Songs</Nav.Link>
+              <Nav.Link as={Link} to="/Lyrics" >Lyrics</Nav.Link>
+              <Nav.Link as={Link} to="/Biographies" >Biographies</Nav.Link>
               <Nav.Link as={Link} to="/music-teacher" eventKey="2">Music Teacher</Nav.Link>
               <Nav.Link as={Link} to="/aspiring-musician" eventKey="3">Aspiring Musician</Nav.Link>
             </Nav>

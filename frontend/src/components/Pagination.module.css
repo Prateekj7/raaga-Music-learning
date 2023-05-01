@@ -1,9 +1,9 @@
-.pagination a {
+.pagination a , .pagination span{
   border: none;
-  color: #191919;
+  color: #191919 ;
   font-weight: var(--fw-med);
   font-size: var(--fs-s);
-  background-color: #f9f9f9;
+  background-color: #f9f9f9 ;
   transition: none;
   border-radius: 1rem;
 }
@@ -14,10 +14,11 @@
   display: flex;
 }
 
-.pagination a:focus {
-  color: #191919;
+.pagination a:focus,.pagination span:focus, .active .page-link, .page-link .active {
+  color: #191919 !important;
+  background-color: var(--grape_purple) !important;
 }
-.pagination a:hover {
+.pagination a:hover, .pagination span:hover {
   color: white;
-  background-color: var(--grape_purple);
+  background-color: var(--grape_purple) !important;
 }
