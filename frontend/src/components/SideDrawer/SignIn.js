@@ -26,7 +26,7 @@ function SignIn({ handleShowSignUpPage, handleCloseDrawer }) {
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
     const { isLoading: isLoadingPost, mutate: signInUserDB, isSuccess: isSuccessPost } = useMutation({
         mutationFn: userDetails => {
-            return axios.post('/api/check_user_existance/', userDetails)
+            return axios.get('/api/check_user_existance?email_id=' + userDetails.email_id)
         },
         onSuccess: (result) => {
             setTimeout(() => {
