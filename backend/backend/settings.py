@@ -81,23 +81,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'raaga',
-        'USER': 'postgres',
-        'PASSWORD': 'raaga',
-        'HOST': 'postgres',
-        'PORT': '5432',
-    }
-
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'postgres',
+    #     'NAME': 'raaga',
     #     'USER': 'postgres',
-    #     'PASSWORD': 'raaga_apnito_test_db',
-    #     'HOST': 'raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com',
+    #     'PASSWORD': 'raaga',
+    #     'HOST': 'postgres',
     #     'PORT': '5432',
     # }
+
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'raaga_apnito_test_db',
+        'HOST': 'raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
+    }
 }
 
 

@@ -2,11 +2,25 @@ import { useQuery } from "@tanstack/react-query";
 import axios from 'axios';
 
 const VocalOptionsQueryFn = () => {
-    return axios.get(`/api/read_data?page_size=100&page_number=1&table=vocal&columns=["*"]`)
+    const data = {
+        "page_size": 100,
+        "page_number": 1,
+        "table": "vocal",
+        "columns": ["*"]
+   }
+    return axios({ method: "get", url: "/api/read_data", data: data})
+    //return axios.get(`/api/read_data?page_size=100&page_number=1&table=vocal&columns=["*"]`)
 };
 
 const InstrumentalOptionsQueryFn = () => {
-    return axios.get(`/api/read_data?page_size=100&page_number=1&table=instrumental&columns=["*"]`)
+    const data = {
+        "page_size": 100,
+        "page_number": 1,
+        "table": "instrumental",
+        "columns": ["*"]
+   }
+    return axios({ method: "get", url: "/api/read_data", data: data})
+    //return axios.get(`/api/read_data?page_size=100&page_number=1&table=instrumental&columns=["*"]`)
 };
 
 export function useVocalGenres() {
