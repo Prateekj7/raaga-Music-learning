@@ -3,13 +3,14 @@ import axios from 'axios';
 
 
 const teacherQueryFn = (categoryName, categoryValue) => {
-    const data = {
-        "page_size": 100,
-        "page_number": 1,
-        "category_name": categoryName,
-        "category_value": categoryValue
-   }
-    return axios({ method: "get", url: "/api/read_teacher_main_data", data: data})
+//     const data = {
+//         "page_size": 100,
+//         "page_number": 1,
+//         "category_name": categoryName,
+//         "category_value": categoryValue
+//    }
+    // return axios({ method: "get", url: "/api/read_teacher_main_data", data: data})
+    return axios.get(`/api/read_teacher_main_data?page_size=100&page_number=1&category_name=${categoryName}&category_value=${categoryValue}`)
 };
 
 export function useTeachersData(categoryName, categoryValue) {

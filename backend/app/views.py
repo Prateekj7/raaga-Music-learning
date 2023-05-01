@@ -101,10 +101,10 @@ def update_data(request):
 
 @api_view(['GET'])
 def read_data(request):
-    params = request.data
+    params = request.GET
 
     table = params['table']
-    columns = ", ".join(params['columns'])
+    columns = ", ".join(json.loads(params['columns']))
     
     page_size = params.get('page_size')
     page_number = params.get('page_number')
@@ -133,7 +133,7 @@ def read_data(request):
 
 @api_view(['GET'])
 def read_teacher_main_data(request):
-    params = request.data
+    params = request.GET
     
     limit = int(params['page_size'])
     offset = (int(params['page_number']) - 1) * limit
@@ -160,13 +160,13 @@ def read_teacher_main_data(request):
         cursor.execute(query)
         results = get_query_results(cursor)
     
-    results = json.dumps(results, cls=DjangoJSONEncoder)
+    # results = json.dumps(results, cls=DjangoJSONEncoder)
     # results = json.loads(results)
     return Response(results)
 
 @api_view(['GET'])
 def read_teacher_details(request):
-    params = request.data
+    params = request.GET
     
     teacher_id = params['teacher_id']
 
@@ -192,7 +192,7 @@ def read_teacher_details(request):
 
 @api_view(['GET'])
 def read_teacher_metadata(request):
-    params = request.data
+    params = request.GET
     
     id = params['id']
 
@@ -217,7 +217,7 @@ def read_teacher_metadata(request):
 
 @api_view(['GET'])
 def read_teacher_raw_schedule(request):
-    params = request.data
+    params = request.GET
     
     id = params['id']
 
@@ -245,7 +245,7 @@ def update_teacher_raw_schedule(request):
 
 @api_view(['GET'])
 def read_teacher_reviews(request):
-    params = request.data
+    params = request.GET
 
     id = params['id']
 
@@ -288,7 +288,7 @@ def read_teacher_timelines(request):
 
         return [result['class_timestamp'] for result in results]
     
-    params = request.data
+    params = request.GET
 
     id = params['id']
     category_name = params['category_name']

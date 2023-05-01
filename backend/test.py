@@ -36,26 +36,26 @@ if __name__ == "__main__":
     # res = requests.post('http://127.0.0.1:8000/api/update_data/', data=data, headers=headers)
     # print(res, json.loads(res.content))
 
-    # data = {
-    #     "table": "teacher",
-    #     "columns": ["schedule"],
-    #     "id_column_name": "id",
-    #     "id_column_value": "fbad295c-5642-4464-8ecd-843ec66bb508"
-    # }
-    # data = json.dumps(data)
-    # # res = requests.get('http://127.0.0.1:8000/api/read_data?table=teacher&columns=["schedule"]&id_column_name=id&id_column_value=f6b8f76c-7c19-4adf-89fe-f635127b48dd', headers=headers)
-    # res = requests.get('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
+    # # data = {
+    # #     "table": "teacher",
+    # #     "columns": ["schedule"],
+    # #     "id_column_name": "id",
+    # #     "id_column_value": "fbad295c-5642-4464-8ecd-843ec66bb508"
+    # # }
+    # # data = json.dumps(data)
+    # # res = requests.get('http://127.0.0.1:8000/api/read_data/', data=data, headers=headers)
+    # res = requests.get('http://127.0.0.1:8000/api/read_data?table=teacher&columns=["*"]&page_size=100&page_number=1', headers=headers)
     # print(res, json.loads(res.content))
 
-    # data = {
-    #     "page_size": 10,
-    #     "page_number": 1,
-    #     "category_name": "vocal",
-    #     "category_value": 'indian_classical'
-    # }
-    # data = json.dumps(data)
-    # # res = requests.get('http://127.0.0.1:8000/api/read_teacher_main_data/?page_size=10&page_number=1&category_name=vocal&category_value=Indian%20Classical&requested_by=6f0fa2b5-06cf-413f-99cd-31c13298b95d')
-    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_main_data/', data=data, headers=headers)
+    # # data = {
+    # #     "page_size": 10,
+    # #     "page_number": 1,
+    # #     "category_name": "vocal",
+    # #     "category_value": 'indian_classical'
+    # # }
+    # # data = json.dumps(data)
+    # # res = requests.get('http://127.0.0.1:8000/api/read_teacher_main_data/', data=data, headers=headers)
+    # res = requests.get('http://127.0.0.1:8000/api/read_teacher_main_data/?page_size=10&page_number=1&category_name=vocal&category_value=Indian%20Classical')
     # print(res, json.loads(res.content))
 
     # data = {
