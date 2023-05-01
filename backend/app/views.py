@@ -49,7 +49,7 @@ def check_user_existance(request):
 
         return result
     
-    params = request.data
+    params = request.GET
     email_id = params['email_id']
 
     result = check_existance('student')
@@ -225,8 +225,13 @@ def read_teacher_raw_schedule(request):
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = get_query_results(cursor)
-    
-    return Response(json.loads(results[0]['schedule']))
+
+    print(query)
+    if len(results) > 0:
+        return Response(json.loads(results[0]['schedule']))
+    else:
+        return Response({})
+
 
 @api_view(['POST'])
 def update_teacher_raw_schedule(request):
@@ -254,8 +259,11 @@ def read_teacher_reviews(request):
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = get_query_results(cursor)
-    
-    return Response(results[0])
+
+    if len(results) > 0:
+        return Response(results[0])
+    else:
+        return Response({})
 
 @api_view(['GET'])
 def read_teacher_timelines(request):
