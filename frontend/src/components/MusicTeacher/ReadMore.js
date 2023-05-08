@@ -13,6 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import BookingSlots from "../BookingSlots/BookingSlots";
 
 const ReadMore = ({ teacher, filter }) => {
   const queryClient = useQueryClient();
@@ -174,12 +175,9 @@ const ReadMore = ({ teacher, filter }) => {
           </div>
         </Col>
 
-        <Col lg="4">
-          <div className="my-3">
-            <h5 className={`${styles["teacher-name"]} p-0 m-0 mb-3`}>Book a class with {name}</h5>
-            <Form onSubmit={handleBookClass} id="booking-class-form">
-              <Form.Label>Select your your preferred time to book a 60 min online lesson -</Form.Label>
-              <DatePicker
+        <Col lg="5">
+            {/* <Form onSubmit={handleBookClass} id="booking-class-form"> */}
+              {/* <DatePicker
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
                 className="mb-3 w-100"
@@ -202,9 +200,9 @@ const ReadMore = ({ teacher, filter }) => {
                   className={isLoading ? "me-2" : "d-none"}
                 />
                 Book Now
-              </Button>
-            </Form>
-          </div>
+              </Button> */}
+              <BookingSlots/>
+            {/* </Form> */}
         </Col>
       </Row>
     </div >

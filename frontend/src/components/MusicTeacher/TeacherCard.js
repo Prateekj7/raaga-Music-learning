@@ -8,10 +8,16 @@ import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Button from "../Button";
+import CommentDialog from "../CommentDialog/CommentDialog";
 
 const TeacherCard = ({ skeleton = false, teacher, filter }) => {
   const accordionRef = useRef(null);
   const [accordianOpen, setAccordianOpen] = useState(false);
+
+  const [showCommentDialog, setShowCommentDialog] = useState(true);
+
+  const handleClose = () => setShowCommentDialog(false);
+  const handleShow = () => setShowCommentDialog(true);
 
   const toggleAccordion = () => {
     setAccordianOpen((oldState) => !oldState);
@@ -36,6 +42,8 @@ const TeacherCard = ({ skeleton = false, teacher, filter }) => {
 
   return (
     <div className={`my-2 px-3`}>
+      <CommentDialog showCommentDialog={showCommentDialog} handleClose={handleClose} />
+
       <Row>
         <Col lg={2}>
           <div >
@@ -79,6 +87,7 @@ const TeacherCard = ({ skeleton = false, teacher, filter }) => {
                 skeleton={skeleton}
                 text="Reviews"
                 className={`me-2 mt-3`}
+                onClick={handleShow}
               />
               <Button
                 skeleton={skeleton}

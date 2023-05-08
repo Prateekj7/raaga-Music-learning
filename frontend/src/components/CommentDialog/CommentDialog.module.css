@@ -1,0 +1,6 @@
+.modal_show{
+    display: block;
+    z-index: 9999;
+    position: absolute;
+    min-width: 30%;
+}

@@ -1,0 +1,73 @@
+.SingerBookingSlots {}
+
+.bookingTitle{
+    background-color: #691a58;
+    color: #f5f0f5;
+}
+.bookingContentTitle{
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-bottom: 0 !important;
+    padding-top: 10px !important;
+}
+.bookingTitleTypography{
+    margin: 0 !important;
+    text-align: center;
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    /* padding-bottom: 0.35em; */
+}
+.gridItem{
+    padding-bottom: 8px;
+}
+.gridItemCurrency{
+    padding-bottom: 8px;
+    display: flex !important;
+}
+.bokkingTimeSectionTitle{
+    /* padding-top: 5px; */
+    padding-left: 10px;
+}
+
+.bookingButtonNormal{
+    /* color: #f5f0f5; */
+}
+.bookingButtonSelected{
+    color: #f5f0f5 !important;
+    background-color: #691a58 !important;
+}
+.BookingHeaderTitle{
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.BookingHeaderTitlePrice{
+    justify-content: center;
+}
+.bookingTitleCard{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.BookSlotTitle{
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    color: var(--grape_purple);
+}
+.timesOfDay{
+    font-size: var(--fs-l);
+}
+.gridItemCurrency button{
+    color: var(--grape_purple);
+    background-color: var(--white);
+    border: solid 1px var(--grape_purple);
+}
+.bookingCardContainer{
+    background-color: var(--bs-card-cap-bg);
+    margin: 5px;
+}
+.bookingCardFooter{
+    border: none;
+    text-align: center;
+}

@@ -5,7 +5,7 @@ bin-release/
 [Bb]in/
 backend/env
 __pycache__
-
+node_modules
 # Other files and folders
 .settings/
 
