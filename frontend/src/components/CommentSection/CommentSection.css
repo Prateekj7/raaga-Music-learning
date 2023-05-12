@@ -1,0 +1,48 @@
+.nav-logo{
+    background-color: #e9ecef;
+    border-radius: 16px;
+}
+.wrapping-container {
+    position: relative;
+    display: flex;
+    min-height: 90%;
+}
+.progress-indicator {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 40px;
+    color: #fff;
+    min-height: 100%;
+}
+/* .progress-indicator::after { */
+    .progress-indicator::before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    /* background: #000; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 1;
+}
+.progress-indicator::after {
+    content: "";
+    height: 110%;
+    border: 1px dashed #000;
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+.input {
+    margin-left: 30px;
+}
+.commentUserName{
+    font-weight: bolder;
+}
+.SingleUserComment{
+    margin-top: 15px;
+}

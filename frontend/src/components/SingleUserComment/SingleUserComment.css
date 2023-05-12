@@ -1,0 +1,10 @@
+.wrapping-container .btn{
+    margin-right: 5px;
+}
+.wrapping-container:first-child{
+    border-radius: 20px;
+}
+.wrapping-container:not:first-child {
+    background: none;
+    border: none;
+}

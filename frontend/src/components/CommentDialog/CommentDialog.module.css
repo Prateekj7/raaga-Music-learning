@@ -4,3 +4,7 @@
     position: absolute;
     min-width: 30%;
 }
+.commentFormControl{
+    background-color: #e9ecef;
+    border: none;
+}
