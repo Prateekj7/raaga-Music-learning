@@ -31,7 +31,8 @@ var AllComments =
                     Likes: "178",
                     Dislikes: "23",
                     replies: []
-                }
+                },
+                
             ]
         },
         {
@@ -41,7 +42,26 @@ var AllComments =
             text: "It is unfortunate while a majority of medical feternity spend time in treating the Covid patuents, a few  are busy in scaring people",
             Likes: "178",
             Dislikes: "23",
-            replies: []
+            replies: [
+                {
+                    userId: "022",
+                    comId: "013",
+                    fullName: "Rayan Johnson",
+                    text: "Indian actress and producer who works in Hindi films",
+                    Likes: "178",
+                    Dislikes: "23",
+                    replies: []
+                },
+                {
+                    userId: "022",
+                    comId: "013",
+                    fullName: "Rayan Johnson",
+                    text: "Indian actress and producer who works in Hindi films",
+                    Likes: "178",
+                    Dislikes: "23",
+                    replies: []
+                },
+            ]
         },
         {
             userId: "124",
