@@ -14,7 +14,7 @@ const TeacherCard = ({ skeleton = false, teacher, filter }) => {
   const accordionRef = useRef(null);
   const [accordianOpen, setAccordianOpen] = useState(false);
 
-  const [showCommentDialog, setShowCommentDialog] = useState(true);
+  const [showCommentDialog, setShowCommentDialog] = useState(false);
 
   const handleClose = () => setShowCommentDialog(false);
   const handleShow = () => setShowCommentDialog(true);
