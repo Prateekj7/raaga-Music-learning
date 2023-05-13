@@ -8,6 +8,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { BsFlag } from "react-icons/bs";
 import { BsFlagFill } from "react-icons/bs";
 import "./SingleUserComment.css"
+import { BsFillPersonFill } from "react-icons/bs";
 
 function SingleUserComment(props) {
     const { commentDetails } = props
@@ -19,11 +20,7 @@ function SingleUserComment(props) {
                 <Row>
                 <Col xs={1}>
                     <div class="wrapping-container-inner">
-                        <img
-                            className="nav-logo"
-                            src={logo}
-                            alt="raaga-logo"
-                        />
+                    <BsFillPersonFill class="personIcon" />
                     </div>
                 </Col>
                 <Col xs={11}>

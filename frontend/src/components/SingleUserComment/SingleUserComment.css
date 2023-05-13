@@ -1,5 +1,7 @@
 .wrapping-container .btn{
     margin-right: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 .wrapping-container .btn-secondary{
     border-radius: 20px;

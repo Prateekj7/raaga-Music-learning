@@ -3,6 +3,8 @@ import logo from "../../images/person-fill.svg";
 import "./CommentSection.css";
 import { Col, Row } from 'react-bootstrap';
 import SingleUserComment from '../SingleUserComment/SingleUserComment';
+import { BsFillPersonFill } from "react-icons/bs";
+
 var AllComments =
     [
         {
@@ -119,11 +121,12 @@ function CommentSection(props) {
                     <Col xs={1}>
                         <div class="wrapping-container">
                             <div class="progress-indicator">
-                                <img
+                                {/* <img
                                     className="nav-logo"
                                     src={logo}
                                     alt="raaga-logo"
-                                />
+                                /> */}
+                                <BsFillPersonFill class="personIcon" />
                             </div>
                         </div>
                     </Col>
