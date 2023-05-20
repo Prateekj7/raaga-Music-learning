@@ -175,7 +175,7 @@ const ReadMore = ({ teacher, filter }) => {
         </Col>
 
         <Col lg="6">
-            <Form onSubmit={handleBookClass} id="booking-class-form"> 
+            {/* <Form onSubmit={handleBookClass} id="booking-class-form"> 
                <DatePicker
                 selected={selectedDate}
                 onChange={(date) => { console.log(date); setSelectedDate(date)}}
@@ -201,7 +201,7 @@ const ReadMore = ({ teacher, filter }) => {
                 Book Now
               </Button>
               
-            </Form>
+            </Form> */}
             <BookingSlots setSelectedDate={setSelectedDate} handleBookClass={handleBookClass} availableSlots={availableSlots}/>
         </Col>
       </Row>
