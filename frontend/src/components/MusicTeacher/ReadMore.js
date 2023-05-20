@@ -81,8 +81,7 @@ const ReadMore = ({ teacher, filter }) => {
     return result;
   };
 
-  const handleBookClass = (e) => {
-    e.preventDefault();
+  const handleBookClass = () => {
     if (!loggedInUser.isLoggedIn) {
       setShowNotification({ show: true, message: "Please login to book a class !" });
       return;
@@ -137,7 +136,7 @@ const ReadMore = ({ teacher, filter }) => {
 
       <div className="border-bottom border-dark pb-4"></div>
       <Row>
-        <Col lg="7">
+        <Col lg="6">
           <div className="d-flex flex-column flex-lg-row align-items-start align-items-lg-center my-3">
             <h4 className={`${styles["teacher-name"]} p-0 m-0 me-2`}>{name}</h4>
             <h5 className={`${styles["teacher-experience"]} p-0 m-0 me-2`}>{experience} Years experience</h5>
@@ -175,11 +174,11 @@ const ReadMore = ({ teacher, filter }) => {
           </div>
         </Col>
 
-        <Col lg="5">
-            {/* <Form onSubmit={handleBookClass} id="booking-class-form"> */}
-              {/* <DatePicker
+        <Col lg="6">
+            <Form onSubmit={handleBookClass} id="booking-class-form"> 
+               <DatePicker
                 selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+                onChange={(date) => { console.log(date); setSelectedDate(date)}}
                 className="mb-3 w-100"
                 showTimeSelect
                 placeholderText="Select date and time"
@@ -200,9 +199,10 @@ const ReadMore = ({ teacher, filter }) => {
                   className={isLoading ? "me-2" : "d-none"}
                 />
                 Book Now
-              </Button> */}
-              <BookingSlots/>
-            {/* </Form> */}
+              </Button>
+              
+            </Form>
+            <BookingSlots setSelectedDate={setSelectedDate} handleBookClass={handleBookClass} availableSlots={availableSlots}/>
         </Col>
       </Row>
     </div >
