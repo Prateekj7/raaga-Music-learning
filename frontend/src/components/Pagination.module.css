@@ -1,0 +1,23 @@
+.pagination a {
+  border: none;
+  color: #191919;
+  font-weight: var(--fw-med);
+  font-size: var(--fs-s);
+  background-color: #f9f9f9;
+  transition: none;
+  border-radius: 1rem;
+}
+
+.page-number-container {
+  background-color: #f9f9f9;
+  border-radius: 1rem;
+  display: flex;
+}
+
+.pagination a:focus {
+  color: #191919;
+}
+.pagination a:hover {
+  color: white;
+  background-color: var(--grape_purple);
+}

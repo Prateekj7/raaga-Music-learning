@@ -28,7 +28,6 @@ function MusicTeacherContactUs() {
               <Form.Control type="phone" placeholder="Contact Number" />
             </Form.Group>
             <button
-              bsPrefix
               className={`${styles["login-button"]}`}
               type="submit"
             >

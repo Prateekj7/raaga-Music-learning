@@ -7,11 +7,11 @@ import TrendingVideos from "../components/TrendingVideos/TrendingVideos";
 import FeaturedArtist from "../components/FeaturedArtist/FeaturedArtist";
 import Testimonials from "../components/Testimonials/Testimonials";
 
-const Home = () => {
+const Home = ({ showDrawer }) => {
   return (
     <div>
       <Carousel />
-      <MusicianTeacherSection />
+      <MusicianTeacherSection showDrawer={showDrawer} />
       {/* <NewsTrendingSection /> */}
       {/* <MusicChart /> */}
       {/* <TrendingVideos /> */}

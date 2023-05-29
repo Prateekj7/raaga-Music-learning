@@ -6,7 +6,7 @@ on:
 #     branches: ["main"]
 #   pull_request:
 #     branches: ["main"]
-  
+
 
 jobs:
   build:
@@ -55,4 +55,6 @@ jobs:
           port: ${{ secrets.DEV_EC2_PORT }}
           script: |
             sudo docker compose -f docker-compose.yml down
+            sudo docker volume prune -f
             sudo docker compose -f docker-compose.yml pull && sudo docker compose -f docker-compose.yml up -d
+            sudo docker system prune -af

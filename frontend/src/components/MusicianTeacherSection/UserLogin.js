@@ -3,7 +3,7 @@ import styles from "./UserLogin.module.css";
 import doubleArrowIcon from "../../images/doubleArrowIcon.png";
 import singleArrowIcon from "../../images/singleArrowIcon.svg";
 
-function DefaultExample({ icon, header, contentList, buttonText }) {
+function DefaultExample({ icon, header, contentList, buttonText, showDrawer }) {
 
   return (
     <div className="py-3">
@@ -16,14 +16,14 @@ function DefaultExample({ icon, header, contentList, buttonText }) {
       <ListGroup >
         {contentList.map((content, index) =>
           <ListGroup.Item key={index} className={`${styles["list-group-item"]}`}>
-            <h4 className={`${styles["list-number"]}`}>{index + 1}</h4>
+            <h4 className={`${styles["list-number"]} d-none d-lg-block`}>{index + 1}</h4>
             <p className={`${styles["list-text"]}`}>{content}</p>
           </ListGroup.Item>
         )}
 
       </ListGroup>
       <div className={`${styles["login-button-container"]}`}>
-        <button variant="primary" className={`${styles["login-button"]}`}>
+        <button variant="primary" className={`${styles["login-button"]}`} onClick={showDrawer}>
           {buttonText}
         </button>
       </div>

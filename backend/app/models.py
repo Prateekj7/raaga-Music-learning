@@ -7,6 +7,7 @@ class Student(models.Model):
     contact_number = models.CharField(max_length=20)
     email_id = models.CharField(max_length=256)
     gender = models.CharField(max_length=6)
+    image_url = models.CharField(max_length=256, null=True, blank=True)
 
     class Meta:
         managed = True
@@ -27,12 +28,12 @@ class Teacher(models.Model):
     achievement = models.CharField(max_length=50, null=True, blank=True)
     experience = models.IntegerField(null=True, blank=True)
     schedule = models.JSONField(null=True, blank=True)
-    rating = models.FloatField(null=True, blank=True)
-    reviews = models.JSONField(null=True, blank=True)
-    like_count = models.IntegerField(null=True, blank=True)
+    rated_by = models.JSONField(null=True, blank=True, default=dict)
+    reviews = models.JSONField(null=True, blank=True, default=dict)
+    liked_by = models.JSONField(null=True, blank=True, default=list)
     student_count = models.IntegerField(null=True, blank=True)
-    image_url = models.CharField(max_length=50, null=True, blank=True)
-    video_url = models.CharField(max_length=50, null=True, blank=True)
+    image_url = models.CharField(max_length=256, null=True, blank=True)
+    video_url = models.CharField(max_length=256, null=True, blank=True)
 
     class Meta:
         managed = True
@@ -56,10 +57,10 @@ class Instrumental(models.Model):
 
 class Class(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    group_id = models.CharField(max_length=32)
-    teacher_id = models.CharField(max_length=32)
+    group_id = models.CharField(max_length=36)
+    teacher_id = models.CharField(max_length=36)
     teacher_name = models.CharField(max_length=256)
-    student_id = models.CharField(max_length=32)
+    student_id = models.CharField(max_length=36)
     student_name = models.CharField(max_length=256)
     category_type = models.CharField(max_length=20)
     category_value = models.CharField(max_length=50)
@@ -69,7 +70,7 @@ class Class(models.Model):
     is_rescheduled = models.BooleanField()
     is_cancelled = models.BooleanField()
     meeting_link = models.CharField(max_length=256)
-    payment_id = models.CharField(max_length=32)
+    payment_id = models.CharField(max_length=36)
     payment_amount = models.IntegerField()
     payment_timestamp = models.CharField(max_length=20)
 

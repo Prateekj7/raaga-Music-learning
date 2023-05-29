@@ -3,7 +3,6 @@
 
 # django-backend_readme
 
-### To start the containers
 1. sudo chmod 666 /var/run/docker.sock
 2. sudo service docker start && docker-compose -f docker-compose.local.yml up
 

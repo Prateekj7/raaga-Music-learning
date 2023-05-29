@@ -69,3 +69,18 @@ code {
     --bs-gutter-y: 7rem;
   }
 }
+
+.react-datepicker__time-list-item--disabled {
+  display: none;
+}
+
+/* Override bootstrap pagination high specificity styles */
+.page-item:first-child .page-link {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}

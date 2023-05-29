@@ -10,7 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 import SideDrawer from "../components/SideDrawer/SideDrawer";
 import { LoginContext } from "../LoginContext";
 
-function BasicExample() {
+function BasicExample({ showDrawer, handleShowDrawer, handleCloseDrawer }) {
   const { loggedInUserContext } = useContext(LoginContext);
   const [loggedInUser, setLoggedInUser] = loggedInUserContext;
 
@@ -18,9 +18,6 @@ function BasicExample() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const scrollHeight = useMemo(() => 1, []);
 
-  const [show, setShow] = useState(false);
-  const handleShowDrawer = () => setShow(true);
-  const handleCloseDrawer = () => setShow(false);
 
   let currentRoute = useLocation().pathname;
   useEffect(() => {
@@ -88,19 +85,19 @@ function BasicExample() {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-lg-auto px-2">
-              <Nav.Link as={Link} to="/" >Home</Nav.Link>
+              <Nav.Link as={Link} to="/" eventKey="1">Home</Nav.Link>
               {/* <Nav.Link as={Link} to="/" >News</Nav.Link> */}
               {/* <Nav.Link as={Link} to="/" >Reviews</Nav.Link> */}
               {/* <Nav.Link as={Link} to="/" >Songs</Nav.Link> */}
               {/* <Nav.Link as={Link} to="/" >Lyrics</Nav.Link> */}
               {/* <Nav.Link as={Link} to="/" >Biographies</Nav.Link> */}
-              <Nav.Link as={Link} to="/music-teacher" >Music Teacher</Nav.Link>
-              <Nav.Link as={Link} to="/aspiring-musician">Aspiring Musician</Nav.Link>
+              <Nav.Link as={Link} to="/music-teacher" eventKey="2">Music Teacher</Nav.Link>
+              <Nav.Link as={Link} to="/aspiring-musician" eventKey="3">Aspiring Musician</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <SideDrawer show={show} handleCloseDrawer={handleCloseDrawer} />
+      <SideDrawer showDrawer={showDrawer} handleCloseDrawer={handleCloseDrawer} />
     </>
   );
 }

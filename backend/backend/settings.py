@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wypw$285r#25$%i4gn72p0t7dh2u$=2%u#*-gm+z(+xi)@%0h8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True # True for local False for Production
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django-backend', '127.0.0.1', 'ec2-43-205-111-44.ap-south-1.compute.amazonaws.com','3.6.79.101',]
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django-backend', '127.0.0.1', 'ec2-43-205-111-44.ap-south-1.compute.amazonaws.com','3.6.79.101', 'raagamedia.com']
 
 # Application definition
 
@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
+#newly added for CORS
+# CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -79,6 +81,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     #     'NAME': 'raaga',
@@ -88,14 +95,14 @@ DATABASES = {
     #     'PORT': '5432',
     # }
 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'raaga_apnito_test_db',
-        'HOST': 'raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'postgres',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'raaga_apnito_test_db',
+    #     'HOST': 'raaga-db.c8yxdpnzikil.us-east-1.rds.amazonaws.com',
+    #     'PORT': '5432',
+    # }
 }
 
 
@@ -146,11 +153,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #      'http://localhost:3000', 'http://localhost:80',
 # ]
 
-CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com", 'http://127.0.0.1:3000', 'http://0.0.0.0:3000', "http://localhost:3000", "http://ec2-43-205-111-44.ap-south-1.compute.amazonaws.com", 'http://127.0.0.1:80', 'http://0.0.0.0:80', "http://localhost:80", "http://3.6.79.101:80",]
-CORS_ORIGIN_ALLOW_ALL = True
+
+
+CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com", 'http://127.0.0.1:3000', 'http://0.0.0.0:3000', "http://localhost:3000", "http://ec2-43-205-111-44.ap-south-1.compute.amazonaws.com", 'http://127.0.0.1:80', 'http://0.0.0.0:80', "http://localhost:80", "http://3.6.79.101:80", "http://raagamedia.com:80", "http://raagamedia.com",]
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     )
 }
+
