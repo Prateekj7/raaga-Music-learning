@@ -1,11 +1,12 @@
 name: Docker Image CI
 
 on:
-  workflow_dispatch:
-  push:
-    branches: ["main_copy"]
-  pull_request:
-    branches: ["main_copy"]
+#   workflow_dispatch:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+
 
 jobs:
   build:
